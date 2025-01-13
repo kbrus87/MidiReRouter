@@ -6,10 +6,20 @@
               companyName="StupidPlugin">
   <MAINGROUP id="Y6tfhD" name="MidiRouter">
     <GROUP id="{7D5EF30C-115A-66A3-F631-28A89AC41F0D}" name="Source">
-      <FILE id="gznbct" name="TableMidiComponent.cpp" compile="1" resource="0"
-            file="Source/TableMidiComponent.cpp"/>
-      <FILE id="hn32MM" name="TableMidiComponent.h" compile="0" resource="0"
-            file="Source/TableMidiComponent.h"/>
+      <GROUP id="{E0627B67-0F48-4D5C-B8E4-103D89306B60}" name="components">
+        <GROUP id="{F4941D47-4DDF-49A5-EC43-50D89C053D78}" name="MidiTableComponent">
+          <FILE id="hn32MM" name="TableMidiComponent.h" compile="0" resource="0"
+                file="Source/TableMidiComponent.h"/>
+          <FILE id="gznbct" name="TableMidiComponent.cpp" compile="1" resource="0"
+                file="Source/TableMidiComponent.cpp"/>
+        </GROUP>
+        <GROUP id="{E58B66FA-765D-AA0A-96D2-505EFEC020BF}" name="MidiDropDown">
+          <FILE id="Qr4f0O" name="MidiDropdownComponent.cpp" compile="1" resource="0"
+                file="Source/MidiDropdownComponent.cpp"/>
+          <FILE id="EG0JwJ" name="MidiDropdownComponent.h" compile="0" resource="0"
+                file="Source/MidiDropdownComponent.h"/>
+        </GROUP>
+      </GROUP>
       <FILE id="pPDn4o" name="types.h" compile="0" resource="0" file="Source/types.h"/>
       <FILE id="KUynL9" name="PluginProcessor.cpp" compile="1" resource="0"
             file="Source/PluginProcessor.cpp"/>
