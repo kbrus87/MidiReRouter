@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="gtTDPz" name="NewProject" projectType="audioplug" useAppConfig="0"
+<JUCERPROJECT id="gtTDPz" name="MidiRouter" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
-              pluginName="Midi Router" pluginManufacturer="BJR" pluginManufacturerCode="Bjrb">
-  <MAINGROUP id="Y6tfhD" name="NewProject">
+              pluginName="Midi Router" pluginManufacturer="BJR" pluginManufacturerCode="Bjrb"
+              companyName="StupidPlugin">
+  <MAINGROUP id="Y6tfhD" name="MidiRouter">
     <GROUP id="{7D5EF30C-115A-66A3-F631-28A89AC41F0D}" name="Source">
       <FILE id="gznbct" name="TableMidiComponent.cpp" compile="1" resource="0"
             file="Source/TableMidiComponent.cpp"/>

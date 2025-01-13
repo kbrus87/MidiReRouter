@@ -19,7 +19,7 @@
 class NewProjectAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    NewProjectAudioProcessorEditor (NewProjectAudioProcessor&);
+    NewProjectAudioProcessorEditor(NewProjectAudioProcessor&);
     ~NewProjectAudioProcessorEditor() override;
 
     //==============================================================================
@@ -45,9 +45,46 @@ private:
 		{ "Note On G1", "" },
 		{ "Note On G#1", "" },
 		{ "Note On A1", "" },
-        { "Note On A#1", "" },
+		{ "Note On A#1", "" },
 		{ "Note On B1", "" },
 		{ "Note On C2", "" },
+		{ "Note On C#2", "" },
+		{ "Note On D2", "" },
+		{ "Note On D#2", "" },
+		{ "Note On E2", "" },
+		{ "Note On F2", "" },
+		{ "Note On F#2", "" },
+		{ "Note On G2", "" },
+		{ "Note On G#2", "" },
+		{ "Note On A2", "" },
+		{ "Note On A#2", "" },
+		{ "Note On B2", "" },
+		{ "Note On C3", "" },
+		{ "Note On C#3", "" },
+		{ "Note On D3", "" },
+		{ "Note On D#3", "" },
+		{ "Note On E3", "" },
+		{ "Note On F3", "" },
+		{ "Note On F#3", "" },
+		{ "Note On G3", "" },
+		{ "Note On G#3", "" },
+		{ "Note On A3", "" },
+		{ "Note On A#3", "" },
+		{ "Note On B3", "" },
+		{ "Note On C4", "" },
+		{ "Note On C#4", "" },
+		{ "Note On D4", "" },
+		{ "Note On D#4", "" },
+		{ "Note On E4", "" },
+		{ "Note On F4", "" },
+		{ "Note On F#4", "" },
+		{ "Note On G4", "" },
+		{ "Note On G#4", "" },
+		{ "Note On A4", "" },
+		{ "Note On A#4", "" },
+		{ "Note On B4", "" },
+		{ "Note On C5", "" },
+
     };
 
     MidiTableComponent midiTableComponent;

@@ -11,12 +11,12 @@
 
 //==============================================================================
 NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p)
+	: AudioProcessorEditor(&p), audioProcessor(p)
 {
-
-    midiTableComponent.setMidiEvents(midiEvents);
+	midiTableComponent.setMidiEvents(midiEventList);
     addAndMakeVisible(midiTableComponent);
-    setSize(400, 300); // Ajustamos el tamaño del editor
+
+    setSize(400, 300);
        
 
 }
@@ -43,4 +43,6 @@ void NewProjectAudioProcessorEditor::resized()
 
     midiTableComponent.setBounds(getLocalBounds());;
 }
+
+
 
