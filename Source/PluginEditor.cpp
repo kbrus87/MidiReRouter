@@ -13,14 +13,12 @@
 NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
 	: AudioProcessorEditor(&p), audioProcessor(p)
 {
-	midiTableComponent.setMidiEvents(midiEventList);
+	midiTableComponent.setMidiEvents(midiEventsRouted);
     midiDropdownComponent.setMidiEvents(midiEventList);
     addAndMakeVisible(midiTableComponent);
     addAndMakeVisible(midiDropdownComponent);
 
     setSize(midiTableComponent.getWidth() + midiDropdownComponent.getWidth() + 20, 600);
-       
-
 }
 
 NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
@@ -46,9 +44,14 @@ void NewProjectAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 
-    midiTableComponent.setBounds(50,100,250,500);
     midiDropdownComponent.setBounds(10,30,125,50);
+    midiTableComponent.setBounds(50,100,250,500);
 }
 
+void NewProjectAudioProcessorEditor::addMidiRoute(MidiEventRow midiEvent)
+{
+	midiEventsRouted.push_back(midiEvent);
+	midiTableComponent.setMidiEvents(midiEventsRouted);
+}
 
 

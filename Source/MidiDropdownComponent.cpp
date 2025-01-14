@@ -10,38 +10,42 @@
 
 #include "MidiDropdownComponent.h"
 #include "juce_gui_basics/juce_gui_basics.h" 
+#include "PluginEditor.h"
 
-MidiDropdownComponent::MidiDropdownComponent()
+MidiDropdownComponent::MidiDropdownComponent(std::vector<MidiEventRow>* midiEventsRouted) : midiEventsRoutedRef(midiEventsRouted ? *midiEventsRouted : defaultEvents)
 {
     addAndMakeVisible(searchTextBox);
     searchTextBox.setTextToShowWhenEmpty("Search MIDI Event...", juce::Colour());
     searchTextBox.onTextChange = [this] { filterMidiEvents(); };  // Filtra los eventos cuando el texto cambie
 
-	
-
     addAndMakeVisible(midiDropdown);
 }
 
-void MidiDropdownComponent::setMidiEvents(const std::vector<MidiEventRow>& events)
+void MidiDropdownComponent::setMidiEvents(const std::vector<MidiEventElement>& events)
 {
     midiEvents = events;  // Guardar los eventos MIDI
     filterMidiEvents();   // Filtrar eventos al inicio (vacío)
 }
 
-
-//void MidiDropdownComponent::setMidiEvents(const std::vector<MidiEventRow>& events)
-//{
-//    midiDropdown.clear();  // Limpia cualquier opción anterior
-//
-//    for (size_t i = 0; i < events.size(); ++i)
-//    {
-//        midiDropdown.addItem(events[i].inputMIDI, static_cast<int>(i + 1));
-//    }
-//}
-
-juce::String MidiDropdownComponent::getSelectedEvent() const
+juce::String MidiDropdownComponent::getSelectedEvent()
 {
-    return midiDropdown.getText();
+    optiontext = midiDropdown.getText();  // Obtener el texto seleccionado
+    int selectedId = midiDropdown.getSelectedId();
+
+    // Verificar si hay un elemento seleccionado
+    if (selectedId > 0)
+    {
+        // Inicializar la estructura con los valores adecuados
+        MidiEventRow newrow = {selectedId,optiontext, "",0};
+
+        midiEventsRoutedRef.push_back(newrow);  // Agregar el evento a la lista de eventos MIDI
+    }
+    else
+    {
+        DBG("No valid MIDI event selected.");
+    }
+    DBG("Text: " + optiontext + " Id: " + juce::String(selectedId));
+    return optiontext;
 }
 
 void MidiDropdownComponent::resized()
@@ -62,9 +66,9 @@ void MidiDropdownComponent::filterMidiEvents()
     for (size_t i = 0; i < midiEvents.size(); ++i)
     {
         // Compara el texto ingresado con la descripción del evento MIDI
-        if (midiEvents[i].inputMIDI.containsIgnoreCase(searchText))
+        if (midiEvents[i].midiName.containsIgnoreCase(searchText))
         {
-            midiDropdown.addItem(midiEvents[i].inputMIDI, static_cast<int>(i + 1));  // Agregar el evento filtrado
+            midiDropdown.addItem(midiEvents[i].midiName, midiEvents[i].midiNumber);  // Agregar el evento filtrado
         }
     }
 }

@@ -13,6 +13,14 @@
 
 struct MidiEventRow
 {
+    int inputMIDInumber;
     juce::String inputMIDI;
     juce::String outputMIDI;
+    int outputMIDInumber;
+};
+
+struct MidiEventElement
+{
+    juce::String midiName;
+    int midiNumber;
 };
