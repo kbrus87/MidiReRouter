@@ -11,6 +11,7 @@
 #pragma once
 
 #include <juce_audio_basics/juce_audio_basics.h> // Incluye las clases MidiBuffer y MidiMessage
+#include <juce_core/juce_core.h> 
 #include "JuceHeader.h"
 
 class MidiProcessor
@@ -25,9 +26,24 @@ public:
 
         while (it.getNextEvent(currentMessage, samplePos))
         {
-
-            DBG(currentMessage.getDescription());
+			if (currentMessage.isNoteOnOrOff())
+			{
+                DBG("eS NOTA");
+                DBG("es Nota: "; currentMessage.isNoteOnOrOff());
+                DBG("numero nota: "; currentMessage.getNoteNumber());
+			}
+			if (currentMessage.isController())
+			{
+                DBG("es Controlador: "; currentMessage.isController());
+                DBG("controllerNumber: "; currentMessage.getControllerNumber());
+                DBG(currentMessage.getControllerNumber());
+                DBG("value: "; currentMessage.getControllerValue());
+                DBG(currentMessage.getControllerValue());
+			}
+            
             // Si es un evento Note On/Off, modifica el número de nota
+
+            
             if (currentMessage.isNoteOnOrOff())
             {
                 currentMessage.setNoteNumber(50); // Cambia el número de nota a 50

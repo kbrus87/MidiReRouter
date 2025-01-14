@@ -14,9 +14,11 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
 	: AudioProcessorEditor(&p), audioProcessor(p)
 {
 	midiTableComponent.setMidiEvents(midiEventList);
+    midiDropdownComponent.setMidiEvents(midiEventList);
     addAndMakeVisible(midiTableComponent);
+    addAndMakeVisible(midiDropdownComponent);
 
-    setSize(400, 300);
+    setSize(midiTableComponent.getWidth() + midiDropdownComponent.getWidth() + 20, 600);
        
 
 }
@@ -33,7 +35,10 @@ void NewProjectAudioProcessorEditor::paint (juce::Graphics& g)
 
     g.setColour (juce::Colours::white);
     g.setFont (juce::FontOptions (15.0f));
-    g.drawFittedText ("Hello mami!", getLocalBounds(), juce::Justification::centred, 1);
+
+    juce::Rectangle<int> area(10, 10, 300, 50);
+
+    g.drawFittedText ("Hello mami!", area, juce::Justification::centred, 1);
 }
 
 void NewProjectAudioProcessorEditor::resized()
@@ -41,7 +46,8 @@ void NewProjectAudioProcessorEditor::resized()
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 
-    midiTableComponent.setBounds(getLocalBounds());;
+    midiTableComponent.setBounds(50,100,250,500);
+    midiDropdownComponent.setBounds(10,30,125,50);
 }
 
 
