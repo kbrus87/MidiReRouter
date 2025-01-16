@@ -67,6 +67,7 @@ void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiTableCo
 
     transMidiList.push_back(newMidiEventRow);
     table.setMidiEvents(transMidiList);
+    midiDropdown.setSelectedId(0);
     return ;
 }
 
