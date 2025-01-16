@@ -10,7 +10,7 @@
 #include "PluginEditor.h"
 
 //==============================================================================
-NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
+MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	: AudioProcessorEditor(&p), audioProcessor(p)
 {
 
@@ -23,12 +23,12 @@ NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioP
     setSize(midiTableComponent.getWidth() + midiDropdownComponent.getWidth() + 20, 600);
 }
 
-NewProjectAudioProcessorEditor::~NewProjectAudioProcessorEditor()
+MidiRouterProcessorEditor::~MidiRouterProcessorEditor()
 {
 }
 
 //==============================================================================
-void NewProjectAudioProcessorEditor::paint (juce::Graphics& g)
+void MidiRouterProcessorEditor::paint (juce::Graphics& g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll (getLookAndFeel().findColour (juce::ResizableWindow::backgroundColourId));
@@ -41,7 +41,7 @@ void NewProjectAudioProcessorEditor::paint (juce::Graphics& g)
     g.drawFittedText ("Hello mami!", area, juce::Justification::centred, 1);
 }
 
-void NewProjectAudioProcessorEditor::resized()
+void MidiRouterProcessorEditor::resized()
 {
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
@@ -50,7 +50,7 @@ void NewProjectAudioProcessorEditor::resized()
     midiTableComponent.setBounds(50,100,250,500);
 }
 
-void NewProjectAudioProcessorEditor::addMidiRoute(MidiEventRow midiEvent)
+void MidiRouterProcessorEditor::addMidiRoute(MidiTranslationRow midiEvent)
 {
 	midiTableComponent.setMidiEvents(midiEventsRouted);
 }

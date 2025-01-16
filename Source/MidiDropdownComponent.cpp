@@ -61,9 +61,9 @@ void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiTableCo
     if (midiNoteName.isEmpty())return;
 
     MidiEventElement selectedInMidiNote = MidiDropdownComponent::getSelectedMidiNote(midiNoteName);
-    std::vector<MidiEventRow> transMidiList = table.getMidiEvents();
+    std::vector<MidiTranslationRow> transMidiList = table.getMidiEvents();
 
-    MidiEventRow newMidiEventRow = { selectedInMidiNote.midiNumber, selectedInMidiNote.midiName, "", 0};
+    MidiTranslationRow newMidiEventRow = { selectedInMidiNote.midiNumber, selectedInMidiNote.midiName, "", 0};
 
     transMidiList.push_back(newMidiEventRow);
     table.setMidiEvents(transMidiList);

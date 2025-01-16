@@ -6,6 +6,8 @@
               companyName="StupidPlugin">
   <MAINGROUP id="Y6tfhD" name="MidiRouter">
     <GROUP id="{7D5EF30C-115A-66A3-F631-28A89AC41F0D}" name="Source">
+      <FILE id="uLYCwY" name="MidiProcessor.cpp" compile="1" resource="0"
+            file="Source/MidiProcessor.cpp"/>
       <GROUP id="{E0627B67-0F48-4D5C-B8E4-103D89306B60}" name="components">
         <GROUP id="{F4941D47-4DDF-49A5-EC43-50D89C053D78}" name="MidiTableComponent">
           <FILE id="hn32MM" name="TableMidiComponent.h" compile="0" resource="0"

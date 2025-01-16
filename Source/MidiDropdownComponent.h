@@ -34,7 +34,7 @@ private:
     juce::TextEditor searchTextBox;
 	juce::String optiontext;
 
-    std::vector<MidiEventRow> defaultEvents;
+    std::vector<MidiTranslationRow> defaultEvents;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiDropdownComponent)
 };

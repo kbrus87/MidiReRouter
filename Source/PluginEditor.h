@@ -17,22 +17,22 @@
 //==============================================================================
 /**
 */
-class NewProjectAudioProcessorEditor  : public juce::AudioProcessorEditor
+class MidiRouterProcessorEditor : public juce::AudioProcessorEditor
 {
 public:
-    NewProjectAudioProcessorEditor(NewProjectAudioProcessor&);
-    ~NewProjectAudioProcessorEditor() override;
+	MidiRouterProcessorEditor(MidiRouterProcessor&);
+    ~MidiRouterProcessorEditor() override;
 
     //==============================================================================
     void paint (juce::Graphics&) override;
     void resized() override;
-	void addMidiRoute(MidiEventRow);
+	void addMidiRoute(MidiTranslationRow);
 
 
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    NewProjectAudioProcessor& audioProcessor;
+	MidiRouterProcessor& audioProcessor;
     juce::TableListBox midiTable;
 
     // Datos de la tabla: lista fija de eventos MIDI posibles
@@ -136,11 +136,11 @@ private:
 		{ "C9", 120 },
 	};
 
-	std::vector<MidiEventRow> midiEventsRouted = { {36, "C2", "C1", 24} };
+	std::vector<MidiTranslationRow> midiEventsRouted = { {36, "C2", "C1", 24} };
 
     MidiTableComponent midiTableComponent;
 	MidiDropdownComponent midiDropdownComponent;
     
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (NewProjectAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (MidiRouterProcessorEditor)
 };

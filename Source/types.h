@@ -11,7 +11,7 @@
 #pragma once
 #include <JuceHeader.h>  // Para usar juce::String
 
-struct MidiEventRow
+struct MidiTranslationRow
 {
     int inputMIDInumber;
     juce::String inputMIDI;

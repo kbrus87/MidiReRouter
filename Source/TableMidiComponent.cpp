@@ -26,13 +26,13 @@ MidiTableComponent::MidiTableComponent()
     setSize(400, 300);
 }
 
-void MidiTableComponent::setMidiEvents(const std::vector<MidiEventRow>& events)
+void MidiTableComponent::setMidiEvents(const std::vector<MidiTranslationRow>& events)
 {
     midiEventList = events;
     midiTable.updateContent(); // Refrescar la tabla
 }
 
-std::vector<MidiEventRow> MidiTableComponent::getMidiEvents() {
+std::vector<MidiTranslationRow> MidiTableComponent::getMidiEvents() {
     return midiEventList;
 }
 
