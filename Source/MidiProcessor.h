@@ -26,12 +26,6 @@ public:
 
         while (it.getNextEvent(currentMessage, samplePos))
         {
-			if (currentMessage.isNoteOnOrOff())
-			{
-                DBG("eS NOTA");
-                DBG("es Nota: "; currentMessage.isNoteOnOrOff());
-                DBG("numero nota: "; currentMessage.getNoteNumber());
-			}
 			if (currentMessage.isController())
 			{
                 DBG("es Controlador: "; currentMessage.isController());
@@ -46,6 +40,13 @@ public:
             
             if (currentMessage.isNoteOnOrOff())
             {
+                DBG("eS NOTA");
+                DBG("es Nota: "; currentMessage.isNoteOnOrOff());
+                DBG("numero nota: "; currentMessage.getNoteNumber());
+
+
+
+
                 currentMessage.setNoteNumber(50); // Cambia el número de nota a 50
             }
 

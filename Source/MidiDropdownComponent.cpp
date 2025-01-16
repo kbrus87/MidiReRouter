@@ -11,8 +11,12 @@
 #include "MidiDropdownComponent.h"
 #include "juce_gui_basics/juce_gui_basics.h" 
 #include "PluginEditor.h"
+#include "TableMidiComponent.h"
+#include <vector>
 
-MidiDropdownComponent::MidiDropdownComponent(std::vector<MidiEventRow>* midiEventsRouted) : midiEventsRoutedRef(midiEventsRouted ? *midiEventsRouted : defaultEvents)
+
+
+MidiDropdownComponent::MidiDropdownComponent()
 {
     addAndMakeVisible(searchTextBox);
     searchTextBox.setTextToShowWhenEmpty("Search MIDI Event...", juce::Colour());
@@ -31,21 +35,39 @@ juce::String MidiDropdownComponent::getSelectedEvent()
 {
     optiontext = midiDropdown.getText();  // Obtener el texto seleccionado
     int selectedId = midiDropdown.getSelectedId();
-
-    // Verificar si hay un elemento seleccionado
-    if (selectedId > 0)
-    {
-        // Inicializar la estructura con los valores adecuados
-        MidiEventRow newrow = {selectedId,optiontext, "",0};
-
-        midiEventsRoutedRef.push_back(newrow);  // Agregar el evento a la lista de eventos MIDI
-    }
-    else
-    {
-        DBG("No valid MIDI event selected.");
-    }
-    DBG("Text: " + optiontext + " Id: " + juce::String(selectedId));
+    
     return optiontext;
+}
+
+
+MidiEventElement MidiDropdownComponent::getSelectedMidiNote(juce::String param_noteName)
+{
+    MidiEventElement midiNote = {};
+
+    for (MidiEventElement el : midiEvents)
+    {
+        if (el.midiName == param_noteName)
+        {
+            midiNote = el;
+            break;
+        };
+    }
+
+    return midiNote;
+}
+
+void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiTableComponent& table)
+{
+    if (midiNoteName.isEmpty())return;
+
+    MidiEventElement selectedInMidiNote = MidiDropdownComponent::getSelectedMidiNote(midiNoteName);
+    std::vector<MidiEventRow> transMidiList = table.getMidiEvents();
+
+    MidiEventRow newMidiEventRow = { selectedInMidiNote.midiNumber, selectedInMidiNote.midiName, "", 0};
+
+    transMidiList.push_back(newMidiEventRow);
+    table.setMidiEvents(transMidiList);
+    return ;
 }
 
 void MidiDropdownComponent::resized()
@@ -71,4 +93,8 @@ void MidiDropdownComponent::filterMidiEvents()
             midiDropdown.addItem(midiEvents[i].midiName, midiEvents[i].midiNumber);  // Agregar el evento filtrado
         }
     }
+}
+
+void MidiDropdownComponent::onChange( MidiTableComponent& param_table) {
+    midiDropdown.onChange = [this, &param_table] {MidiDropdownComponent::addInMidiNote(midiDropdown.getText(), param_table); };
 }

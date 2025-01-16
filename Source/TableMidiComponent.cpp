@@ -22,6 +22,7 @@ MidiTableComponent::MidiTableComponent()
     midiTable.getHeader().addColumn("Income MIDI", 1, 200);
     midiTable.getHeader().addColumn("Output MIDI", 2, 200);
 
+
     setSize(400, 300);
 }
 
@@ -29,6 +30,10 @@ void MidiTableComponent::setMidiEvents(const std::vector<MidiEventRow>& events)
 {
     midiEventList = events;
     midiTable.updateContent(); // Refrescar la tabla
+}
+
+std::vector<MidiEventRow> MidiTableComponent::getMidiEvents() {
+    return midiEventList;
 }
 
 void MidiTableComponent::paint(juce::Graphics& g)

@@ -136,7 +136,7 @@ private:
 		{ "C9", 120 },
 	};
 
-	std::vector<MidiEventRow> midiEventsRouted = { {1, "C-2", "C1", 24} };
+	std::vector<MidiEventRow> midiEventsRouted = { {36, "C2", "C1", 24} };
 
     MidiTableComponent midiTableComponent;
 	MidiDropdownComponent midiDropdownComponent;

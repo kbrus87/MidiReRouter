@@ -25,6 +25,7 @@ public:
 
     // Cargar datos en la tabla
     void setMidiEvents(const std::vector<MidiEventRow>& events);
+    std::vector<MidiEventRow> getMidiEvents();
     int getNumRows() override;
     void paintRowBackground(juce::Graphics&, int rowNumber, int width, int height, bool rowIsSelected) override;
     void paintCell(juce::Graphics&, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;

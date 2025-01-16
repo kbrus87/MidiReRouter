@@ -13,8 +13,10 @@
 NewProjectAudioProcessorEditor::NewProjectAudioProcessorEditor (NewProjectAudioProcessor& p)
 	: AudioProcessorEditor(&p), audioProcessor(p)
 {
+
 	midiTableComponent.setMidiEvents(midiEventsRouted);
     midiDropdownComponent.setMidiEvents(midiEventList);
+    midiDropdownComponent.onChange( midiTableComponent);
     addAndMakeVisible(midiTableComponent);
     addAndMakeVisible(midiDropdownComponent);
 
@@ -50,7 +52,6 @@ void NewProjectAudioProcessorEditor::resized()
 
 void NewProjectAudioProcessorEditor::addMidiRoute(MidiEventRow midiEvent)
 {
-	midiEventsRouted.push_back(midiEvent);
 	midiTableComponent.setMidiEvents(midiEventsRouted);
 }
 
