@@ -11,7 +11,6 @@
 #include "MidiDropdownComponent.h"
 #include "juce_gui_basics/juce_gui_basics.h" 
 #include "PluginEditor.h"
-#include "TableMidiComponent.h"
 #include <vector>
 
 
@@ -96,6 +95,6 @@ void MidiDropdownComponent::filterMidiEvents()
     }
 }
 
-void MidiDropdownComponent::onChange( MidiProcessor param_midiProcessor) {
-    midiDropdown.onChange = [this, param_midiProcessor] {MidiDropdownComponent::addInMidiNote(midiDropdown.getText(), param_midiProcessor); };
+void MidiDropdownComponent::onChange( MidiProcessor &param_midiProcessor) {
+    midiDropdown.onChange = [this, &param_midiProcessor] {MidiDropdownComponent::addInMidiNote(midiDropdown.getText(), param_midiProcessor); };
 }

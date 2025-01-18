@@ -49,7 +49,10 @@ void MidiProcessor::process(juce::MidiBuffer& midiMessages)
 
 void MidiProcessor::setTranslationTable(TranslationMidiTable table) {
 	translationTable = table;
+
+	sendChangeMessage();
 }
-TranslationMidiTable MidiProcessor::getTranslationTable() {
+
+const TranslationMidiTable MidiProcessor::getTranslationTable() const {
 	return translationTable;
 }

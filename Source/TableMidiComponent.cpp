@@ -10,11 +10,11 @@
 
 #include "TableMidiComponent.h"
 
-MidiTableComponent::MidiTableComponent()
+MidiTableComponent::MidiTableComponent(TranslationMidiTable& events)
+	: midiEventList(events) // Inicialización de la referencia
 {
-
-
 	// Hacer visible la tabla
+
 	addAndMakeVisible(midiTable);
 	midiTable.setModel(this);
 
@@ -26,7 +26,9 @@ MidiTableComponent::MidiTableComponent()
 	setSize(400, 300);
 }
 
-void MidiTableComponent::setMidiEvents(const std::vector<MidiTranslationRow>& events)
+MidiTableComponent::~MidiTableComponent(){}
+
+void MidiTableComponent::setMidiEvents(TranslationMidiTable& events)
 {
 	midiEventList = events;
 	midiTable.updateContent(); // Refrescar la tabla
@@ -48,7 +50,13 @@ void MidiTableComponent::resized()
 
 int MidiTableComponent::getNumRows()
 {
+	try {
 	return midiEventList.size();
+	}
+	catch (std::exception e) {
+		DBG(e.what());
+		return 0;
+	}
 }
 
 void MidiTableComponent::paintRowBackground(juce::Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)
@@ -71,4 +79,10 @@ void MidiTableComponent::paintCell(juce::Graphics& g, int rowNumber, int columnI
 
 		g.drawText(text, 2, 0, width - 4, height, juce::Justification::centredLeft);
 	}
+}
+
+
+void MidiTableComponent::changeListenerCallback(juce::ChangeBroadcaster* source)
+{
+	midiTable.updateContent();
 }

@@ -12,7 +12,7 @@
 #include <JuceHeader.h>
 #include "types.h"
 #include <vector>
-#include "TableMidiComponent.h"
+#include "MidiProcessor.h"
 
 class MidiDropdownComponent : public juce::Component
 {
@@ -25,7 +25,7 @@ public:
     void resized() override;
     void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiProcessor& midiProcessor);
     void MidiDropdownComponent::filterMidiEvents();
-    void MidiDropdownComponent::onChange( MidiProcessor midiProcessor);
+    void MidiDropdownComponent::onChange( MidiProcessor& midiProcessor);
 
 private:
 

@@ -14,18 +14,19 @@
 #include <juce_core/juce_core.h> 
 #include "JuceHeader.h"
 #include "types.h"
+#include "TableMidiComponent.h"
 
-class MidiProcessor
+class MidiProcessor : public juce::ChangeBroadcaster
 {
 public:
 
 	void process(juce::MidiBuffer& midiMessages);
 	void setTranslationTable(TranslationMidiTable table);
-	TranslationMidiTable getTranslationTable();
-
-
-private:
+	const TranslationMidiTable getTranslationTable() const; //;
 
 	TranslationMidiTable translationTable = { {36, "C2", "C1", 24} };
+private:
+
+	
 	juce::MidiBuffer processedBuffer;
 };

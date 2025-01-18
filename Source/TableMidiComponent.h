@@ -15,24 +15,27 @@
 #include <string>
 #include "types.h"  // Incluir tu estructura para MidiEvent
 
-class MidiTableComponent : public juce::Component, private juce::TableListBoxModel
+class MidiTableComponent : public juce::Component, private juce::TableListBoxModel , public juce::ChangeListener
 {
 public:
-	MidiTableComponent();
+	MidiTableComponent(TranslationMidiTable& events);
+	~MidiTableComponent();
 
 	void paint(juce::Graphics&) override;
 	void resized() override;
 
 	// Cargar datos en la tabla
-	void setMidiEvents(const std::vector<MidiTranslationRow>& events);
+	void setMidiEvents(TranslationMidiTable& events);
 	std::vector<MidiTranslationRow> getMidiEvents();
 	int getNumRows() override;
 	void paintRowBackground(juce::Graphics&, int rowNumber, int width, int height, bool rowIsSelected) override;
 	void paintCell(juce::Graphics&, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
 
+	void changeListenerCallback(juce::ChangeBroadcaster* source) override;
+
 private:
 	juce::TableListBox midiTable;
-	std::vector<MidiTranslationRow> midiEventList;
+	TranslationMidiTable& midiEventList;
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiTableComponent)
 };
