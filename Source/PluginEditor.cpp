@@ -12,12 +12,12 @@
 
 //==============================================================================
 MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
-	: AudioProcessorEditor(&p), audioProcessor(p)
+	: AudioProcessorEditor(&p), audioProcessor(p), midiProcessor(p.getMidiProcessor())
 {
 
-	midiTableComponent.setMidiEvents(midiEventsRouted);
+	midiTableComponent.setMidiEvents(midiProcessor.getTranslationTable());
 	midiDropdownComponent.setMidiEvents(midiEventList);
-	midiDropdownComponent.onChange(midiTableComponent);
+	midiDropdownComponent.onChange(midiProcessor);
 	addAndMakeVisible(midiTableComponent);
 	addAndMakeVisible(midiDropdownComponent);
 
@@ -53,7 +53,7 @@ void MidiRouterProcessorEditor::resized()
 
 void MidiRouterProcessorEditor::addMidiRoute(MidiTranslationRow midiEvent)
 {
-	midiTableComponent.setMidiEvents(midiEventsRouted);
+	midiTableComponent.setMidiEvents(midiProcessor.getTranslationTable());
 }
 
 

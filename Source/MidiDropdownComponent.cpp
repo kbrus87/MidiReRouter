@@ -56,17 +56,17 @@ MidiEventElement MidiDropdownComponent::getSelectedMidiNote(juce::String param_n
     return midiNote;
 }
 
-void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiTableComponent& table)
+void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiProcessor& midiProcessor)
 {
     if (midiNoteName.isEmpty())return;
 
     MidiEventElement selectedInMidiNote = MidiDropdownComponent::getSelectedMidiNote(midiNoteName);
-    std::vector<MidiTranslationRow> transMidiList = table.getMidiEvents();
+    TranslationMidiTable transMidiList = midiProcessor.getTranslationTable();
 
     MidiTranslationRow newMidiEventRow = { selectedInMidiNote.midiNumber, selectedInMidiNote.midiName, "", 0};
 
     transMidiList.push_back(newMidiEventRow);
-    table.setMidiEvents(transMidiList);
+    midiProcessor.setTranslationTable(transMidiList);
     midiDropdown.setSelectedId(0);
     return ;
 }
@@ -96,6 +96,6 @@ void MidiDropdownComponent::filterMidiEvents()
     }
 }
 
-void MidiDropdownComponent::onChange( MidiTableComponent& param_table) {
-    midiDropdown.onChange = [this, &param_table] {MidiDropdownComponent::addInMidiNote(midiDropdown.getText(), param_table); };
+void MidiDropdownComponent::onChange( MidiProcessor param_midiProcessor) {
+    midiDropdown.onChange = [this, param_midiProcessor] {MidiDropdownComponent::addInMidiNote(midiDropdown.getText(), param_midiProcessor); };
 }

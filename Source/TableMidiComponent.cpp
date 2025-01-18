@@ -12,6 +12,8 @@
 
 MidiTableComponent::MidiTableComponent()
 {
+
+
 	// Hacer visible la tabla
 	addAndMakeVisible(midiTable);
 	midiTable.setModel(this);

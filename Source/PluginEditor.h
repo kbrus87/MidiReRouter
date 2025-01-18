@@ -33,12 +33,13 @@ private:
 	// This reference is provided as a quick way for your editor to
 	// access the processor object that created it.
 	MidiRouterProcessor& audioProcessor;
-	juce::TableListBox midiTable;
+	MidiProcessor& midiProcessor;
 
-	std::vector<MidiTranslationRow> midiEventsRouted = { {36, "C2", "C1", 24} };
+	juce::TableListBox midiTable;
 
 	MidiTableComponent midiTableComponent;
 	MidiDropdownComponent midiDropdownComponent;
+
 
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiRouterProcessorEditor)

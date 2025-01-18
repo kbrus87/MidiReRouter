@@ -166,3 +166,7 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new MidiRouterProcessor();
 }
+
+MidiProcessor& MidiRouterProcessor::getMidiProcessor() {
+    return midiProcessor;
+};

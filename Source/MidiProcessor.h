@@ -18,11 +18,14 @@
 class MidiProcessor
 {
 public:
+
 	void process(juce::MidiBuffer& midiMessages);
 	void setTranslationTable(TranslationMidiTable table);
 	TranslationMidiTable getTranslationTable();
 
+
 private:
-	TranslationMidiTable translationTable;
+
+	TranslationMidiTable translationTable = { {36, "C2", "C1", 24} };
 	juce::MidiBuffer processedBuffer;
 };

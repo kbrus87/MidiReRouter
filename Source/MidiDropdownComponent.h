@@ -23,9 +23,9 @@ public:
     juce::String getSelectedEvent();
     MidiEventElement getSelectedMidiNote(juce::String noteName);
     void resized() override;
-    void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiTableComponent& table);
+    void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiProcessor& midiProcessor);
     void MidiDropdownComponent::filterMidiEvents();
-    void MidiDropdownComponent::onChange( MidiTableComponent& table);
+    void MidiDropdownComponent::onChange( MidiProcessor midiProcessor);
 
 private:
 
