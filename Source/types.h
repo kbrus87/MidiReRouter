@@ -19,6 +19,8 @@ struct MidiTranslationRow
     int outputMIDInumber;
 };
 
+using TranslationMidiTable = std::vector<MidiTranslationRow>;
+
 struct MidiEventElement
 {
     juce::String midiName;

@@ -1,9 +1,9 @@
 /*
   ==============================================================================
 
-    MidiProcessor.h
-    Created: 7 Jan 2025 4:00:57pm
-    Author:  Bruno Ramari
+	MidiProcessor.h
+	Created: 7 Jan 2025 4:00:57pm
+	Author:  Bruno Ramari
 
   ==============================================================================
 */
@@ -18,9 +18,11 @@
 class MidiProcessor
 {
 public:
-    void process(juce::MidiBuffer& midiMessages);
+	void process(juce::MidiBuffer& midiMessages);
+	void setTranslationTable(TranslationMidiTable table);
+	TranslationMidiTable getTranslationTable();
 
 private:
-	std::vector<MidiTranslationRow> translationTable;
-    juce::MidiBuffer processedBuffer;
+	TranslationMidiTable translationTable;
+	juce::MidiBuffer processedBuffer;
 };

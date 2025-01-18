@@ -1,9 +1,9 @@
 /*
   ==============================================================================
 
-    TableMidiComponent.h
-    Created: 13 Jan 2025 4:35:43pm
-    Author:  Bruno Ramari
+	TableMidiComponent.h
+	Created: 13 Jan 2025 4:35:43pm
+	Author:  Bruno Ramari
 
   ==============================================================================
 */
@@ -18,21 +18,21 @@
 class MidiTableComponent : public juce::Component, private juce::TableListBoxModel
 {
 public:
-    MidiTableComponent();
+	MidiTableComponent();
 
-    void paint(juce::Graphics&) override;
-    void resized() override;
+	void paint(juce::Graphics&) override;
+	void resized() override;
 
-    // Cargar datos en la tabla
-    void setMidiEvents(const std::vector<MidiTranslationRow>& events);
-    std::vector<MidiTranslationRow> getMidiEvents();
-    int getNumRows() override;
-    void paintRowBackground(juce::Graphics&, int rowNumber, int width, int height, bool rowIsSelected) override;
-    void paintCell(juce::Graphics&, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
+	// Cargar datos en la tabla
+	void setMidiEvents(const std::vector<MidiTranslationRow>& events);
+	std::vector<MidiTranslationRow> getMidiEvents();
+	int getNumRows() override;
+	void paintRowBackground(juce::Graphics&, int rowNumber, int width, int height, bool rowIsSelected) override;
+	void paintCell(juce::Graphics&, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
 
 private:
-    juce::TableListBox midiTable;
-    std::vector<MidiTranslationRow> midiEventList;
+	juce::TableListBox midiTable;
+	std::vector<MidiTranslationRow> midiEventList;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiTableComponent)
+	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiTableComponent)
 };
