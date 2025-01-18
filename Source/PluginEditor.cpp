@@ -14,7 +14,8 @@
 MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	: AudioProcessorEditor(&p), audioProcessor(p), midiProcessor(p.getMidiProcessor()), midiTableComponent(midiProcessor.translationTable)
 {
-	midiProcessor.addChangeListener(&midiTableComponent);
+	//midiProcessor.addChangeListener(&midiTableComponent);
+	midiProcessor.addListener(&midiTableComponent);
 
 	midiTableComponent.setMidiEvents(midiProcessor.translationTable);
 
@@ -29,7 +30,8 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 
 MidiRouterProcessorEditor::~MidiRouterProcessorEditor()
 {
-	midiProcessor.removeAllChangeListeners();
+	//midiProcessor.removeAllChangeListeners();
+	midiProcessor.removeAllListener();
 }
 
 //==============================================================================

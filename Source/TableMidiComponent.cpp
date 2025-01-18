@@ -11,7 +11,7 @@
 #include "TableMidiComponent.h"
 
 MidiTableComponent::MidiTableComponent(TranslationMidiTable& events)
-	: midiEventList(events) // Inicialización de la referencia
+	: midiEventList(events) // Inicializacin de la referencia
 {
 	// Hacer visible la tabla
 
@@ -26,7 +26,6 @@ MidiTableComponent::MidiTableComponent(TranslationMidiTable& events)
 	setSize(400, 300);
 }
 
-MidiTableComponent::~MidiTableComponent(){}
 
 void MidiTableComponent::setMidiEvents(TranslationMidiTable& events)
 {
@@ -50,13 +49,7 @@ void MidiTableComponent::resized()
 
 int MidiTableComponent::getNumRows()
 {
-	try {
 	return midiEventList.size();
-	}
-	catch (std::exception e) {
-		DBG(e.what());
-		return 0;
-	}
 }
 
 void MidiTableComponent::paintRowBackground(juce::Graphics& g, int rowNumber, int width, int height, bool rowIsSelected)
@@ -74,15 +67,66 @@ void MidiTableComponent::paintCell(juce::Graphics& g, int rowNumber, int columnI
 		const auto& row = midiEventList[rowNumber];
 		juce::String text;
 
-		if (columnId == 1)      text = row.inputMIDI;
-		else if (columnId == 2) text = row.outputMIDI;
+		if (columnId == 1)
+		{
+			text = row.inputMIDI;
+			g.drawText(text, 2, 0, width - 4, height, juce::Justification::centredLeft);
+		}
+		else if (columnId == 2)
+		{
+			text = row.outputMIDI;
+			g.drawText(text, 2, 0, width - 4, height, juce::Justification::centredRight);
 
-		g.drawText(text, 2, 0, width - 4, height, juce::Justification::centredLeft);
+		}
+
 	}
 }
 
 
-void MidiTableComponent::changeListenerCallback(juce::ChangeBroadcaster* source)
+//void MidiTableComponent::changeListenerCallback(juce::ChangeBroadcaster* source)
+//{
+//	midiTable.updateContent();
+//}
+
+void MidiTableComponent::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable>& payload)
 {
-	midiTable.updateContent();
+	if (identifier == "translationMidiTable")
+	{
+		midiTable.updateContent();
+	}
+}
+
+juce::Component* MidiTableComponent::refreshComponentForCell(int	rowNumber, int	columnId, bool	isRowSelected, Component* existingComponentToUpdate)
+{
+	// Si estamos en la columna 2, crear o actualizar un componente (por ejemplo, un botón)
+	if (columnId == 2)
+	{
+		if (existingComponentToUpdate != nullptr)
+		{
+			// Si el componente ya existe, actualizamos sus propiedades
+			auto* button = dynamic_cast<juce::TextButton*>(existingComponentToUpdate);
+			if (button != nullptr)
+			{
+				// Cambiar el texto del botón según el número de fila
+				button->setButtonText("Fila " + juce::String(rowNumber));
+				button->setColour(juce::TextButton::buttonColourId, isRowSelected ? juce::Colours::lightblue : juce::Colours::white);
+			}
+		}
+		else
+		{
+			// Si no existe un componente, creamos uno nuevo
+			auto* button = new juce::TextButton("Fila " + juce::String(rowNumber));
+			button->setClickingTogglesState(true);
+			button->setColour(juce::TextButton::buttonColourId, isRowSelected ? juce::Colours::lightblue : juce::Colours::white);
+			button->setBounds(0, 0, 100, 30); // Tamaño del botón
+
+			// Devolver el nuevo componente para la columna 2
+			return button;
+		}
+	}
+	else
+	{
+		// Si no estamos en la columna 2, no hacer nada y usar el comportamiento predeterminado
+		return nullptr; // Esto hace que la celda use el comportamiento por defecto (solo texto)
+	}
 }

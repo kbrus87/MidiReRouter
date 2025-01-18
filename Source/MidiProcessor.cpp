@@ -50,7 +50,8 @@ void MidiProcessor::process(juce::MidiBuffer& midiMessages)
 void MidiProcessor::setTranslationTable(TranslationMidiTable table) {
 	translationTable = table;
 
-	sendChangeMessage();
+	//sendChangeMessage();
+	notify("translationMidiTable", table);
 }
 
 const TranslationMidiTable MidiProcessor::getTranslationTable() const {

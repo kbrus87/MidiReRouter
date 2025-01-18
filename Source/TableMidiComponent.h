@@ -14,12 +14,12 @@
 #include <vector>
 #include <string>
 #include "types.h"  // Incluir tu estructura para MidiEvent
+#include "Listener.h"
 
-class MidiTableComponent : public juce::Component, private juce::TableListBoxModel , public juce::ChangeListener
+class MidiTableComponent : public juce::Component, private juce::TableListBoxModel, public Listener //, public juce::ChangeListener
 {
 public:
 	MidiTableComponent(TranslationMidiTable& events);
-	~MidiTableComponent();
 
 	void paint(juce::Graphics&) override;
 	void resized() override;
@@ -31,7 +31,12 @@ public:
 	void paintRowBackground(juce::Graphics&, int rowNumber, int width, int height, bool rowIsSelected) override;
 	void paintCell(juce::Graphics&, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
 
-	void changeListenerCallback(juce::ChangeBroadcaster* source) override;
+	juce::Component* refreshComponentForCell(int	rowNumber,int	columnId,bool	isRowSelected,Component* existingComponentToUpdate) override;
+
+
+	// LISTENER
+	//void changeListenerCallback(juce::ChangeBroadcaster* source) override;
+	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable>& payload);
 
 private:
 	juce::TableListBox midiTable;
