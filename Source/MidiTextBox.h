@@ -11,6 +11,7 @@
 #pragma once
 #include <JuceHeader.h>
 #include <regex>
+#include "constants.h"
 
 class MidiTextBox : public juce::TextEditor
 {

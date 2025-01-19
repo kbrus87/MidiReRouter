@@ -62,7 +62,7 @@ void MidiProcessor::setOutputMidi(int index, juce::String midiName)
 {
 	std::string note = midiName.toStdString();
 
-	std::regex midiNoteRegex("^(C|D|E|F|G|A|B)(#?)([0-9])$");
+	std::regex midiNoteRegex(midiNameRegex);
 	bool isNoteName = std::regex_match(note, midiNoteRegex);
 
 	translationTable[index].outputMIDI = midiName;

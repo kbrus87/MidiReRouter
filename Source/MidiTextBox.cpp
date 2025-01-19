@@ -21,7 +21,7 @@ MidiTextBox::MidiTextBox(int numberRow, const juce::String& text, std::function<
 void MidiTextBox::validateAndUpdate()
 {
 	std::string note = getText().toStdString();
-	std::regex midiNoteRegex("^(C|D|E|F|G|A|B)(#?)([0-9])$");
+	std::regex midiNoteRegex(midiNameRegex);
 	bool isNoteName = std::regex_match(note, midiNoteRegex);
 
 	// Cambiar el color del texto basado en la validación
