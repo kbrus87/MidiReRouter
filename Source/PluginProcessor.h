@@ -57,6 +57,8 @@ public:
 	//=============mines
 	MidiProcessor& getMidiProcessor();
 
+	juce::AudioProcessorValueTreeState parameters;
+
 private:
 	MidiProcessor midiProcessor;
 	//==============================================================================

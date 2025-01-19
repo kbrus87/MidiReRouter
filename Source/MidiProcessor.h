@@ -26,8 +26,11 @@ public:
 
 	void process(juce::MidiBuffer& midiMessages);
 	void setTranslationTable(TranslationMidiTable table);
+	void setTranslationMap(std::map<int, int> map);
 	void setOutputMidi(int index, juce::String midiName);
 	const TranslationMidiTable getTranslationTable() const; //;
+	const std::map<int, int>* getTranslationMapPointer() const { return &translationMap; };
+	const std::map<int, int> getTranslationMap() const { return translationMap; };
 
 	TranslationMidiTable translationTable = { {48, "C2", "C1", 36} };
 

@@ -10,7 +10,7 @@
 
 #include "MidiProcessor.h"
 MidiProcessor::MidiProcessor() {
-	 setTranslationMap();
+	setTranslationMap();
 }
 
 void MidiProcessor::setTranslationMap() {
@@ -36,7 +36,7 @@ void MidiProcessor::process(juce::MidiBuffer& midiMessages)
 		if (currentMessage.isNoteOnOrOff())
 		{
 
-			if (translationMap.count(currentMessage.getNoteNumber())>0) {
+			if (translationMap.count(currentMessage.getNoteNumber()) > 0) {
 				currentMessage.setNoteNumber(translationMap.at(currentMessage.getNoteNumber()));
 			}
 		}
@@ -52,6 +52,10 @@ void MidiProcessor::setTranslationTable(TranslationMidiTable table) {
 
 	//sendChangeMessage();
 	notify("translationMidiTable", table);
+}
+
+void MidiProcessor::setTranslationMap(std::map<int, int> map) {
+	translationMap = map;
 }
 
 const TranslationMidiTable MidiProcessor::getTranslationTable() const {

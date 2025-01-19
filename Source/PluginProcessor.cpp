@@ -19,9 +19,10 @@ MidiRouterProcessor::MidiRouterProcessor()
 #endif
 		.withOutput("Output", juce::AudioChannelSet::stereo(), true)
 #endif
-	)
+	), parameters(*this, nullptr)
 #endif
 {
+
 }
 
 MidiRouterProcessor::~MidiRouterProcessor()
@@ -152,12 +153,70 @@ void MidiRouterProcessor::getStateInformation(juce::MemoryBlock& destData)
 	// You should use this method to store your parameters in the memory block.
 	// You could do that either as raw data, or use the XML or ValueTree classes
 	// as intermediaries to make it easy to save and load complex data.
+
+	juce::ValueTree state("MidiRouterState");
+	auto translationTable = midiProcessor.getTranslationTable();
+	auto translationMap = midiProcessor.getTranslationMap();
+
+	juce::ValueTree mapTree("TranslationMap");
+	for (const auto& pair : translationMap) {
+		juce::ValueTree mapEntry("Entry");
+		mapEntry.setProperty("Key", pair.first, nullptr);
+		mapEntry.setProperty("Value", pair.second, nullptr);
+		mapTree.addChild(mapEntry, -1, nullptr);
+	}
+	state.addChild(mapTree, -1, nullptr);
+
+	juce::ValueTree vectorTree("TranslationTable");
+	for (const auto& item : translationTable) {
+		juce::ValueTree vectorEntry("Entry");
+		vectorEntry.setProperty("inputMIDI", item.inputMIDI, nullptr);
+		vectorEntry.setProperty("inputMIDInumber", item.inputMIDInumber, nullptr);
+		vectorEntry.setProperty("outputMIDI", item.outputMIDI, nullptr);
+		vectorEntry.setProperty("outputMIDInumber", item.outputMIDInumber, nullptr);
+
+		vectorTree.addChild(vectorEntry, -1, nullptr);
+	}
+
+	state.addChild(vectorTree, -1, nullptr);
+
+	// Convertir el ValueTree a XML y luego a un MemoryBlock
+	if (auto xmlState = state.createXml()) {
+		copyXmlToBinary(*xmlState, destData);
+	}
 }
 
 void MidiRouterProcessor::setStateInformation(const void* data, int sizeInBytes)
 {
 	// You should use this method to restore your parameters from this memory block,
 	// whose contents will have been created by the getStateInformation() call.
+
+	juce::ValueTree state;
+	if (auto xmlState = getXmlFromBinary(data, sizeInBytes)) {
+		state = juce::ValueTree::fromXml(*xmlState);
+	}
+
+	if (state.isValid()) {
+		// Restaurar el mapa desde el ValueTree
+		juce::ValueTree mapTree = state.getChildWithName("TranslationMap");
+		std::map<int, int> translationMap;
+		for (int i = 0; i < mapTree.getNumChildren(); ++i) {
+			auto mapEntry = mapTree.getChild(i);
+			int key = mapEntry.getProperty("Key");
+			int value = mapEntry.getProperty("Value");
+			translationMap[key] = value;
+		}
+		midiProcessor.setTranslationMap(translationMap);
+		// Restaurar el vector desde el ValueTree
+		juce::ValueTree vectorTree = state.getChildWithName("TranslationTable");
+		TranslationMidiTable translationTable;
+		for (int i = 0; i < vectorTree.getNumChildren(); ++i) {
+			auto vectorEntry = vectorTree.getChild(i);
+			MidiTranslationRow value = { vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("outputMIDI"), vectorEntry.getProperty("outputMIDInumber") };
+			translationTable.push_back(value);
+		}
+		midiProcessor.setTranslationTable(translationTable);
+	}
 }
 
 //==============================================================================
