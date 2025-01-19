@@ -26,3 +26,9 @@ struct MidiEventElement
     juce::String midiName;
     int midiNumber;
 };
+
+struct MidiEventElementR
+{
+    int midiNumber;
+    juce::String midiName;
+};

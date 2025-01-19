@@ -132,7 +132,8 @@ bool MidiRouterProcessor::isBusesLayoutSupported (const BusesLayout& layouts) co
 void MidiRouterProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     buffer.clear();
-    midiProcessor.process(midiMessages);
+   // reset();
+   midiProcessor.process(midiMessages);
 }
 
 //==============================================================================

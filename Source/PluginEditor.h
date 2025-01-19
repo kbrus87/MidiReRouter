@@ -13,6 +13,7 @@
 #include "types.h"
 #include "TableMidiComponent.h"
 #include "MidiDropdownComponent.h"
+#include "constants.h"
 
 //==============================================================================
 /**

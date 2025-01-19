@@ -8,24 +8,23 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
-#include "constants.h"
 
 //==============================================================================
 MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
-	: AudioProcessorEditor(&p), audioProcessor(p), midiProcessor(p.getMidiProcessor()), midiTableComponent(midiProcessor.translationTable)
+	: AudioProcessorEditor(&p), audioProcessor(p), midiProcessor(p.getMidiProcessor()), midiTableComponent(midiProcessor.translationTable, std::bind(&MidiProcessor::setOutputMidi, &midiProcessor, std::placeholders::_1, std::placeholders::_2))
 {
 	//midiProcessor.addChangeListener(&midiTableComponent);
 	midiProcessor.addListener(&midiTableComponent);
 
 	midiTableComponent.setMidiEvents(midiProcessor.translationTable);
 
-	midiDropdownComponent.setMidiEvents(midiEventList);
+	midiDropdownComponent.setMidiEvents(constMidiEventList);
 	midiDropdownComponent.onChange(midiProcessor);
 
 	addAndMakeVisible(midiTableComponent);
 	addAndMakeVisible(midiDropdownComponent);
 
-	setSize(midiTableComponent.getWidth() + midiDropdownComponent.getWidth() + 20, 600);
+	setSize(midiTableComponent.getWidth() + midiDropdownComponent.getWidth() + 200, 600);
 }
 
 MidiRouterProcessorEditor::~MidiRouterProcessorEditor()
@@ -54,7 +53,7 @@ void MidiRouterProcessorEditor::resized()
 	// subcomponents in your editor..
 
 	midiDropdownComponent.setBounds(10, 30, 125, 50);
-	midiTableComponent.setBounds(50, 100, 250, 500);
+	midiTableComponent.setBounds(50, 100, 400, 500);
 }
 
 
