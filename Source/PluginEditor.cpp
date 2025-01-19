@@ -24,7 +24,7 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	addAndMakeVisible(midiTableComponent);
 	addAndMakeVisible(midiDropdownComponent);
 
-	setSize(midiTableComponent.getWidth() + midiDropdownComponent.getWidth() + 200, 600);
+	setSize(midiTableComponent.getWidth() -100, 500);
 }
 
 MidiRouterProcessorEditor::~MidiRouterProcessorEditor()
@@ -40,11 +40,15 @@ void MidiRouterProcessorEditor::paint(juce::Graphics& g)
 	g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 
 	g.setColour(juce::Colours::white);
-	g.setFont(juce::FontOptions(15.0f));
+	g.setFont(juce::FontOptions(25.0f));
 
-	juce::Rectangle<int> area(10, 10, 300, 50);
+	juce::Rectangle<int> area(50, 10, 500, 50);
+	juce::Rectangle<int> area2(50, 50, 500, 50);
+	juce::Rectangle<int> area3(240, 60, 250, 50);
 
-	g.drawFittedText("Hello mami!", area, juce::Justification::centred, 1);
+	g.drawFittedText("Midi Router", area, juce::Justification::centred, 1);
+	g.drawFittedText("by BJR", area2, juce::Justification::centred, 1);
+
 }
 
 void MidiRouterProcessorEditor::resized()
