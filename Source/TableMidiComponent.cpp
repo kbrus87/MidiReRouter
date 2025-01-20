@@ -16,14 +16,15 @@ MidiTableComponent::MidiTableComponent(TranslationMidiTable& events, std::functi
 {
 	// Hacer visible la tabla
 
+
 	addAndMakeVisible(midiTable);
 	midiTable.setModel(this);
 
 	// Configurar columnas de la tabla
-	midiTable.getHeader().addColumn("Input MIDI", 1, 200);
-	midiTable.getHeader().addColumn("Output MIDI", 2, 200);
+	midiTable.getHeader().addColumn("Input MIDI", 1, 200, 30);
+	midiTable.getHeader().addColumn("Output MIDI", 2, 200, 30);
 
-
+	midiTable.getHeader().setStretchToFitActive(true);
 	setSize(420, 600);
 }
 
@@ -51,6 +52,9 @@ void MidiTableComponent::paint(juce::Graphics& g)
 void MidiTableComponent::resized()
 {
 	midiTable.setBounds(getLocalBounds());
+	auto& header = midiTable.getHeader();
+	header.setColumnWidth(1, midiTable.getWidth()*0.5f); // 50% del ancho para la columna 1
+	header.setColumnWidth(2, midiTable.getWidth() * 0.5f); // 50% del ancho para la columna 2
 }
 
 int MidiTableComponent::getNumRows()
@@ -72,6 +76,9 @@ void MidiTableComponent::paintCell(juce::Graphics& g, int rowNumber, int columnI
 	{
 		const auto& row = midiEventList[rowNumber];
 		juce::String text;
+
+		const float fontSize = juce::jmin(height * 0.6f, 20.0f); // Máximo de 20.0f, ajustable
+		g.setFont(fontSize);
 
 		if (columnId == 1)
 		{

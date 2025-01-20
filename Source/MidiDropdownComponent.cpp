@@ -74,8 +74,9 @@ void MidiDropdownComponent::resized()
 {
     // Establecer las posiciones del TextEditor y ComboBox (midiDropdown)
     auto bounds = getLocalBounds();
-    searchTextBox.setBounds(bounds.removeFromTop(30));  // Coloca el cuadro de búsqueda arriba
-    midiDropdown.setBounds(bounds);  // El ComboBox ocupa el resto del espacio
+    midiDropdown.setBounds(bounds.removeFromLeft(bounds.getWidth()*0.8f));  // El ComboBox ocupa el resto del espacio
+    searchTextBox.setBounds(bounds.removeFromLeft(midiDropdown.getWidth()));  // Coloca el cuadro de búsqueda arriba
+    
 
 }
 

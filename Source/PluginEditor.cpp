@@ -46,16 +46,17 @@ void MidiRouterProcessorEditor::paint(juce::Graphics& g)
 	g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 
 	// Calcular tamaño de fuente proporcional al tamaño del editor
-	float fontSize = getWidth() * 0.05f; // Por ejemplo, 5% de la altura
+	float fontSize =  getHeight() * 0.05f; // Por ejemplo, 5% de la altura
 	g.setColour(juce::Colours::white);
 	g.setFont(juce::FontOptions(fontSize));
 
 	// Áreas dinámicas basadas en proporciones del tamaño del editor
 	juce::Rectangle<int> area(getWidth() * 0.4, getHeight() * 0.1, getWidth() * 0.8, fontSize);
-	juce::Rectangle<int> area2(getWidth() * 0.4, getHeight() * 0.1+area.getHeight(), getWidth() * 0.8, fontSize);
+	juce::Rectangle<int> area2(getWidth() * 0.4, getHeight() * 0.1 + area.getHeight(), getWidth() * 0.8, fontSize);
 
 	// Dibujar texto con las áreas redimensionadas
 	g.drawFittedText("Midi Router", area, juce::Justification::centred, 1);
+
 	g.setFont(juce::FontOptions(fontSize * 0.8f));
 	g.drawFittedText("by BJR", area2, juce::Justification::centred, 1);
 
