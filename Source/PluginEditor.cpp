@@ -42,17 +42,21 @@ MidiRouterProcessorEditor::~MidiRouterProcessorEditor()
 //==============================================================================
 void MidiRouterProcessorEditor::paint(juce::Graphics& g)
 {
-	// (Our component is opaque, so we must completely fill the background with a solid colour)
+	// Fondo del componente
 	g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 
+	// Calcular tamaño de fuente proporcional al tamaño del editor
+	float fontSize = getWidth() * 0.05f; // Por ejemplo, 5% de la altura
 	g.setColour(juce::Colours::white);
-	g.setFont(juce::FontOptions(25.0f));
+	g.setFont(juce::FontOptions(fontSize));
 
-	juce::Rectangle<int> area(50, 20, 500, 50);
-	juce::Rectangle<int> area2(50, 60, 500, 50);
-	juce::Rectangle<int> area3(240, 70, 250, 50);
+	// Áreas dinámicas basadas en proporciones del tamaño del editor
+	juce::Rectangle<int> area(getWidth() * 0.4, getHeight() * 0.1, getWidth() * 0.8, fontSize);
+	juce::Rectangle<int> area2(getWidth() * 0.4, getHeight() * 0.1+area.getHeight(), getWidth() * 0.8, fontSize);
 
+	// Dibujar texto con las áreas redimensionadas
 	g.drawFittedText("Midi Router", area, juce::Justification::centred, 1);
+	g.setFont(juce::FontOptions(fontSize * 0.8f));
 	g.drawFittedText("by BJR", area2, juce::Justification::centred, 1);
 
 }
@@ -61,12 +65,11 @@ void MidiRouterProcessorEditor::resized()
 {
 	// This is generally where you'll want to lay out the positions of any
 	// subcomponents in your editor..
-	DBG(getLocalBounds().getX() << " "<< getLocalBounds().getY()<<" "<<getLocalBounds().getWidth()<<" " << getLocalBounds().getHeight());
-	// midiDropdownComponent.setBounds(10, 40, 125, 50);
-	midiDropdownComponent.setBounds(getLocalBounds().removeFromLeft(proportionOfWidth(0.024f)).getX(),
+
+	midiDropdownComponent.setBounds(getLocalBounds().reduced(8).removeFromLeft(proportionOfWidth(0.024f)).getX(),
 		getLocalBounds().removeFromTop(proportionOfHeight(0.1f)).getBottom(), proportionOfWidth(0.29f), proportionOfHeight(0.1f)
 	);
-	midiTableComponent.setBounds(getLocalBounds().removeFromBottom(proportionOfHeight(0.78f)));
+	midiTableComponent.setBounds(getLocalBounds().removeFromBottom(proportionOfHeight(0.78f)).reduced(8));
 	presetPanel.setBounds(getLocalBounds().removeFromTop(proportionOfHeight(0.07f)));
 }
 
