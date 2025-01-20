@@ -21,10 +21,19 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	midiDropdownComponent.setMidiEvents(constMidiEventList);
 	midiDropdownComponent.onChange(midiProcessor);
 
+	saveButton.setButtonText("Save Preset");
+	saveButton.setColour(2, juce::Colour::fromRGB(23, 34, 125));
+	loadButton.setButtonText("Load Preset");
+	loadButton.setColour(4, juce::Colour::fromRGB(23, 34, 125));
+	loadButton.repaint();
+	saveButton.repaint();
+
 	addAndMakeVisible(midiTableComponent);
 	addAndMakeVisible(midiDropdownComponent);
-
-	setSize(midiTableComponent.getWidth() -100, 500);
+	addAndMakeVisible(saveButton);
+	addAndMakeVisible(loadButton);
+	DBG(midiTableComponent.getWidth());
+	setSize(midiTableComponent.getWidth(), 500);
 }
 
 MidiRouterProcessorEditor::~MidiRouterProcessorEditor()
@@ -42,9 +51,9 @@ void MidiRouterProcessorEditor::paint(juce::Graphics& g)
 	g.setColour(juce::Colours::white);
 	g.setFont(juce::FontOptions(25.0f));
 
-	juce::Rectangle<int> area(50, 10, 500, 50);
-	juce::Rectangle<int> area2(50, 50, 500, 50);
-	juce::Rectangle<int> area3(240, 60, 250, 50);
+	juce::Rectangle<int> area(50, 20, 500, 50);
+	juce::Rectangle<int> area2(50, 60, 500, 50);
+	juce::Rectangle<int> area3(240, 70, 250, 50);
 
 	g.drawFittedText("Midi Router", area, juce::Justification::centred, 1);
 	g.drawFittedText("by BJR", area2, juce::Justification::centred, 1);
@@ -56,8 +65,10 @@ void MidiRouterProcessorEditor::resized()
 	// This is generally where you'll want to lay out the positions of any
 	// subcomponents in your editor..
 
-	midiDropdownComponent.setBounds(10, 30, 125, 50);
-	midiTableComponent.setBounds(50, 100, 400, 500);
+	midiDropdownComponent.setBounds(10, 40, 125, 50);
+	midiTableComponent.setBounds(10, 110, 400, 500);
+	saveButton.setBounds(10, 10, 70, 18);
+	loadButton.setBounds(90, 10, 70, 18);
 }
 
 

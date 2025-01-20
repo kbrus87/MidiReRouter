@@ -22,6 +22,7 @@ class MidiTableComponent : public juce::Component, private juce::TableListBoxMod
 {
 public:
 	MidiTableComponent(TranslationMidiTable& events, std::function<void(int, const juce::String&)> updateMidiEvent);
+	~MidiTableComponent() override;
 
 	void paint(juce::Graphics&) override;
 	void resized() override;

@@ -20,11 +20,16 @@ MidiTableComponent::MidiTableComponent(TranslationMidiTable& events, std::functi
 	midiTable.setModel(this);
 
 	// Configurar columnas de la tabla
-	midiTable.getHeader().addColumn("Income MIDI", 1, 200);
+	midiTable.getHeader().addColumn("Input MIDI", 1, 200);
 	midiTable.getHeader().addColumn("Output MIDI", 2, 200);
 
 
-	setSize(600, 600);
+	setSize(420, 600);
+}
+
+MidiTableComponent::~MidiTableComponent()
+{
+	midiTable.setModel(nullptr); // Desvincular el modelo antes de destruirlo
 }
 
 
@@ -97,111 +102,34 @@ void MidiTableComponent::onEvent(const std::string& identifier, const std::varia
 	}
 }
 
-juce::Component* MidiTableComponent::refreshComponentForCell(int	rowNumber, int	columnId, bool	isRowSelected, Component* existingComponentToUpdate)
+juce::Component* MidiTableComponent::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component* existingComponentToUpdate)
 {
-
-	if (columnId == 2)
+	if (columnId == 2) // Solo procesamos la columna 2
 	{
-
+		// Verificar si ya existe un componente
 		if (existingComponentToUpdate != nullptr)
 		{
-			// Intentar hacer un dynamic_cast a MidiTextBox
+			// Intentar hacer un dynamic_cast al tipo esperado
 			MidiTextBox* textbox = dynamic_cast<MidiTextBox*>(existingComponentToUpdate);
-			if (textbox == nullptr)
+			if (textbox != nullptr)
+			{
+				// Actualizar el texto del componente existente
+				textbox->setText(midiEventList[rowNumber].outputMIDI);
+				return textbox; // Reutilizar el componente existente
+			}
+			else
+			{
+				// Si no es del tipo esperado, devolver nullptr (esto puede causar que el TableListBox elimine el componente)
 				return nullptr;
-
-			// Si el componente es válido, actualizar el texto
-			textbox->setText(midiEventList[rowNumber].outputMIDI);
-			return textbox;
+			}
 		}
 		else
 		{
-			MidiTextBox* midiTextBox = new MidiTextBox(rowNumber, midiEventList[rowNumber].outputMIDI, updateMidiEvent);
-			return midiTextBox;
+			// Crear un nuevo componente si no existe ninguno
+			return new MidiTextBox(rowNumber, midiEventList[rowNumber].outputMIDI, updateMidiEvent);
 		}
-		//if (existingComponentToUpdate != nullptr)
-		//{
-		//	// Si el componente ya existe, actualizamos sus propiedades
-		//	juce::TextEditor* textbox = dynamic_cast<juce::TextEditor*>(existingComponentToUpdate);
-		//	if (textbox == nullptr)
-		//		return nullptr;
-		//	if (textbox != nullptr)
-		//	{
-		//		// Cambiar el texto del botón según el número de fila
-		//		textbox->setText(midiEventList[rowNumber].outputMIDI);
-		//		textbox->setColour(juce::TextButton::buttonColourId, isRowSelected ? juce::Colours::lightblue : juce::Colours::white);
-		//		return textbox;
-		//	}
-		//}
-		//else
-		//{
-		//	// Si no existe un componente, creamos uno nuevo
-		//	juce::TextEditor* textbox = new juce::TextEditor("midiOutput" + rowNumber);
-		//	textbox->setText(midiEventList[rowNumber].outputMIDI);
-		//	juce::String upperCaseText = textbox->getText().toUpperCase();
-
-		//	textbox->setText(upperCaseText);
-
-		//	std::string note = (textbox->getText()).toStdString();
-
-		//	std::regex midiNoteRegex("^(C|D|E|F|G|A|B)(#?)([0-9])$");
-		//	bool isNoteName = std::regex_match(note, midiNoteRegex);
-
-		//	DBG(std::to_string(isNoteName) + " << " + note);
-
-		//	if (isNoteName) {
-		//		textbox->applyColourToAllText(juce::Colours::green, true);
-		//		textbox->repaint();
-		//	}
-		//	else {
-		//		textbox->applyColourToAllText(juce::Colours::red, true);
-		//		textbox->repaint();
-		//	}
-
-		//	textbox->onTextChange = [this, textbox]()
-		//		{
-		//			if (textbox != nullptr)
-		//			{
-		//				juce::String upperCaseText = textbox->getText().toUpperCase();
-
-		//				textbox->setText(upperCaseText);
-
-		//				std::string note = (textbox->getText()).toStdString();
-
-		//				std::regex midiNoteRegex("^(C|D|E|F|G|A|B)(#?)([0-9])$");
-		//				bool isNoteName = std::regex_match(note, midiNoteRegex);
-
-		//				DBG(std::to_string(isNoteName) + " << " + note);
-
-		//				if (isNoteName) {
-		//					textbox->applyColourToAllText(juce::Colours::green, true);
-		//					textbox->repaint();
-		//				}
-		//				else {
-		//					textbox->applyColourToAllText(juce::Colours::red, true);
-		//					textbox->repaint();
-		//				}
-		//			}
-		//		};
-		//	textbox->onFocusLost = [this, textbox, rowNumber]() {
-
-		//		std::string note = (textbox->getText()).toStdString();
-
-		//		std::regex midiNoteRegex("^(C|D|E|F|G|A|B)(#?)([0-9])$");
-		//		bool isNoteName = std::regex_match(note, midiNoteRegex);
-		//		//if (!isNoteName) textbox->setText("Invalid MIDI Note");
-		//		if (isNoteName) {
-
-		//			updateMidiEvent(rowNumber, textbox->getText());
-		//		}
-		//		};
-
-		//	return textbox;
-		//}
 	}
-	else
-	{
-		// Si no estamos en la columna 2, no hacer nada y usar el comportamiento predeterminado
-		return nullptr;
-	}
+
+	// Devolver nullptr para columnas que no procesamos
+	return nullptr;
 }

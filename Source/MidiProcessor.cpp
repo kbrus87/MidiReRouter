@@ -80,3 +80,51 @@ void MidiProcessor::setOutputMidi(int index, juce::String midiName)
 	}
 	setTranslationMap();
 }
+
+juce::ValueTree MidiProcessor::translationMapToValueTree() {
+	juce::ValueTree mapTree("TranslationMap");
+	for (const auto& item : translationMap) {
+		juce::ValueTree mapEntry("Entry");
+		mapEntry.setProperty("Key", item.first, nullptr);
+		mapEntry.setProperty("Value", item.second, nullptr);
+		mapTree.addChild(mapEntry, -1, nullptr);
+	}
+	return mapTree;
+}
+
+juce::ValueTree MidiProcessor::translationTableToValueTree() {
+	juce::ValueTree vectorTree("TranslationTable");
+	for (const auto& item : translationTable) {
+		juce::ValueTree vectorEntry("Entry");
+		vectorEntry.setProperty("inputMIDI", item.inputMIDI, nullptr);
+		vectorEntry.setProperty("inputMIDInumber", item.inputMIDInumber, nullptr);
+		vectorEntry.setProperty("outputMIDI", item.outputMIDI, nullptr);
+		vectorEntry.setProperty("outputMIDInumber", item.outputMIDInumber, nullptr);
+
+		vectorTree.addChild(vectorEntry, -1, nullptr);
+	}
+	return vectorTree;
+}
+
+void MidiProcessor::loadTranslationMapFromValueTree(juce::ValueTree mapTree) {
+
+	std::map<int, int> translationMap;
+	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
+		auto mapEntry = mapTree.getChild(i);
+		int key = mapEntry.getProperty("Key");
+		int value = mapEntry.getProperty("Value");
+		translationMap[key] = value;
+	}
+	translationMap = translationMap;
+}
+
+void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
+
+	TranslationMidiTable translationTable;
+	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
+		auto vectorEntry = mapTree.getChild(i);
+		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("outputMIDI"), vectorEntry.getProperty("outputMIDInumber") };
+		translationTable.push_back(value);
+	}
+	translationTable = translationTable;
+}

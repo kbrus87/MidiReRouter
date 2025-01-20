@@ -32,6 +32,12 @@ public:
 	const std::map<int, int>* getTranslationMapPointer() const { return &translationMap; };
 	const std::map<int, int> getTranslationMap() const { return translationMap; };
 
+	juce::ValueTree translationMapToValueTree();
+	juce::ValueTree translationTableToValueTree();
+
+	void loadTranslationMapFromValueTree(juce::ValueTree mapTree);
+	void loadTranslationTableFromValueTree(juce::ValueTree mapTree);
+
 	TranslationMidiTable translationTable = { {48, "C2", "C1", 36} };
 
 

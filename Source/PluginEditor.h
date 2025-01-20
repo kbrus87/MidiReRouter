@@ -39,6 +39,9 @@ private:
 	MidiTableComponent midiTableComponent;
 	MidiDropdownComponent midiDropdownComponent;
 
+	juce::TextButton saveButton;
+	juce::TextButton loadButton;
+
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiRouterProcessorEditor)
 };
