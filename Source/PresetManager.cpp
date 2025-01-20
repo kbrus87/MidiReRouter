@@ -52,7 +52,7 @@ namespace Service {
 		
 		midiProcessor.loadTranslationMapFromValueTree(valueTreeToLoad);
 		currentPreset = juce::String(presetName);
-		notify("presetChange", presetName.toStdString());
+		notify("presetChange", presetName);
 	}
 
 	juce::String PresetManager::getCurrentPreset() {
@@ -60,7 +60,7 @@ namespace Service {
 	}
 	void PresetManager::setCurrentPreset(juce::String preset) {
 		currentPreset = preset;
-		notify("presetChange", preset.toStdString());
+		notify("presetChange", preset);
 	}
 }
 

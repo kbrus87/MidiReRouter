@@ -61,9 +61,12 @@ void MidiRouterProcessorEditor::resized()
 {
 	// This is generally where you'll want to lay out the positions of any
 	// subcomponents in your editor..
-
-	midiDropdownComponent.setBounds(10, 40, 125, 50);
-	midiTableComponent.setBounds(10, 110, 400, 500);
+	DBG(getLocalBounds().getX() << " "<< getLocalBounds().getY()<<" "<<getLocalBounds().getWidth()<<" " << getLocalBounds().getHeight());
+	// midiDropdownComponent.setBounds(10, 40, 125, 50);
+	midiDropdownComponent.setBounds(getLocalBounds().removeFromLeft(proportionOfWidth(0.024f)).getX(),
+		getLocalBounds().removeFromTop(proportionOfHeight(0.1f)).getBottom(), proportionOfWidth(0.29f), proportionOfHeight(0.1f)
+	);
+	midiTableComponent.setBounds(getLocalBounds().removeFromBottom(proportionOfHeight(0.78f)));
 	presetPanel.setBounds(getLocalBounds().removeFromTop(proportionOfHeight(0.07f)));
 }
 

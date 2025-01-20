@@ -160,6 +160,10 @@ void MidiRouterProcessor::getStateInformation(juce::MemoryBlock& destData)
 	state.addChild(midiProcessor.translationMapToValueTree(), -1, nullptr);
 	state.addChild(midiProcessor.translationTableToValueTree(), -1, nullptr);
 
+	juce::ValueTree presetName("presetName");
+	presetName.setProperty("presetName", presetManager.getCurrentPreset(), nullptr);
+
+	state.addChild(presetName, -1, nullptr);
 	// Convertir el ValueTree a XML y luego a un MemoryBlock
 	if (auto xmlState = state.createXml()) {
 		copyXmlToBinary(*xmlState, destData);
@@ -183,6 +187,9 @@ void MidiRouterProcessor::setStateInformation(const void* data, int sizeInBytes)
 		// Restaurar el vector desde el ValueTree
 		juce::ValueTree vectorTree = state.getChildWithName("TranslationTable");
 		midiProcessor.loadTranslationTableFromValueTree(vectorTree);
+
+		juce::ValueTree preset = state.getChildWithName("presetName");
+		presetManager.setCurrentPreset(preset.getProperty("presetName"));
 	}
 }
 

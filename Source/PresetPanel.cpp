@@ -15,7 +15,7 @@ PresetPanel::PresetPanel(Service::PresetManager& presetManager) :presetManager(p
 	configureButton(saveButton, "Save Preset", juce::Colour::fromRGB(23, 34, 125));
 	configureButton(loadButton, "Load Preset", juce::Colour::fromRGB(23, 34, 125));
 
-	presetLabel.setText(presetManager.getCurrentPreset(), juce::NotificationType::sendNotification);
+	presetLabel.setText(presetManager.getCurrentPreset(), juce::NotificationType::dontSendNotification);
 
 	addAndMakeVisible(presetLabel);
 	addAndMakeVisible(saveButton);
@@ -41,7 +41,8 @@ void PresetPanel::resized() {
 
 	saveButton.setBounds(bounds.removeFromLeft(container.proportionOfWidth(0.25f)).reduced(4));
 	loadButton.setBounds(bounds.removeFromLeft(container.proportionOfWidth(0.25f)).reduced(4));
-	presetLabel.setBounds(bounds.removeFromLeft(container.proportionOfWidth(0.4f)).reduced(8));
+	presetLabel.setBounds(bounds.removeFromLeft(container.proportionOfWidth(0.4f)).reduced(4));
+	presetLabel.setFont(juce::Font(juce::jmin(bounds.getWidth(), bounds.getHeight()) * 0.5f));
 }
 
 
@@ -79,8 +80,24 @@ void PresetPanel::buttonClicked(juce::Button* button) {
 void PresetPanel::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String>& preset) {
 	if (identifier == "presetChange")
 	{
-		DBG("preset PRESET CHANGE");
-		//presetLabel.setText(juce::String(preset));
+
+		juce::String presetText;
+
+		// Verificar cada tipo contenido en std::variant y convertirlo a juce::String
+		if (std::holds_alternative<int>(preset)) {
+			// Convertir un int a juce::String
+			presetText = juce::String(std::get<int>(preset));
+		}
+		else if (std::holds_alternative<std::string>(preset)) {
+			// Convertir un std::string a juce::String
+			presetText = juce::String(std::get<std::string>(preset));
+		}
+		else if (std::holds_alternative<juce::String>(preset)) {
+			// Directamente usar juce::String
+			presetText = std::get<juce::String>(preset);
+		}
+
+		presetLabel.setText(presetText, juce::NotificationType::sendNotification);
 		presetLabel.repaint();
 	}
 }
