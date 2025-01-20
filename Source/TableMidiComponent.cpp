@@ -94,7 +94,7 @@ void MidiTableComponent::paintCell(juce::Graphics& g, int rowNumber, int columnI
 //	midiTable.updateContent();
 //}
 
-void MidiTableComponent::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable>& payload)
+void MidiTableComponent::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String>& payload)
 {
 	if (identifier == "translationMidiTable")
 	{

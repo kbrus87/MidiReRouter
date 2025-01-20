@@ -10,6 +10,7 @@
 
 #include <JuceHeader.h>
 #include "MidiProcessor.h"
+#include "PresetManager.h"
 
 //==============================================================================
 /**
@@ -56,11 +57,13 @@ public:
 
 	//=============mines
 	MidiProcessor& getMidiProcessor();
+	Service::PresetManager& getPresetManager();
 
 	juce::AudioProcessorValueTreeState parameters;
 
 private:
 	MidiProcessor midiProcessor;
+	Service::PresetManager presetManager;
 	//==============================================================================
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiRouterProcessor)
 };

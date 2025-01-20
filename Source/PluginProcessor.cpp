@@ -19,9 +19,10 @@ MidiRouterProcessor::MidiRouterProcessor()
 #endif
 		.withOutput("Output", juce::AudioChannelSet::stereo(), true)
 #endif
-	), parameters(*this, nullptr)
+	), parameters(*this, nullptr), presetManager(midiProcessor)
 #endif
 {
+
 
 }
 
@@ -195,3 +196,7 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 MidiProcessor& MidiRouterProcessor::getMidiProcessor() {
 	return midiProcessor;
 };
+
+Service::PresetManager& MidiRouterProcessor::getPresetManager() {
+	return presetManager;
+}

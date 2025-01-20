@@ -18,5 +18,5 @@ public:
     virtual ~Listener() = default;
 
     // M	do virtual puro para manejar eventos con payload
-    virtual void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable>& payload) = 0;
+    virtual void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String>& payload) = 0;
 };

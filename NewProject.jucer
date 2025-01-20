@@ -6,7 +6,13 @@
               companyName="StupidPlugin">
   <MAINGROUP id="Y6tfhD" name="MidiRouter">
     <GROUP id="{7D5EF30C-115A-66A3-F631-28A89AC41F0D}" name="Source">
-      <GROUP id="{0431696C-5187-E20C-5387-57693E5245FE}" name="MidiButton"/>
+      <GROUP id="{0431696C-5187-E20C-5387-57693E5245FE}" name="PresetPanel">
+        <FILE id="kYcGka" name="PresetManager.cpp" compile="1" resource="0"
+              file="Source/PresetManager.cpp"/>
+        <FILE id="qoBdW5" name="PresetManager.h" compile="0" resource="0" file="Source/PresetManager.h"/>
+        <FILE id="eN1etb" name="PresetPanel.cpp" compile="1" resource="0" file="Source/PresetPanel.cpp"/>
+        <FILE id="voSQlF" name="PresetPanel.h" compile="0" resource="0" file="Source/PresetPanel.h"/>
+      </GROUP>
       <GROUP id="{263E9591-3F50-F77D-63C0-9D68B156446E}" name="MidiTextBox">
         <FILE id="rvvY6c" name="MidiTextBox.cpp" compile="1" resource="0" file="Source/MidiTextBox.cpp"/>
         <FILE id="NXa1VR" name="MidiTextBox.h" compile="0" resource="0" file="Source/MidiTextBox.h"/>

@@ -96,8 +96,8 @@ juce::ValueTree MidiProcessor::translationTableToValueTree() {
 	juce::ValueTree vectorTree("TranslationTable");
 	for (const auto& item : translationTable) {
 		juce::ValueTree vectorEntry("Entry");
-		vectorEntry.setProperty("inputMIDI", item.inputMIDI, nullptr);
 		vectorEntry.setProperty("inputMIDInumber", item.inputMIDInumber, nullptr);
+		vectorEntry.setProperty("inputMIDI", item.inputMIDI, nullptr);
 		vectorEntry.setProperty("outputMIDI", item.outputMIDI, nullptr);
 		vectorEntry.setProperty("outputMIDInumber", item.outputMIDInumber, nullptr);
 
@@ -109,22 +109,40 @@ juce::ValueTree MidiProcessor::translationTableToValueTree() {
 void MidiProcessor::loadTranslationMapFromValueTree(juce::ValueTree mapTree) {
 
 	std::map<int, int> translationMap;
+	TranslationMidiTable translationTableV;
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
-		auto mapEntry = mapTree.getChild(i);
-		int key = mapEntry.getProperty("Key");
-		int value = mapEntry.getProperty("Value");
+		auto entry = mapTree.getChild(i);
+
+		// Obtener las propiedades del ValueTree
+		int key = entry.getProperty("Key");
+		int value = entry.getProperty("Value");
+
+		// Actualizar el mapa
 		translationMap[key] = value;
+
+		// Crear la fila y añadirla al vector
+		MidiTranslationRow row = {
+			key,
+			juce::MidiMessage::getMidiNoteName(key, true, true, 4),
+			juce::MidiMessage::getMidiNoteName(value, true, true, 4),
+			value
+		};
+		translationTableV.push_back(row);
 	}
 	translationMap = translationMap;
+	translationTable = translationTableV;
+
+	notify("translationMidiTable", translationTable);
 }
 
 void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 
-	TranslationMidiTable translationTable;
+	TranslationMidiTable translationTableV;
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
 		auto vectorEntry = mapTree.getChild(i);
-		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("outputMIDI"), vectorEntry.getProperty("outputMIDInumber") };
-		translationTable.push_back(value);
+		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI"),  vectorEntry.getProperty("outputMIDInumber") };
+		translationTableV.push_back(value);
 	}
-	translationTable = translationTable;
+	translationTable = translationTableV;
+	notify("translationMidiTable", translationTable);
 }

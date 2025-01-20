@@ -11,28 +11,24 @@
 
 //==============================================================================
 MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
-	: AudioProcessorEditor(&p), audioProcessor(p), midiProcessor(p.getMidiProcessor()), midiTableComponent(midiProcessor.translationTable, std::bind(&MidiProcessor::setOutputMidi, &midiProcessor, std::placeholders::_1, std::placeholders::_2))
+	: AudioProcessorEditor(&p), audioProcessor(p), midiProcessor(p.getMidiProcessor()), 
+	midiTableComponent(midiProcessor.translationTable, std::bind(&MidiProcessor::setOutputMidi, &midiProcessor, std::placeholders::_1, std::placeholders::_2)),
+	presetPanel(p.getPresetManager())
 {
 	//midiProcessor.addChangeListener(&midiTableComponent);
 	midiProcessor.addListener(&midiTableComponent);
+	p.getPresetManager().addListener(&presetPanel);
 
 	midiTableComponent.setMidiEvents(midiProcessor.translationTable);
 
 	midiDropdownComponent.setMidiEvents(constMidiEventList);
 	midiDropdownComponent.onChange(midiProcessor);
 
-	saveButton.setButtonText("Save Preset");
-	saveButton.setColour(2, juce::Colour::fromRGB(23, 34, 125));
-	loadButton.setButtonText("Load Preset");
-	loadButton.setColour(4, juce::Colour::fromRGB(23, 34, 125));
-	loadButton.repaint();
-	saveButton.repaint();
-
 	addAndMakeVisible(midiTableComponent);
 	addAndMakeVisible(midiDropdownComponent);
-	addAndMakeVisible(saveButton);
-	addAndMakeVisible(loadButton);
-	DBG(midiTableComponent.getWidth());
+	addAndMakeVisible(presetPanel);
+
+	setResizable(true, true);
 	setSize(midiTableComponent.getWidth(), 500);
 }
 
@@ -40,6 +36,7 @@ MidiRouterProcessorEditor::~MidiRouterProcessorEditor()
 {
 	//midiProcessor.removeAllChangeListeners();
 	midiProcessor.removeAllListener();
+	audioProcessor.getPresetManager().removeAllListener();
 }
 
 //==============================================================================
@@ -67,8 +64,7 @@ void MidiRouterProcessorEditor::resized()
 
 	midiDropdownComponent.setBounds(10, 40, 125, 50);
 	midiTableComponent.setBounds(10, 110, 400, 500);
-	saveButton.setBounds(10, 10, 70, 18);
-	loadButton.setBounds(90, 10, 70, 18);
+	presetPanel.setBounds(getLocalBounds().removeFromTop(proportionOfHeight(0.07f)));
 }
 
 

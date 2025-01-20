@@ -14,6 +14,7 @@
 #include "TableMidiComponent.h"
 #include "MidiDropdownComponent.h"
 #include "constants.h"
+#include "PresetPanel.h"
 
 //==============================================================================
 /**
@@ -36,11 +37,10 @@ private:
 
 	juce::TableListBox midiTable;
 
-	MidiTableComponent midiTableComponent;
 	MidiDropdownComponent midiDropdownComponent;
 
-	juce::TextButton saveButton;
-	juce::TextButton loadButton;
+	PresetPanel presetPanel;
+	MidiTableComponent midiTableComponent;
 
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiRouterProcessorEditor)
