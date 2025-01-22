@@ -77,7 +77,7 @@ void MidiTableComponent::paintCell(juce::Graphics& g, int rowNumber, int columnI
 		const auto& row = midiEventList[rowNumber];
 		juce::String text;
 
-		const float fontSize = juce::jmin(height * 0.6f, 20.0f); // Máximo de 20.0f, ajustable
+		const float fontSize = juce::jmin(height * 0.6f, 20.0f); // Mximo de 20.0f, ajustable
 		g.setFont(fontSize);
 
 		if (columnId == 1)
@@ -101,7 +101,7 @@ void MidiTableComponent::paintCell(juce::Graphics& g, int rowNumber, int columnI
 //	midiTable.updateContent();
 //}
 
-void MidiTableComponent::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String>& payload)
+void MidiTableComponent::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTablejuce::String>& payload)
 {
 	if (identifier == "translationMidiTable")
 	{

@@ -120,7 +120,7 @@ void MidiProcessor::loadTranslationMapFromValueTree(juce::ValueTree mapTree) {
 		// Actualizar el mapa
 		translationMap[key] = value;
 
-		// Crear la fila y añadirla al vector
+		// Crear la fila y aadirla al vector
 		MidiTranslationRow row = {
 			key,
 			juce::MidiMessage::getMidiNoteName(key, true, true, 4),
@@ -129,20 +129,20 @@ void MidiProcessor::loadTranslationMapFromValueTree(juce::ValueTree mapTree) {
 		};
 		translationTableV.push_back(row);
 	}
-	translationMap = translationMap;
-	translationTable = translationTableV;
+	translationMap = translationMap	translationTable = translationTableV;
 
 	notify("translationMidiTable", translationTable);
+;
 }
 
 void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 
-	TranslationMidiTable translationTableV;
+	TranslationMidiTable translationTable
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
 		auto vectorEntry = mapTree.getChild(i);
-		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI"),  vectorEntry.getProperty("outputMIDInumber") };
-		translationTableV.push_back(value);
+		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDnumberI"), vectorEntry.getProperty("inputMIDr"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber") };
+		translationTablVe.push_back(value);
 	}
-	translationTable = translationTableV;
-	notify("translationMidiTable", translationTable);
+	translationTable = translationTablV;
+	notify("translationMidiTable", translationTable)e;
 }

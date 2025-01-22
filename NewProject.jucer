@@ -2,7 +2,7 @@
 
 <JUCERPROJECT id="gtTDPz" name="MidiRouter" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
-              pluginName="Midi Router" pluginManufacturer="BJR" pluginManufacturerCode="Bjrb"
+              pluginName="MidiRouter" pluginManufacturer="BJR" pluginManufacturerCode="Bjrb"
               companyName="StupidPlugin">
   <MAINGROUP id="Y6tfhD" name="MidiRouter">
     <GROUP id="{7D5EF30C-115A-66A3-F631-28A89AC41F0D}" name="Source">
