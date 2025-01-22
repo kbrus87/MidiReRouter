@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@font-face {
+  font-family: 'Overpass';
+  src: url('./assets/fonts/overpass/overpass-regular.otf') format('opentype');
+  font-weight: 400;
+  /* Regular */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Overpass';
+  src: url('./assets/fonts/overpass/overpass-extrabold.otf') format('opentype');
+  font-weight: 800;
+  /* ExtraBold */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Overpass';
+  src: url('./assets/fonts/overpass/overpass-heavy.otf') format('opentype');
+  font-weight: 900;
+  /* Heavy */
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url('./assets/fonts/roboto-flex/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf') format('truetype');
+  font-weight: 1 1000;
+  /* Variable weight range */
+  font-stretch: 25% 100%;
+  /* Variable width range */
+  font-style: normal;
+  /* Puede añadir cursiva si es necesario */
+}
+
+body {
+  background-color: #1F1F23;
+}
+
+.App {
+  background-color: #1F1F23;
+  width: 100%;
+  height: 100vh;
+
+  .main-container {
+    padding: 0.5rem;
+    border: 1px solid rgb(223, 178, 178);
+    display: grid;
+    grid-template-rows: repeat(12, 1fr);
+    grid-template-columns: 1fr;;
+    height: 100vh;
+    .header {
+      width: 100%;
+      grid-row: 1/1;
+      /* padding: 0rem 1rem 0; */
+    
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      align-items: end;
+    
+      .name-block {
+        height: 100%;
+        grid-column: 1/9;
+        align-content: flex-end;
+    
+        .name {
+          color: white;
+          font-family: 'Roboto Flex';
+          font-size: 1.85rem;
+          font-weight: bold;
+        }
+      }
+    
+      .logo-block {
+        height: 100%;
+        grid-column: 9/-1;
+        align-content: flex-end;
+    
+        .logo-upside {
+          width: 100%;
+          color: #8F8F91;
+          font-size: 0.5rem;
+    
+          line-height: 0.4rem;
+    
+          .bjr {
+            font-family: 'Roboto Flex';
+            font-size: 1.2rem;
+            font-weight: bold;
+            letter-spacing: 0.1rem;
+          }
+        }
+    
+        .logo-downside {
+          width: 100%;
+          color: #404044;
+          font-size: 0.5rem;
+          font-weight: 700;
+          margin-bottom: 0.3rem;
+        }
+      }
+    }
+    
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.add-border {
+  border: 1px solid white;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-right {
+  text-align: right;
+}

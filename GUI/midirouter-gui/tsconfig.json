@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true, // Opcional pero recomendable
+    "baseUrl": "./",
+    "paths": {
+      "@components/*": ["./src/components/*"]
+    },
+    "jsx": "react",
+    "target": "es5",
+    "lib": ["dom", "es2015", "es2017"],
+    "outDir": "./dist",
+    "strict": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}
