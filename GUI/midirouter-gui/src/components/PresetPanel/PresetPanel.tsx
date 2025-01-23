@@ -1,5 +1,5 @@
 import React from "react";
-import Title from "@components/Header/Title";
+import Title from "../../components/Header/Title";
 
 function PresetPanel(){
     return <div className="add-border preset-panel">

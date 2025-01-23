@@ -50,9 +50,9 @@ body {
 
   .main-container {
     padding: 0.5rem;
-    border: 1px solid rgb(223, 178, 178);
+  
     display: grid;
-    grid-template-rows: repeat(12, 1fr);
+    grid-template-rows: 2.5rem 2rem repeat(10, 1fr);
     grid-template-columns: 1fr;;
     height: 100vh;
     .header {
@@ -72,7 +72,7 @@ body {
         .name {
           color: white;
           font-family: 'Roboto Flex';
-          font-size: 1.85rem;
+          font-size: 2.31rem;
           font-weight: bold;
         }
       }
@@ -85,13 +85,13 @@ body {
         .logo-upside {
           width: 100%;
           color: #8F8F91;
-          font-size: 0.5rem;
+          font-size: 0.625rem;
     
           line-height: 0.4rem;
     
           .bjr {
             font-family: 'Roboto Flex';
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             font-weight: bold;
             letter-spacing: 0.1rem;
           }
@@ -100,13 +100,16 @@ body {
         .logo-downside {
           width: 100%;
           color: #404044;
-          font-size: 0.5rem;
+          font-size: 0.625rem;
           font-weight: 700;
           margin-bottom: 0.3rem;
         }
       }
     }
-    
+    .preset-panel{
+      height: 100%;
+      width: 100%;
+    }
   }
 }
 

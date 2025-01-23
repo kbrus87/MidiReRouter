@@ -4,9 +4,10 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true, // Opcional pero recomendable
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["components/*"],
+      "juce": ["./src/juce/index.js"]
     },
     "jsx": "react",
     "target": "es5",
