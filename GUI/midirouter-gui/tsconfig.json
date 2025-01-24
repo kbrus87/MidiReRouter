@@ -6,7 +6,7 @@
     "allowSyntheticDefaultImports": true, // Opcional pero recomendable
     "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"],
+      "components/*": ["components/*"],
       "juce": ["./src/juce/index.js"]
     },
     "jsx": "react",

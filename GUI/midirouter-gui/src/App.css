@@ -50,25 +50,27 @@ body {
 
   .main-container {
     padding: 0.5rem;
-  
+
     display: grid;
     grid-template-rows: 2.5rem 2rem repeat(10, 1fr);
-    grid-template-columns: 1fr;;
+    grid-template-columns: 1fr;
+    ;
     height: 100vh;
+
     .header {
       width: 100%;
       grid-row: 1/1;
       /* padding: 0rem 1rem 0; */
-    
+
       display: grid;
       grid-template-columns: repeat(12, 1fr);
       align-items: end;
-    
+
       .name-block {
         height: 100%;
         grid-column: 1/9;
         align-content: flex-end;
-    
+
         .name {
           color: white;
           font-family: 'Roboto Flex';
@@ -76,19 +78,19 @@ body {
           font-weight: bold;
         }
       }
-    
+
       .logo-block {
         height: 100%;
         grid-column: 9/-1;
         align-content: flex-end;
-    
+
         .logo-upside {
           width: 100%;
           color: #8F8F91;
           font-size: 0.625rem;
-    
+
           line-height: 0.4rem;
-    
+
           .bjr {
             font-family: 'Roboto Flex';
             font-size: 1.5rem;
@@ -96,7 +98,7 @@ body {
             letter-spacing: 0.1rem;
           }
         }
-    
+
         .logo-downside {
           width: 100%;
           color: #404044;
@@ -106,9 +108,48 @@ body {
         }
       }
     }
-    .preset-panel{
+
+    .preset-panel {
       height: 100%;
       width: 100%;
+    }
+  }
+
+  .midiTable {
+    .midiTableRows {
+
+
+      .midiTableRow {
+        background-color: #2D2E37;
+        border-radius: 5px;
+        margin: 5px;
+        min-height: 2.2rem;
+
+        display: grid;
+        grid-template-columns: 2fr 1fr 2fr;
+
+        .midiTableCell {
+          align-content: center;
+
+          &.Output {
+            background: rgb(53, 87, 117);
+            background: linear-gradient(90deg, rgba(53, 87, 117, 1) 0%, rgba(53, 87, 117, 1) 0%, rgba(45, 46, 55, 1) 50%);
+          }
+
+          &.Link {
+            position: relative;
+            background: rgb(125, 58, 65);
+            background: linear-gradient(90deg, rgba(125, 58, 65, 1) 0%, rgba(125, 58, 65, 1) 50%, rgba(53, 87, 117, 1) 50%, rgba(53, 87, 117, 1) 100%);
+          }
+
+          &.Input {
+            height: 100%;
+            background: rgb(45, 46, 55);
+            background: linear-gradient(90deg, rgba(45, 46, 55, 1) 0%, rgba(125, 58, 65, 1) 100%, rgba(125, 58, 65, 1) 100%);
+          }
+        }
+      }
+
     }
   }
 }
