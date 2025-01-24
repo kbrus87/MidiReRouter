@@ -11,13 +11,11 @@ function App() {
 
   useEffect(() => {
     fetch(juce.getBackendResourceAddress("data.json")).then(res => res.text()).then(res => {
-      console.log("getBackendResoureAddress", res)
       setTranslationTable(JSON.parse(res).translationTable);
-      console.log(JSON.parse(res).translationTable)
     })
 
     const translationMidiTableEventToken = window.__JUCE__.backend.addEventListener("translationMidiTable", (res) => {
-      console.log(res)
+      setTranslationTable(res)
     })
     return () => {
       window.__JUCE__.backend.removeEventListener(translationMidiTableEventToken)
@@ -26,12 +24,12 @@ function App() {
   return (
     <div className="App">
       <div className="main-container">
-        <Header />
-        <div style={{ gridRow: "2/3" }} >
+        <div style={{ gridRow: "1/2" }} >
+          <Header />
           <PresetPanel />
         </div>
         <div style={{ gridRow: "4/-1" }} >
-          <MidiTableComponent translationTable={translationTable}/>
+          <MidiTableComponent translationTable={translationTable} />
         </div>
       </div>
     </div>
