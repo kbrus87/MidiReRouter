@@ -24,7 +24,7 @@ function App() {
   return (
     <div className="App">
       <div className="main-container">
-        <div style={{ gridRow: "1/2" }} >
+        <div style={{ gridRow: "1/2", position: "sticky", background: "#1F1F23", top: 0, minHeight: "fit-content" }} >
           <Header />
           <PresetPanel />
         </div>

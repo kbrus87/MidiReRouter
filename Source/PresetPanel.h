@@ -22,7 +22,7 @@ public:
 	void configureButton(juce::Button&,const juce::String&, juce::Colour);
 	void resized() override;
 
-	void onEvent(const std::string&, const std::variant<int, std::string, TranslationMidiTable, juce::String>&);
+	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& preset);
 private:
 	Service::PresetManager& presetManager;
 	void buttonClicked(juce::Button*) override;

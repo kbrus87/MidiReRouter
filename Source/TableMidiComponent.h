@@ -21,7 +21,7 @@
 class MidiTableComponent : public juce::Component, private juce::TableListBoxModel, public Listener //, public juce::ChangeListener
 {
 public:
-	MidiTableComponent(TranslationMidiTable& events, std::function<void(int, const juce::String&)> updateMidiEvent);
+	MidiTableComponent(TranslationMidiTable& events, std::function<void(int, const juce::String&)> updateMidiEvent, juce::WebBrowserComponent& webView);
 	~MidiTableComponent() override;
 
 	void paint(juce::Graphics&) override;
@@ -39,10 +39,11 @@ public:
 
 	// LISTENER
 	//void changeListenerCallback(juce::ChangeBroadcaster* source) override;
-	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String>& payload);
+	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& payload);
 
 private:
 	juce::TableListBox midiTable;
+	juce::WebBrowserComponent& webView;
 	TranslationMidiTable& midiEventList;
 	std::function<void(int, const juce::String&)> updateMidiEvent;
 

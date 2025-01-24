@@ -31,7 +31,7 @@ void Broadcaster::removeAllListener()
 
 
 
-void Broadcaster::notify(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String>& payload)
+void Broadcaster::notify(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& payload)
 {
     for (auto* listener : listeners)
     {

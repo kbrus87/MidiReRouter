@@ -23,7 +23,7 @@ public:
 	void removeListener(Listener* listener);
 	void removeAllListener();
 
-	void notify(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String>& payload);
+	void notify(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& payload);
 
 private:
 	std::vector<Listener*> listeners;

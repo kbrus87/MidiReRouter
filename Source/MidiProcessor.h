@@ -44,6 +44,7 @@ public:
 private:
 	std::map<int, int> translationMap;
 	juce::MidiBuffer processedBuffer;
+	juce::WebBrowserComponent webView;
 
 	void setTranslationMap();
 };

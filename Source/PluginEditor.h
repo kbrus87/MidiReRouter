@@ -9,12 +9,14 @@
 #pragma once
 
 #include <JuceHeader.h>
+#include <juce_gui_extra/juce_gui_extra.h>
 #include "PluginProcessor.h"
 #include "types.h"
 #include "TableMidiComponent.h"
 #include "MidiDropdownComponent.h"
 #include "constants.h"
 #include "PresetPanel.h"
+#include "WebView.h"
 
 //==============================================================================
 /**
@@ -34,6 +36,11 @@ private:
 	// access the processor object that created it.
 	MidiRouterProcessor& audioProcessor;
 	MidiProcessor& midiProcessor;
+
+	juce::WebBrowserComponent webView;
+
+	std::optional<juce::WebBrowserComponent::Resource> getResource(const juce::String& url);
+			
 
 	juce::TableListBox midiTable;
 

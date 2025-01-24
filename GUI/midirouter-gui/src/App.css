@@ -59,14 +59,9 @@ body {
     overflow-y: auto;
 
     .header {
-      position: sticky;
-      top: 0;
-      /* Fija la cabecera en la parte superior */
-      z-index: 10;
-      /* Asegúrate de que esté sobre otros elementos */
+
       width: 100%;
       grid-row: 1/1;
-      /* padding: 0rem 1rem 0; */
 
       display: grid;
       grid-template-columns: repeat(12, 1fr);
@@ -116,11 +111,7 @@ body {
     }
 
     .preset-panel {
-      position: sticky;
-      top: 2.5rem;
-      /* Fija este elemento justo debajo de la cabecera */
-      z-index: 9;
-      /* Menor que el header */
+      
       height: 2rem;
       width: 100%;
     }
@@ -139,12 +130,12 @@ body {
         background-color: #2D2E37;
         border-radius: 10px;
         margin: 0.5rem;
-        min-height: 3.4rem;
+        min-height: 2.2rem;
 
         display: grid;
         grid-template-columns: 2fr 1fr 2fr;
 
-        width: 80%;
+        width: 65%;
         grid-column: 2 / 6;
 
         .midiTableCell {
@@ -152,14 +143,14 @@ body {
           align-content: center;
           font-family: Robo-flex;
           font-weight: 1000;
-          font-size: 1.4rem;
+          font-size: 1rem;
 
           &.Output {
-            color: #e1e1e1;
             text-align: left;
             border-radius: 0px 10px 10px 0px;
-
+            color:#56575F;
             &.MidiNote {
+              color: #e1e1e1;
               background: rgba(45, 46, 55, 1);
               background: linear-gradient(90deg, rgba(53, 87, 117, 1) 0%, rgba(53, 87, 117, 1) 0%, rgba(45, 46, 55, 1) 60%);
 
@@ -193,17 +184,16 @@ body {
 
             &.FullNull {
               background: rgba(45, 46, 55, 1) !important;
-              ;
             }
           }
 
           &.Input {
             border-radius: 10px 0px 0px 10px;
             height: 100%;
-            color: #e1e1e1;
             text-align: right;
-
+            color:#56575F;
             &.MidiNote {
+              color: #e1e1e1;
               background: rgba(45, 46, 55, 1);
               background: linear-gradient(90deg, rgba(45, 46, 55, 1) 0%, rgba(125, 58, 65, 1) 100%, rgba(125, 58, 65, 1) 100%);
             }
@@ -250,9 +240,9 @@ body {
 
 
 .circle {
-  width: 10px;
+  width: 8px;
   /* Ancho del círculo */
-  height: 10px;
+  height: 8px;
   /* Alto del círculo */
   border-radius: 50%;
   /* Hace que el elemento sea un círculo */

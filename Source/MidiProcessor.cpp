@@ -129,20 +129,24 @@ void MidiProcessor::loadTranslationMapFromValueTree(juce::ValueTree mapTree) {
 		};
 		translationTableV.push_back(row);
 	}
-	translationMap = translationMap	translationTable = translationTableV;
+	translationMap = translationMap;
+	translationTable = translationTableV;
 
 	notify("translationMidiTable", translationTable);
-;
+
+	static const juce::Identifier EVENT_ID("exampleEvent");
+
+
 }
 
 void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 
-	TranslationMidiTable translationTable
+	TranslationMidiTable translationTableV;
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
 		auto vectorEntry = mapTree.getChild(i);
-		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDnumberI"), vectorEntry.getProperty("inputMIDr"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber") };
-		translationTablVe.push_back(value);
+		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber") };
+		translationTableV.push_back(value);
 	}
-	translationTable = translationTablV;
-	notify("translationMidiTable", translationTable)e;
+	translationTable = translationTableV;
+	notify("translationMidiTable", translationTable);
 }

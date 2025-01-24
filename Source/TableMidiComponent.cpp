@@ -11,8 +11,8 @@
 #include "TableMidiComponent.h"
 
 
-MidiTableComponent::MidiTableComponent(TranslationMidiTable& events, std::function<void(int, const juce::String&)> updateMidiEvent)
-	: midiEventList(events), updateMidiEvent(updateMidiEvent) // Inicializacin de la referencia
+MidiTableComponent::MidiTableComponent(TranslationMidiTable& events, std::function<void(int, const juce::String&)> updateMidiEvent, juce::WebBrowserComponent& webView)
+	: midiEventList(events), updateMidiEvent(updateMidiEvent), webView(webView) // Inicializacin de la referencia
 {
 	// Hacer visible la tabla
 
@@ -101,11 +101,15 @@ void MidiTableComponent::paintCell(juce::Graphics& g, int rowNumber, int columnI
 //	midiTable.updateContent();
 //}
 
-void MidiTableComponent::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTablejuce::String>& payload)
+void MidiTableComponent::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& payload)
 {
 	if (identifier == "translationMidiTable")
 	{
 		midiTable.updateContent();
+		static const juce::Identifier EVENT_ID("translationMidiTable");
+		VariantWrapper payloadWrapper{ payload };
+		webView.emitEventIfBrowserIsVisible(EVENT_ID, payloadWrapper.toVar());
+		
 	}
 }
 

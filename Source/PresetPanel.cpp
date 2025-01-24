@@ -77,7 +77,7 @@ void PresetPanel::buttonClicked(juce::Button* button) {
 }
 
 
-void PresetPanel::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String>& preset) {
+void PresetPanel::onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& preset) {
 	if (identifier == "presetChange")
 	{
 
