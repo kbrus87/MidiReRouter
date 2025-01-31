@@ -19,16 +19,30 @@
 #include "Broadcaster.h"
 #include "constants.h"
 
-class MidiProcessor :  public Broadcaster //, public juce::ChangeBroadcaster
+class MidiProcessor : public Broadcaster //, public juce::ChangeBroadcaster
 {
 public:
 	MidiProcessor();
 
 	void process(juce::MidiBuffer& midiMessages);
+
 	void setTranslationTable(TranslationMidiTable table);
 	void setTranslationMap(std::map<int, int> map);
+
+
+	// translationMap modifiers;
+	TranslationMidiTable addTranslationBlock();
+	TranslationMidiTable removeTranslationBlock(int index);
+	void clearTranslationTable();
+
+	// Sets the output/input midi note for a block by text name
 	void setOutputMidi(int index, juce::String midiName);
+	void setInputMidi(int index, juce::String midiName);
+
+
 	const TranslationMidiTable getTranslationTable() const; //;
+
+
 	const std::map<int, int>* getTranslationMapPointer() const { return &translationMap; };
 	const std::map<int, int> getTranslationMap() const { return translationMap; };
 
@@ -46,5 +60,5 @@ private:
 	juce::MidiBuffer processedBuffer;
 	juce::WebBrowserComponent webView;
 
-	void setTranslationMap();
+	void updateTranslationMap();
 };

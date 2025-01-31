@@ -10,12 +10,13 @@
 
 #include "MidiProcessor.h"
 MidiProcessor::MidiProcessor() {
-	setTranslationMap();
+	updateTranslationMap();
 }
 
-void MidiProcessor::setTranslationMap() {
-	for (auto i : translationTable) {
-		numberToName.count(i.outputMIDInumber) > 0 ? translationMap[i.inputMIDInumber] = i.outputMIDInumber : translationMap[i.inputMIDInumber] = i.inputMIDInumber;
+void MidiProcessor::updateTranslationMap() {
+	translationMap.clear();
+	for (const auto& i : translationTable) {
+		if (i.active) translationMap[i.inputMIDInumber] = numberToName.count(i.outputMIDInumber) > 0 ? i.outputMIDInumber : i.inputMIDInumber;
 	}
 }
 
@@ -49,7 +50,7 @@ void MidiProcessor::process(juce::MidiBuffer& midiMessages)
 
 void MidiProcessor::setTranslationTable(TranslationMidiTable table) {
 	translationTable = table;
-
+	updateTranslationMap();
 	//sendChangeMessage();
 	notify("translationMidiTable", table);
 }
@@ -78,7 +79,26 @@ void MidiProcessor::setOutputMidi(int index, juce::String midiName)
 			DBG("MidiNota no encontrada " << midiName);
 		}
 	}
-	setTranslationMap();
+	updateTranslationMap();
+}
+
+void MidiProcessor::setInputMidi(int index, juce::String midiName)
+{
+	std::string note = midiName.toStdString();
+
+	std::regex midiNoteRegex(midiNameRegex);
+	bool isNoteName = std::regex_match(note, midiNoteRegex);
+
+	translationTable[index].inputMIDI = midiName;
+	if (isNoteName) {
+		try {
+			translationTable[index].inputMIDInumber = nameToNumber.at(note);
+		}
+		catch (const std::out_of_range& oor) {
+			DBG("MidiNota no encontrada " << midiName);
+		}
+	}
+	updateTranslationMap();
 }
 
 juce::ValueTree MidiProcessor::translationMapToValueTree() {
@@ -100,6 +120,7 @@ juce::ValueTree MidiProcessor::translationTableToValueTree() {
 		vectorEntry.setProperty("inputMIDI", item.inputMIDI, nullptr);
 		vectorEntry.setProperty("outputMIDI", item.outputMIDI, nullptr);
 		vectorEntry.setProperty("outputMIDInumber", item.outputMIDInumber, nullptr);
+		vectorEntry.setProperty("active", item.active, nullptr);
 
 		vectorTree.addChild(vectorEntry, -1, nullptr);
 	}
@@ -109,7 +130,7 @@ juce::ValueTree MidiProcessor::translationTableToValueTree() {
 void MidiProcessor::loadTranslationMapFromValueTree(juce::ValueTree mapTree) {
 
 	std::map<int, int> translationMap;
-	TranslationMidiTable translationTableV;
+
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
 		auto entry = mapTree.getChild(i);
 
@@ -121,32 +142,44 @@ void MidiProcessor::loadTranslationMapFromValueTree(juce::ValueTree mapTree) {
 		translationMap[key] = value;
 
 		// Crear la fila y aadirla al vector
-		MidiTranslationRow row = {
-			key,
-			juce::MidiMessage::getMidiNoteName(key, true, true, 4),
-			juce::MidiMessage::getMidiNoteName(value, true, true, 4),
-			value
-		};
-		translationTableV.push_back(row);
+
 	}
 	translationMap = translationMap;
-	translationTable = translationTableV;
-
-	notify("translationMidiTable", translationTable);
-
-	static const juce::Identifier EVENT_ID("exampleEvent");
-
-
 }
 
 void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 
 	TranslationMidiTable translationTableV;
+	std::map<int, int> loadedTranslationMap;
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
 		auto vectorEntry = mapTree.getChild(i);
-		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber") };
+		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber"), vectorEntry.getProperty("active") };
 		translationTableV.push_back(value);
 	}
+
 	translationTable = translationTableV;
+	updateTranslationMap();
 	notify("translationMidiTable", translationTable);
+}
+
+TranslationMidiTable MidiProcessor::addTranslationBlock() {
+	auto& table = translationTable;
+	MidiTranslationRow row;
+	table.push_back(row);
+
+	this->setTranslationTable(table);
+	return table;
+}
+
+TranslationMidiTable MidiProcessor::removeTranslationBlock(int index) {
+	auto& table = translationTable;
+	if (index >= 0 && index < static_cast<int>(table.size())) {
+		table.erase(table.begin() + index); // Convertir índice a iterador
+		this->setTranslationTable(table);
+	}
+	return table;
+}
+
+void MidiProcessor::clearTranslationTable() {
+	setTranslationTable({});
 }
