@@ -21,6 +21,9 @@ public:
 
 	void configureButton(juce::Button&,const juce::String&, juce::Colour);
 	void resized() override;
+	Service::PresetManager getPresetManager() { return presetManager; };
+
+	juce::String presetFunction(juce::String);
 
 	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& preset);
 private:

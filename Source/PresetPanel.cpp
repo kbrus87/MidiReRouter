@@ -45,6 +45,19 @@ void PresetPanel::resized() {
 	presetLabel.setFont(juce::Font(juce::jmin(bounds.getWidth(), bounds.getHeight()) * 0.5f));
 }
 
+juce::String PresetPanel::presetFunction(juce::String button) {
+	if (button == "saveButton") {
+		saveButton.triggerClick();
+
+		return presetManager.getCurrentPreset();
+	}
+
+	if (button == "loadButton") {
+		loadButton.triggerClick();
+		return presetManager.getCurrentPreset();
+	}
+}
+
 
 void PresetPanel::buttonClicked(juce::Button* button) {
 	if (button == &saveButton) {

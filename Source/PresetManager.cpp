@@ -39,6 +39,9 @@ namespace Service {
 			DBG("PROBLEMA AL ESCRIBIR " + presetFile.getFullPathName());
 			jassertfalse;
 		}
+		else {
+			notify("presetChange", presetName);
+		}
 	}
 
 	void PresetManager::loadPreset(juce::String presetName) {

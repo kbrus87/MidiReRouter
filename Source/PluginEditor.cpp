@@ -53,20 +53,38 @@ namespace {
 const juce::String LOCAL_DEV = "http://localhost:3000/";
 //==============================================================================
 MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
-	: AudioProcessorEditor(&p), audioProcessor(p), midiProcessor(p.getMidiProcessor()), webView(juce::WebBrowserComponent::Options{}
+	: AudioProcessorEditor(&p),
+	audioProcessor(p),
+	midiProcessor(p.getMidiProcessor()),
+	presetPanel(p.getPresetManager()),
+	webView(juce::WebBrowserComponent::Options{}
 		.withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
 		.withWinWebView2Options(juce::WebBrowserComponent::Options::WinWebView2{}.withUserDataFolder(juce::File::getSpecialLocation(juce::File::tempDirectory)))
 		.withResourceProvider([this](const auto& url) {
 			return getResource(url);
 			}, juce::URL{ LOCAL_DEV }.getOrigin())
 		.withNativeIntegrationEnabled()
-	),
-	midiTableComponent(
+		.withNativeFunction(juce::Identifier{ "addTranslationBlock" }, [this](const juce::Array<juce::var>&, juce::WebBrowserComponent::NativeFunctionCompletion)
+			{
+				midiProcessor.addTranslationBlock();
+			})
+		.withNativeFunction(juce::Identifier{ "removeTranslationBlock" }, [this](const juce::Array<juce::var>& index, juce::WebBrowserComponent::NativeFunctionCompletion)
+			{
+				midiProcessor.removeTranslationBlock(index[0]);
+			})
+		.withNativeFunction(juce::Identifier{ "clearTranslationTable" }, [this](const juce::Array<juce::var>&, juce::WebBrowserComponent::NativeFunctionCompletion)
+			{
+				midiProcessor.clearTranslationTable();
+			})
+		.withNativeFunction(juce::Identifier{ "presetFunction" }, [this](const juce::Array<juce::var>& buttonName, juce::WebBrowserComponent::NativeFunctionCompletion completion) {
+				juce::String presetName = presetPanel.presetFunction(buttonName[0]);
+				completion(presetName);
+			})
+	), midiTableComponent(
 		midiProcessor.translationTable,
 		std::bind(&MidiProcessor::setOutputMidi, &midiProcessor, std::placeholders::_1, std::placeholders::_2),
 		webView
-	),
-	presetPanel(p.getPresetManager())
+	)
 {
 	//midiProcessor.addChangeListener(&midiTableComponent);
 	midiProcessor.addListener(&midiTableComponent);
@@ -87,7 +105,7 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	//webView.goToURL(webView.getResourceProviderRoot());
 
 	setResizable(true, true);
-	setSize(midiTableComponent.getWidth()*2.2, 500);
+	setSize(midiTableComponent.getWidth() * 2.2, 500);
 }
 
 MidiRouterProcessorEditor::~MidiRouterProcessorEditor()
