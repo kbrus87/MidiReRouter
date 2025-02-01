@@ -15,7 +15,7 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
                     const isInputNull = t.inputMIDI?.trim() === "" || !t.inputMIDI;
                     const isOutputNull = t.outputMIDI?.trim() === "" || !t.outputMIDI;
 
-                    return <div className="midiTableRow">
+                    return <div key={t.inputMIDInumber + "_" + t.outputMIDInumber} className="midiTableRow">
                         <div className={`midiTableCell Input  ${isInputNull ? "MidiNull" : "MidiNote"}`}>{isInputNull ? ".." : t.inputMIDI}</div>
                         <div className={`midiTableCell Link ${isInputNull ? isOutputNull ? "FullNull" : "LeftNull" : isOutputNull ? "RightNull" : "LeftNote"} `}>
                             <div className={`circle ${isInputNull ? "red" : "active-red"}`}></div>

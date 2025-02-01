@@ -56,7 +56,7 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	: AudioProcessorEditor(&p),
 	audioProcessor(p),
 	midiProcessor(p.getMidiProcessor()),
-	presetPanel(p.getPresetManager()),
+	
 	webView(juce::WebBrowserComponent::Options{}
 		.withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
 		.withWinWebView2Options(juce::WebBrowserComponent::Options::WinWebView2{}.withUserDataFolder(juce::File::getSpecialLocation(juce::File::tempDirectory)))
@@ -77,10 +77,9 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 				midiProcessor.clearTranslationTable();
 			})
 		.withNativeFunction(juce::Identifier{ "presetFunction" }, [this](const juce::Array<juce::var>& buttonName, juce::WebBrowserComponent::NativeFunctionCompletion completion) {
-				juce::String presetName = presetPanel.presetFunction(buttonName[0]);
-				completion(presetName);
+				presetPanel.presetFunction(buttonName[0]);
 			})
-	), midiTableComponent(
+	), presetPanel(p.getPresetManager(), webView), midiTableComponent(
 		midiProcessor.translationTable,
 		std::bind(&MidiProcessor::setOutputMidi, &midiProcessor, std::placeholders::_1, std::placeholders::_2),
 		webView
@@ -196,6 +195,7 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 
 		// Asignar el array al objeto data
 		data->setProperty("translationTable", tableArray);
+		data->setProperty("preset", presetPanel.getPresetManager().getCurrentPreset());
 
 		const auto string = juce::JSON::toString(data.get());
 		juce::MemoryInputStream stream{ string.getCharPointer(), string.getNumBytesAsUTF8(), false };

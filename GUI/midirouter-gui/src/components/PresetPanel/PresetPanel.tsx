@@ -1,30 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as juce from "juce";
 
-const PresetPanel: React.FC = () => {
-    const [presetName, setPresetName] = useState<string>('No Preset');
+const PresetPanel: React.FC<{ presetName: string; }> = ({ presetName }) => {
 
     const clickButton = juce.getNativeFunction("presetFunction");
-    // Función para cargar el preset (se invoca la función nativa "loadPreset")
     const handleLoadPreset = async () => {
         try {
-            // Llamada a la función nativa; ajusta el nombre de la función y los argumentos según tu configuración
-            const result = await clickButton("loadButton");
-            console.log(result)
-            // Suponemos que la función retorna el nombre del preset cargado
-            setPresetName(result);
+            await clickButton("loadButton");
+
         } catch (error) {
             console.error("Error al cargar preset:", error);
         }
     };
 
-    // Función para guardar el preset (se invoca la función nativa "savePreset")
     const handleSavePreset = async () => {
         try {
-            const result = await clickButton("saveButton");
-            console.log(result)
-            // Suponemos que la función retorna el nombre del preset cargado
-            setPresetName(result);
+            await clickButton("saveButton");
         } catch (error) {
             console.error("Error al guardar preset:", error);
         }

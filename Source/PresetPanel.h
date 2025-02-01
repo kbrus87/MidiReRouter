@@ -16,7 +16,7 @@
 class PresetPanel : public juce::Component, public juce::Button::Listener, public Listener
 {
 public:
-	PresetPanel(Service::PresetManager&);
+	PresetPanel(Service::PresetManager&, juce::WebBrowserComponent&);
 	~PresetPanel();
 
 	void configureButton(juce::Button&,const juce::String&, juce::Colour);
@@ -28,6 +28,7 @@ public:
 	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& preset);
 private:
 	Service::PresetManager& presetManager;
+	juce::WebBrowserComponent& webView;
 	void buttonClicked(juce::Button*) override;
 	juce::TextButton saveButton, loadButton;
 	std::unique_ptr<juce::FileChooser> fileChooser;

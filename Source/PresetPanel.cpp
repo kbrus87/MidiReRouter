@@ -10,7 +10,7 @@
 
 #include "PresetPanel.h"
 
-PresetPanel::PresetPanel(Service::PresetManager& presetManager) :presetManager(presetManager) {
+PresetPanel::PresetPanel(Service::PresetManager& presetManager, juce::WebBrowserComponent& webView) :presetManager(presetManager), webView(webView) {
 
 	configureButton(saveButton, "Save Preset", juce::Colour::fromRGB(23, 34, 125));
 	configureButton(loadButton, "Load Preset", juce::Colour::fromRGB(23, 34, 125));
@@ -48,7 +48,6 @@ void PresetPanel::resized() {
 juce::String PresetPanel::presetFunction(juce::String button) {
 	if (button == "saveButton") {
 		saveButton.triggerClick();
-
 		return presetManager.getCurrentPreset();
 	}
 
@@ -112,5 +111,11 @@ void PresetPanel::onEvent(const std::string& identifier, const std::variant<int,
 
 		presetLabel.setText(presetText, juce::NotificationType::sendNotification);
 		presetLabel.repaint();
+
+
+		// to comunicate to webView
+		static const juce::Identifier EVENT_ID("presetChange");
+		VariantWrapper payloadWrapper{ preset };
+		webView.emitEventIfBrowserIsVisible(EVENT_ID, payloadWrapper.toVar());
 	}
 }
