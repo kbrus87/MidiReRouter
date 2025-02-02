@@ -13,6 +13,8 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
         nativeRemoveBlock(JSON.stringify(row))
     }
 
+
+
     return <div className="midiTable">
         <div className="midiTableHeader">
             <div className="midiTableHeaderColumnInput"></div>
@@ -33,9 +35,9 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
                             </div>
                         </div>
                         <div key={t.inputMIDInumber + "_" + t.outputMIDInumber} className="midiTableRow">
-                            <div className={`midiTableCell Input  ${isInputNull ? "MidiNull" : "MidiNote"}`}>{isInputNull ? ".." : t.inputMIDI}</div>
+                            <MidiTextInput row={t} modifyBlock={modifyBlock} isValid={isInputNull} className={"Input"} />
                             <MidiLink row={t} modifyBlock={modifyBlock} isInputNull={isInputNull} isOutputNull={isOutputNull} isActive={t.active} />
-                            <div className={`midiTableCell Output  ${isOutputNull ? "MidiNull" : "MidiNote"}`}>{isOutputNull ? ".." : t.outputMIDI}</div>
+                            <MidiTextInput row={t} modifyBlock={modifyBlock} isValid={isOutputNull} className={"Output"} />
                         </div>
                     </>
                 })
@@ -64,4 +66,30 @@ function MidiLink({ row, isInputNull, isOutputNull, isActive, modifyBlock }: { r
     </div>
 }
 
+function MidiTextInput({ row, isValid, modifyBlock, className }: { row: MidiTableEventRow, isValid: boolean; modifyBlock: (row: MidiTableEventRow) => void, className: string }) {
+
+    const handleMIDIInputChange = (newValue) => {
+        // Aquí puedes hacer algo con el nuevo valor del input MIDI
+        console.log(newValue);
+    }
+
+    return <div style={{ position: "relative" }} className={`midiTableCell  ${className} ${isValid ? "MidiNull" : "MidiNote"}`}>
+        <input
+            type="text"
+            value={isValid ? "" : row.outputMIDI}
+            onChange={(e) => handleMIDIInputChange(e.target.value)} // Tu función para manejar el cambio
+            style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                backgroundColor: "transparent", // Hace el fondo transparente
+                border: "none", // Quitamos el borde
+                color: "inherit", // Mantenemos el color del texto
+                textAlign: "inherit", // Heredamos la alineación del texto
+                // pointerEvents: isInteractive ? "auto" : "none", // Permite alternar interacción según 'isInteractive'
+            }} />
+    </div>
+}
 export default MidiTableComponent
