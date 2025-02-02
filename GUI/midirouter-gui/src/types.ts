@@ -5,6 +5,7 @@ declare global {
     __JUCE__: JUCE;
   }
   interface MidiTableEventRow {
+    id:number;
     inputMIDI: string;
     inputMIDInumber: number;
     outputMIDI: string;

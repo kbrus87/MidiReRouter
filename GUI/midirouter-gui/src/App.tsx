@@ -36,6 +36,7 @@ function App() {
           <PresetPanel presetName={presetName} />
         </div>
         <div style={{ gridRow: "4/-1" }} >
+          <button onClick={()=>juce.getNativeFunction("clearTranslationTable")()}>Clear</button>
           <MidiTableComponent translationTable={translationTable} />
         </div>
       </div>
