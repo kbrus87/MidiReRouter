@@ -31,7 +31,7 @@ namespace Service {
 	void PresetManager::savePreset(juce::String presetName) {
 		if (presetName.isEmpty()) return;
 
-		const auto xml = midiProcessor.translationMapToValueTree().createXml();
+		const auto xml = midiProcessor.translationTableToValueTree().createXml();
 		const auto presetFile = defaultDirectory.getChildFile(presetName + "." + extension);
 
 		currentPreset = juce::String(presetName);
@@ -53,7 +53,7 @@ namespace Service {
 		juce::XmlDocument xmlDocument{ presetFile };
 		const auto valueTreeToLoad = juce::ValueTree::fromXml(*xmlDocument.getDocumentElement()); 
 		
-		midiProcessor.loadTranslationMapFromValueTree(valueTreeToLoad);
+		midiProcessor.loadTranslationTableFromValueTree(valueTreeToLoad);
 		currentPreset = juce::String(presetName);
 		notify("presetChange", presetName);
 	}

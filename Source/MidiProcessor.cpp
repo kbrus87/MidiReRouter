@@ -153,7 +153,7 @@ void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 	std::map<int, int> loadedTranslationMap;
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
 		auto vectorEntry = mapTree.getChild(i);
-		MidiTranslationRow value = { vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber"), vectorEntry.getProperty("active") };
+		MidiTranslationRow value = { i + 1, vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber"), vectorEntry.getProperty("active") };
 		translationTableV.push_back(value);
 	}
 
@@ -162,21 +162,62 @@ void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 	notify("translationMidiTable", translationTable);
 }
 
-TranslationMidiTable MidiProcessor::addTranslationBlock() {
+TranslationMidiTable MidiProcessor::addTranslationBlock(const MidiTranslationRow& descriptor) {
 	auto& table = translationTable;
-	MidiTranslationRow row;
+
+	// Encontrar el ID máximo actualmente en la tabla
+	int maxId = 0;
+	if (!table.empty()) {
+		maxId = std::max_element(table.begin(), table.end(), [](const auto& a, const auto& b) {
+			return a.id < b.id; // Comparar IDs
+			})->id;
+	}
+	// Crear un nuevo bloque con el ID incrementado
+	MidiTranslationRow row = descriptor;
+	row.id = maxId + 1; // Asignar un nuevo ID único
+	DBG(maxId);
+
+	// Insertar el elemento en la tabla
 	table.push_back(row);
 
+	// Actualizar la tabla dentro del objeto
 	this->setTranslationTable(table);
+
+	return table; // Retornar la tabla actualizada
+}
+
+TranslationMidiTable MidiProcessor::modifyTranslationRow(const MidiTranslationRow& descriptor) {
+	auto& table = translationTable;
+
+	MidiTranslationRow row = descriptor;
+	int index = findIndex(table, [&descriptor](const MidiTranslationRow& row) {
+		return row.id == descriptor.id;
+	});;
+
+	if (index != -1) {
+		table[index] = descriptor;
+		this->setTranslationTable(table);
+	}
+	else {
+		std::cerr << "Error: No se encontró el elemento con id = " << descriptor.id << ".\n";
+	}
+
 	return table;
 }
 
-TranslationMidiTable MidiProcessor::removeTranslationBlock(int index) {
+TranslationMidiTable MidiProcessor::removeTranslationBlock(int id) {
 	auto& table = translationTable;
-	if (index >= 0 && index < static_cast<int>(table.size())) {
-		table.erase(table.begin() + index); // Convertir índice a iterador
+
+	// Buscar el elemento con el campo id == id y eliminarlo
+	auto it = std::find_if(table.begin(), table.end(), [id](const auto& item) {
+		return item.id == id;
+		});
+
+	if (it != table.end()) {
+		table.erase(it); // Eliminar el elemento encontrado
 		this->setTranslationTable(table);
 	}
+
 	return table;
 }
 

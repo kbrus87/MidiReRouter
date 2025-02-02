@@ -84,7 +84,8 @@ void PresetPanel::buttonClicked(juce::Button* button) {
 			const auto result = chooser.getResult();
 
 			presetManager.loadPreset(result.getFileNameWithoutExtension());
-			});
+			}
+		);
 	}
 }
 

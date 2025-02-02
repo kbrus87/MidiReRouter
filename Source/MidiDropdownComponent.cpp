@@ -60,12 +60,13 @@ void MidiDropdownComponent::addInMidiNote(juce::String midiNoteName, MidiProcess
     if (midiNoteName.isEmpty())return;
 
     MidiEventElement selectedInMidiNote = MidiDropdownComponent::getSelectedMidiNote(midiNoteName);
-    TranslationMidiTable transMidiList = midiProcessor.getTranslationTable();
+    //TranslationMidiTable transMidiList = midiProcessor.getTranslationTable();
 
-    MidiTranslationRow newMidiEventRow = { selectedInMidiNote.midiNumber, selectedInMidiNote.midiName, "", 0};
-
-    transMidiList.push_back(newMidiEventRow);
-    midiProcessor.setTranslationTable(transMidiList);
+    //MidiTranslationRow newMidiEventRow = { selectedInMidiNote.midiNumber, selectedInMidiNote.midiName, "", 0};
+    //transMidiList.push_back(newMidiEventRow);
+    //midiProcessor.setTranslationTable(transMidiList);
+    
+    midiProcessor.addTranslationBlock({0, selectedInMidiNote.midiNumber, selectedInMidiNote.midiName, "", 0, true });
     midiDropdown.setSelectedId(0);
     return ;
 }
@@ -77,7 +78,6 @@ void MidiDropdownComponent::resized()
     midiDropdown.setBounds(bounds.removeFromLeft(bounds.getWidth()*0.8f));  // El ComboBox ocupa el resto del espacio
     searchTextBox.setBounds(bounds.removeFromLeft(midiDropdown.getWidth()));  // Coloca el cuadro de búsqueda arriba
     
-
 }
 
 void MidiDropdownComponent::filterMidiEvents()

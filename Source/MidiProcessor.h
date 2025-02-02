@@ -31,9 +31,10 @@ public:
 
 
 	// translationMap modifiers;
-	TranslationMidiTable addTranslationBlock();
+	TranslationMidiTable addTranslationBlock(const MidiTranslationRow& descriptor = MidiTranslationRow());
 	TranslationMidiTable removeTranslationBlock(int index);
 	void clearTranslationTable();
+	TranslationMidiTable modifyTranslationRow(const MidiTranslationRow& descriptor = MidiTranslationRow());
 
 	// Sets the output/input midi note for a block by text name
 	void setOutputMidi(int index, juce::String midiName);
@@ -52,7 +53,7 @@ public:
 	void loadTranslationMapFromValueTree(juce::ValueTree mapTree);
 	void loadTranslationTableFromValueTree(juce::ValueTree mapTree);
 
-	TranslationMidiTable translationTable = { {48, "C2", "C1", 36} };
+	TranslationMidiTable translationTable = { {1, 48, "C2", "C1", 36, true} };
 
 
 private:

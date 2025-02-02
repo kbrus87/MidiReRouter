@@ -56,7 +56,7 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	: AudioProcessorEditor(&p),
 	audioProcessor(p),
 	midiProcessor(p.getMidiProcessor()),
-	
+
 	webView(juce::WebBrowserComponent::Options{}
 		.withBackend(juce::WebBrowserComponent::Options::Backend::webview2)
 		.withWinWebView2Options(juce::WebBrowserComponent::Options::WinWebView2{}.withUserDataFolder(juce::File::getSpecialLocation(juce::File::tempDirectory)))
@@ -77,7 +77,23 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 				midiProcessor.clearTranslationTable();
 			})
 		.withNativeFunction(juce::Identifier{ "presetFunction" }, [this](const juce::Array<juce::var>& buttonName, juce::WebBrowserComponent::NativeFunctionCompletion completion) {
-				presetPanel.presetFunction(buttonName[0]);
+			presetPanel.presetFunction(buttonName[0]);
+			})
+		.withNativeFunction(juce::Identifier{ "modifyTranslationBlock" }, [this](const juce::Array<juce::var>& row, juce::WebBrowserComponent::NativeFunctionCompletion completion) {
+
+			auto parsed(juce::JSON::parse(row[0].toString()));
+			auto dynamicObject = parsed.getDynamicObject();
+
+
+			MidiTranslationRow translationRow({
+					dynamicObject->getProperty("id"),                    // id
+					nameToNumber.at(dynamicObject->getProperty("inputMIDI").toString().toStdString()),
+					dynamicObject->getProperty("inputMIDI"),            // inputMIDI
+					dynamicObject->getProperty("outputMIDI"),           // outputMIDI
+					nameToNumber.at(dynamicObject->getProperty("outputMIDI").toString().toStdString()),     // outputMIDInumber
+					dynamicObject->getProperty("active")                // active
+			});
+			midiProcessor.modifyTranslationRow(translationRow);
 			})
 	), presetPanel(p.getPresetManager(), webView), midiTableComponent(
 		midiProcessor.translationTable,
@@ -184,10 +200,12 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 			juce::DynamicObject::Ptr entryObject{ new juce::DynamicObject{} };
 
 			// Asignar las propiedades del tuple al objeto
+			entryObject->setProperty("id", entry.id); // int
 			entryObject->setProperty("inputMIDI", entry.inputMIDI); // int
 			entryObject->setProperty("inputMIDInumber", entry.inputMIDInumber); // juce::String
 			entryObject->setProperty("outputMIDI", entry.outputMIDI); // juce::String
 			entryObject->setProperty("outputMIDInumber", entry.outputMIDInumber); // int
+			entryObject->setProperty("active", entry.active); // int
 
 			// Añadir el objeto al array
 			tableArray.add(juce::var(entryObject.get()));
