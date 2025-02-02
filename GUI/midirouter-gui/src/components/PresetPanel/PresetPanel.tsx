@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import * as juce from "juce";
 
 const PresetPanel: React.FC<{ presetName: string; }> = ({ presetName }) => {

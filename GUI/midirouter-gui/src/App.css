@@ -111,7 +111,7 @@ body {
     }
 
     .preset-panel {
-      
+
       height: 2rem;
       width: 100%;
     }
@@ -148,7 +148,8 @@ body {
           &.Output {
             text-align: left;
             border-radius: 0px 10px 10px 0px;
-            color:#56575F;
+            color: #56575F;
+
             &.MidiNote {
               color: #e1e1e1;
               background: rgba(45, 46, 55, 1);
@@ -191,7 +192,8 @@ body {
             border-radius: 10px 0px 0px 10px;
             height: 100%;
             text-align: right;
-            color:#56575F;
+            color: #56575F;
+
             &.MidiNote {
               color: #e1e1e1;
               background: rgba(45, 46, 55, 1);
@@ -266,4 +268,37 @@ body {
   &.blue {
     border: 2px solid #33769B;
   }
+}
+
+.delete-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 12px;
+  height: 12px;
+  background-color: #74767A;
+  /* Rojo vibrante para indicar eliminar */
+  color: white;
+  font-weight: bold;
+  font-size: 8px;
+  border: none;
+  border-radius: 50%;
+  /* Hace que el botón sea circular */
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.delete-button:hover {
+  background-color: #1F5E82;
+  /* Color más oscuro al pasar el mouse */
+  transform: scale(1.1);
+  /* Aumenta el tamaño ligeramente al pasar el mouse */
+}
+
+.delete-button:active {
+  background-color: #cc3333;
+  /* Color más oscuro al hacer clic */
+  transform: scale(0.95);
+  /* Pequeña reducción de tamaño al hacer clic */
 }

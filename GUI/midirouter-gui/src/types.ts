@@ -9,6 +9,7 @@ declare global {
     inputMIDInumber: number;
     outputMIDI: string;
     outputMIDInumber: number;
+    active:boolean;
   }
 }
 
