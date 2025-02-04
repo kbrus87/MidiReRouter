@@ -6,6 +6,8 @@ import * as juce from "juce";
 import Header from 'components/Header/Header';
 import MidiTableComponent from 'components/MidiTableComponent/MidiTableComponent';
 
+import { ReactComponent as Add } from "assets/svg/add.svg";
+
 function App() {
   const [translationTable, setTranslationTable] = useState([])
   const [presetName, setPresetName] = useState<string>('No Preset');
@@ -31,12 +33,12 @@ function App() {
   return (
     <div className="App">
       <div className="main-container">
-        <div style={{zIndex:10000, gridRow: "1/2", position: "sticky", background: "#1F1F23", top: 0, minHeight: "fit-content" }} >
+        <div style={{ zIndex: 10000, gridRow: "1/2", position: "sticky", background: "#1F1F23", top: 0, minHeight: "fit-content" }} >
           <Header />
           <PresetPanel presetName={presetName} />
           <div className="buttons-actions">
-            <button className="buttons-actions button clear" onClick={() => juce.getNativeFunction("clearTranslationTable")()}>Clear</button>
-            <button className="buttons-actions button add" onClick={() => juce.getNativeFunction("addTranslationBlock")()}>Add Midi Route</button>
+            <div className="buttons-actions button clear" onClick={() => juce.getNativeFunction("clearTranslationTable")()}>Clear</div>
+            <div className="buttons-actions button add" onClick={() => juce.getNativeFunction("addTranslationBlock")()}><Add className="add-icon" /></div>
           </div>
         </div>
         <div style={{ gridRow: "4/-1" }} >

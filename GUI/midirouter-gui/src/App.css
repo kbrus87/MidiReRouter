@@ -306,9 +306,44 @@ body {
 
 .buttons-actions {
   margin-top: 0.3rem;
-  padding-bottom: 0.3rem;
+
   display: flex;
   justify-content: flex-start;
+
+  &.button{
+    margin-right:0.4rem;
+  }
+
+  &.button.add {
+    cursor: pointer;
+    background-color: #454653;
+    border-radius: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem;
+
+    .add-icon {
+      height: 20px;
+      width: 20px;
+      stroke: #e1e1e1;
+    }
+  }
+
+  &.button.clear {
+    cursor: pointer;
+    background-color: #454653;
+    border-radius: 4px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.2rem 0.5rem;
+
+    font-size: 0.9rem;
+    color: #e1e1e1;
+  }
 }
 
 .presetPanelBar {
@@ -318,7 +353,7 @@ body {
   height: 2rem;
 
   &.presetName {
-    width: 58%;
+    width: 59%;
     background-color: #33333a;
     padding: 0 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -330,6 +365,7 @@ body {
     display: flex;
     justify-content: space-around;
     width: 40%;
+    max-width: 150px;
 
     &.save {
       cursor: pointer;
@@ -337,9 +373,13 @@ body {
       border-radius: 4px;
       width: 32px;
 
+      &:hover {
+        background-color: #555555;
+      }
+
       .save-icon {
-        width: 16px;
-        height: 16px;
+        width: 13px;
+        height: 13px;
         fill: #e1e1e1;
         /* Cambia el color del SVG */
         stroke: white;
@@ -348,22 +388,27 @@ body {
     }
 
     &.load {
-      width:70%;
+      width: 70%;
       cursor: pointer;
       background-color: #454653;
 
+      &:hover {
+        background-color: #555555;
+      }
+
       border-radius: 4px;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color:#e1e1e1;
 
       display: flex;
       padding:3px;
+
       .load-icon {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         fill: #e1e1e1;
         /* Cambia el color del SVG */
-        stroke: white;
+        stroke: #555555;
         /* Agrega borde si aplica */
       }
     }
