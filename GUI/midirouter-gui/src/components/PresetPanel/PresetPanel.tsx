@@ -1,7 +1,7 @@
 import React from 'react';
 import * as juce from "juce";
 
-import { ReactComponent as Save } from "assets/svg/save.svg";
+import { ReactComponent as Save } from "assets/svg/save2.svg";
 import { ReactComponent as Load } from "assets/svg/load.svg";
 
 const PresetPanel: React.FC<{ presetName: string; }> = ({ presetName }) => {

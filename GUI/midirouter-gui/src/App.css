@@ -310,11 +310,12 @@ body {
   display: flex;
   justify-content: flex-start;
 
-  &.button{
-    margin-right:0.4rem;
+  &.button {
+    margin-right: 0.4rem;
   }
 
   &.button.add {
+    position: relative;
     cursor: pointer;
     background-color: #454653;
     border-radius: 4px;
@@ -328,6 +329,27 @@ body {
       height: 20px;
       width: 20px;
       stroke: #e1e1e1;
+    }
+
+    .addhelp {
+      position: absolute;
+      visibility: hidden;
+    }
+
+    &:hover {
+
+      background-color: #555555;
+
+      .addhelp {
+        visibility: visible;
+        width: max-content;
+
+        font-size: 0.8rem;
+        color: white;
+        left: 20px;
+        bottom: -10px;
+        background-color: #1f5e826e;
+      }
     }
   }
 
@@ -343,6 +365,10 @@ body {
 
     font-size: 0.9rem;
     color: #e1e1e1;
+
+    &:hover{
+      background-color: #555555;
+    }
   }
 }
 
@@ -382,7 +408,7 @@ body {
         height: 13px;
         fill: #e1e1e1;
         /* Cambia el color del SVG */
-        stroke: white;
+        /* stroke: white; */
         /* Agrega borde si aplica */
       }
     }
