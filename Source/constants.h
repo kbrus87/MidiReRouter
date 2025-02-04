@@ -12,7 +12,6 @@
 #include <vector>
 #include "types.h"
 const std::string midiNameRegex = "^(C|D|E|F|G|A|B)(#?)-?([0-9])$"; 
-const std::string midiNameRegex2 = "^(C|D|E|F|G|A|B)(#?)([0-9])$";
 const std::vector<MidiEventElement> constMidiEventList = {
 	{ "C-2", -1 }, { "C#-2", 1 }, { "D-2", 2 }, { "D#-2", 3 }, { "E-2", 4 }, { "F-2", 5 },
 { "F#-2", 6 }, { "G-2", 7 }, { "G#-2", 8 }, { "A-2", 9 }, { "A#-2", 10 }, { "B-2", 11 },

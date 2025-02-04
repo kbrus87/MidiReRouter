@@ -278,7 +278,7 @@ body {
   height: 12px;
   background-color: #74767A;
   /* Rojo vibrante para indicar eliminar */
-  color: white;
+  color: #e1e1e1;
   font-weight: bold;
   font-size: 8px;
   border: none;
@@ -301,4 +301,71 @@ body {
   /* Color más oscuro al hacer clic */
   transform: scale(0.95);
   /* Pequeña reducción de tamaño al hacer clic */
+}
+
+
+.buttons-actions {
+  margin-top: 0.3rem;
+  padding-bottom: 0.3rem;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.presetPanelBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 2rem;
+
+  &.presetName {
+    width: 58%;
+    background-color: #33333a;
+    padding: 0 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: #e1e1e1;
+    border-radius: 8px;
+  }
+
+  &.buttonsPanel {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+
+    &.save {
+      cursor: pointer;
+      background-color: #454653;
+      border-radius: 4px;
+      width: 32px;
+
+      .save-icon {
+        width: 16px;
+        height: 16px;
+        fill: #e1e1e1;
+        /* Cambia el color del SVG */
+        stroke: white;
+        /* Agrega borde si aplica */
+      }
+    }
+
+    &.load {
+      width:70%;
+      cursor: pointer;
+      background-color: #454653;
+
+      border-radius: 4px;
+      font-size: 0.8rem;
+      color:#e1e1e1;
+
+      display: flex;
+      padding:3px;
+      .load-icon {
+        width: 24px;
+        height: 24px;
+        fill: #e1e1e1;
+        /* Cambia el color del SVG */
+        stroke: white;
+        /* Agrega borde si aplica */
+      }
+    }
+  }
 }

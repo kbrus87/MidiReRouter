@@ -1,4 +1,4 @@
-/*
+Ôªø/*
   ==============================================================================
 
 	This file contains the basic framework code for a JUCE plugin editor.
@@ -84,16 +84,34 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 			auto parsed(juce::JSON::parse(row[0].toString()));
 			auto dynamicObject = parsed.getDynamicObject();
 
+			juce::String outputMidi = dynamicObject->getProperty("outputMIDI");
+			juce::String inputMidi = dynamicObject->getProperty("inputMIDI");
 
+			auto iteratorOutputMidiNumber = nameToNumber.find(outputMidi.toStdString());
+			auto iteratorInputMidiNumber = nameToNumber.find(inputMidi.toStdString());
+
+			int outputMidiNumber = -1;
+			int inputMidiNumber = -1;
+
+			if (iteratorOutputMidiNumber != nameToNumber.end()) {
+				outputMidiNumber = iteratorOutputMidiNumber->second;  
+			}
+			if (iteratorInputMidiNumber != nameToNumber.end()) {
+				inputMidiNumber = iteratorInputMidiNumber->second;  
+			}
+
+			
 			MidiTranslationRow translationRow({
 					dynamicObject->getProperty("id"),                    // id
-					nameToNumber.at(dynamicObject->getProperty("inputMIDI").toString().toStdString()),
-					dynamicObject->getProperty("inputMIDI"),            // inputMIDI
-					dynamicObject->getProperty("outputMIDI"),           // outputMIDI
-					nameToNumber.at(dynamicObject->getProperty("outputMIDI").toString().toStdString()),     // outputMIDInumber
+					inputMidiNumber,
+					inputMidi,            // inputMIDI
+					outputMidi,           // outputMIDI
+					outputMidiNumber,     // outputMIDInumber
 					dynamicObject->getProperty("active")                // active
 			});
+
 			midiProcessor.modifyTranslationRow(translationRow);
+
 			})
 	), presetPanel(p.getPresetManager(), webView), midiTableComponent(
 		midiProcessor.translationTable,
@@ -136,16 +154,16 @@ void MidiRouterProcessorEditor::paint(juce::Graphics& g)
 	// Fondo del componente
 	g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 
-	// Calcular tamaÒo de fuente proporcional al tamaÒo del editor
+	// Calcular tama√±o de fuente proporcional al tama√±o del editor
 	float fontSize = getHeight() * 0.05f; // Por ejemplo, 5% de la altura
 	g.setColour(juce::Colours::white);
 	g.setFont(juce::FontOptions(fontSize));
 
-	// ¡reas din·micas basadas en proporciones del tamaÒo del editor
+	// √Åreas din√°micas basadas en proporciones del tama√±o del editor
 	juce::Rectangle<int> area(getWidth() * 0.4, getHeight() * 0.1, getWidth() * 0.8, fontSize);
 	juce::Rectangle<int> area2(getWidth() * 0.4, getHeight() * 0.1 + area.getHeight(), getWidth() * 0.8, fontSize);
 
-	// Dibujar texto con las ·reas redimensionadas
+	// Dibujar texto con las √°reas redimensionadas
 	g.drawFittedText("Midi Router", area, juce::Justification::centred, 1);
 
 	g.setFont(juce::FontOptions(fontSize * 0.8f));
@@ -164,9 +182,9 @@ void MidiRouterProcessorEditor::resized()
 	//midiTableComponent.setBounds(getLocalBounds().removeFromBottom(proportionOfHeight(0.78f)).reduced(8));
 	midiTableComponent.setBounds(
 		getLocalBounds()
-		.removeFromBottom(proportionOfHeight(0.78f)) // Define la altura seg˙n proportionOfHeight
+		.removeFromBottom(proportionOfHeight(0.78f)) // Define la altura seg√∫n proportionOfHeight
 		.removeFromLeft(getWidth() / 2) // Ajusta para ocupar solo la mitad izquierda
-		.reduced(8) // AÒade m·rgenes
+		.reduced(8) // A√±ade m√°rgenes
 	);
 
 	presetPanel.setBounds(getLocalBounds().removeFromTop(proportionOfHeight(0.07f)));
@@ -191,7 +209,7 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 
 	if (resourceToRetrieve == "data.json") {
 		juce::DynamicObject::Ptr data{ new juce::DynamicObject{} };
-		// Obtener la tabla de traducciÛn del midiProcessor
+		// Obtener la tabla de traducci√≥n del midiProcessor
 		auto translationTable = midiProcessor.getTranslationTable();
 		juce::Array<juce::var> tableArray;
 		// Convertir cada elemento del std::vector a juce::var
@@ -207,7 +225,7 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 			entryObject->setProperty("outputMIDInumber", entry.outputMIDInumber); // int
 			entryObject->setProperty("active", entry.active); // int
 
-			// AÒadir el objeto al array
+			// A√±adir el objeto al array
 			tableArray.add(juce::var(entryObject.get()));
 		}
 

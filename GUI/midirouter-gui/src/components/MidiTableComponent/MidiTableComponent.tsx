@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import * as juce from "juce";
 
+const regexp = new RegExp("^(C|D|E|F|G|A|B)(#?)-?([0-9])$");
 
 function MidiTableComponent({ translationTable }: { translationTable: MidiTableEventRow[] }) {
     const removeBlock = (id: number) => {
@@ -13,8 +14,6 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
         nativeRemoveBlock(JSON.stringify(row))
     }
 
-
-
     return <div className="midiTable">
         <div className="midiTableHeader">
             <div className="midiTableHeaderColumnInput"></div>
@@ -23,8 +22,8 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
         <div className="midiTableRows">
             {
                 translationTable.map((t) => {
-                    const isInputNull = t.inputMIDI?.trim() === "" || !t.inputMIDI;
-                    const isOutputNull = t.outputMIDI?.trim() === "" || !t.outputMIDI;
+                    const isInputValid = t.inputMIDI?.trim() === "" || !t.inputMIDI || !regexp.test(t.inputMIDI);
+                    const isOutputValid = t.outputMIDI?.trim() === "" || !t.outputMIDI || !regexp.test(t.outputMIDI);
 
                     return <>
                         <div key={t.id} style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
@@ -35,9 +34,9 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
                             </div>
                         </div>
                         <div key={t.inputMIDInumber + "_" + t.outputMIDInumber} className="midiTableRow">
-                            <MidiTextInput row={t} modifyBlock={modifyBlock} isValid={isInputNull} className={"Input"} />
-                            <MidiLink row={t} modifyBlock={modifyBlock} isInputNull={isInputNull} isOutputNull={isOutputNull} isActive={t.active} />
-                            <MidiTextInput row={t} modifyBlock={modifyBlock} isValid={isOutputNull} className={"Output"} />
+                            <MidiTextInput name="inputMIDI" row={t} modifyBlock={modifyBlock} isValid={isInputValid} className={"Input"} />
+                            <MidiLink row={t} modifyBlock={modifyBlock} isInputValid={isInputValid} isOutputValid={isOutputValid} isActive={t.active} />
+                            <MidiTextInput name="outputMIDI" row={t} modifyBlock={modifyBlock} isValid={isOutputValid} className={"Output"} />
                         </div>
                     </>
                 })
@@ -47,7 +46,7 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
 }
 
 
-function MidiLink({ row, isInputNull, isOutputNull, isActive, modifyBlock }: { row: MidiTableEventRow, isInputNull: boolean; isOutputNull: boolean; isActive: boolean; modifyBlock: (row: MidiTableEventRow) => void }) {
+function MidiLink({ row, isInputValid, isOutputValid, isActive, modifyBlock }: { row: MidiTableEventRow, isInputValid: boolean; isOutputValid: boolean; isActive: boolean; modifyBlock: (row: MidiTableEventRow) => void }) {
 
     const toggleActivate = () => {
         row['active'] = !isActive;
@@ -60,34 +59,45 @@ function MidiLink({ row, isInputNull, isOutputNull, isActive, modifyBlock }: { r
             <div className={`circle blue`}></div>
         </div>
     }
-    return <div onClick={toggleActivate} className={`midiTableCell Link ${isInputNull ? isOutputNull ? "FullNull" : "LeftNull" : isOutputNull ? "RightNull" : "LeftNote"} `}>
-        <div className={`circle ${isInputNull ? "red" : "active-red"}`}></div>
-        <div className={`circle ${isOutputNull ? "blue" : "active-blue"}`}></div>
+    return <div onClick={toggleActivate} className={`midiTableCell Link ${isInputValid ? isOutputValid ? "FullNull" : "LeftNull" : isOutputValid ? "RightNull" : "LeftNote"} `}>
+        <div className={`circle ${isInputValid ? "red" : "active-red"}`}></div>
+        <div className={`circle ${isOutputValid ? "blue" : "active-blue"}`}></div>
     </div>
 }
 
-function MidiTextInput({ row, isValid, modifyBlock, className }: { row: MidiTableEventRow, isValid: boolean; modifyBlock: (row: MidiTableEventRow) => void, className: string }) {
+function MidiTextInput({ name, row, isValid, modifyBlock, className }: { name: string; row: MidiTableEventRow, isValid: boolean; modifyBlock: (row: MidiTableEventRow) => void, className: string }) {
+    
+    const [value, setValue] = useState(row[name as keyof MidiTableEventRow] as string)
+    const [validNote, setValidNote] = useState(regexp.test(value));
 
-    const handleMIDIInputChange = (newValue) => {
-        // Aquí puedes hacer algo con el nuevo valor del input MIDI
-        console.log(newValue);
+    const handleMIDIInputChange = (newValue: string) => {
+        setValue(newValue)
+        setValidNote(regexp.test(newValue))
+    }
+
+    const handleBlur = () => {
+        const nRow: MidiTableEventRow = { ...row };
+        const key = name as keyof MidiTableEventRow;
+        (nRow[key] as string) = value;
+        modifyBlock(nRow);
     }
 
     return <div style={{ position: "relative" }} className={`midiTableCell  ${className} ${isValid ? "MidiNull" : "MidiNote"}`}>
         <input
             type="text"
-            value={isValid ? "" : row.outputMIDI}
-            onChange={(e) => handleMIDIInputChange(e.target.value)} // Tu función para manejar el cambio
+            value={value}
+            onChange={(e) => handleMIDIInputChange(e.target.value)} 
+            onBlur={() => handleBlur()}
             style={{
                 position: "absolute",
                 top: 0,
                 left: 0,
                 width: "100%",
                 height: "100%",
-                backgroundColor: "transparent", // Hace el fondo transparente
-                border: "none", // Quitamos el borde
-                color: "inherit", // Mantenemos el color del texto
-                textAlign: "inherit", // Heredamos la alineación del texto
+                backgroundColor: "transparent", 
+                border: "none", 
+                color: validNote ? "inherit" : "red", 
+                textAlign: "inherit", 
                 // pointerEvents: isInteractive ? "auto" : "none", // Permite alternar interacción según 'isInteractive'
             }} />
     </div>

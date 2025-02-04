@@ -1,6 +1,9 @@
 import React from 'react';
 import * as juce from "juce";
 
+import { ReactComponent as Save } from "assets/svg/save.svg";
+import { ReactComponent as Load } from "assets/svg/load.svg";
+
 const PresetPanel: React.FC<{ presetName: string; }> = ({ presetName }) => {
 
     const clickButton = juce.getNativeFunction("presetFunction");
@@ -23,24 +26,19 @@ const PresetPanel: React.FC<{ presetName: string; }> = ({ presetName }) => {
 
     return (
         <div
-            style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                height: '2rem', // Aproximadamente 2 rem (puedes ajustar según tu base font-size)
-                width: '100%',
-                backgroundColor: '#f4f4f4',
-                padding: '0 1rem',
-                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-            }}
+            className="presetPanelBar"
         >
-            <button onClick={handleLoadPreset} style={{ cursor: 'pointer' }}>
-                Load
-            </button>
-            <span>{presetName}</span>
-            <button onClick={handleSavePreset} style={{ cursor: 'pointer' }}>
-                Save
-            </button>
+            <div className="presetPanelBar presetName">
+                <span>{presetName}</span>
+            </div>
+            <div className="presetPanelBar buttonsPanel">
+                <div onClick={handleSavePreset} className="presetPanelBar buttonsPanel save" >
+                    <Save className="save-icon" />
+                </div>
+                <div onClick={handleLoadPreset} className="presetPanelBar buttonsPanel load" style={{ cursor: 'pointer' }}>
+                    <Load className="load-icon" /> Load Preset
+                </div>
+            </div>
         </div>
     );
 };

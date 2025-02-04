@@ -165,7 +165,7 @@ void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 TranslationMidiTable MidiProcessor::addTranslationBlock(const MidiTranslationRow& descriptor) {
 	auto& table = translationTable;
 
-	// Encontrar el ID máximo actualmente en la tabla
+	// Encontrar el ID mÃ¡ximo actualmente en la tabla
 	int maxId = 0;
 	if (!table.empty()) {
 		maxId = std::max_element(table.begin(), table.end(), [](const auto& a, const auto& b) {
@@ -174,7 +174,7 @@ TranslationMidiTable MidiProcessor::addTranslationBlock(const MidiTranslationRow
 	}
 	// Crear un nuevo bloque con el ID incrementado
 	MidiTranslationRow row = descriptor;
-	row.id = maxId + 1; // Asignar un nuevo ID único
+	row.id = maxId + 1; // Asignar un nuevo ID Ãºnico
 	DBG(maxId);
 
 	// Insertar el elemento en la tabla
@@ -199,7 +199,7 @@ TranslationMidiTable MidiProcessor::modifyTranslationRow(const MidiTranslationRo
 		this->setTranslationTable(table);
 	}
 	else {
-		std::cerr << "Error: No se encontró el elemento con id = " << descriptor.id << ".\n";
+		std::cerr << "Error: No se encontrÃ³ el elemento con id = " << descriptor.id << ".\n";
 	}
 
 	return table;
