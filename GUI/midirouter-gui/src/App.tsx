@@ -48,6 +48,8 @@ function App() {
         <div style={{ gridRow: "4/-1" }} >
           <MidiTableComponent translationTable={translationTable} />
         </div>
+        <div className="inputtag">Midi In</div>
+        <div className="outtag">Midi Out</div>
       </div>
     </div>
   );

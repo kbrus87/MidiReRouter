@@ -190,7 +190,7 @@ void MidiRouterProcessorEditor::resized()
 	presetPanel.setBounds(getLocalBounds().removeFromTop(proportionOfHeight(0.07f)));
 
 
-	webView.setBounds(getLocalBounds().removeFromRight(midiTableComponent.getWidth()));
+	webView.setBounds(getLocalBounds());//.removeFromRight(midiTableComponent.getWidth()));
 }
 
 auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::optional<juce::WebBrowserComponent::Resource>

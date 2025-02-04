@@ -41,6 +41,7 @@
 
 body {
   background-color: #1F1F23;
+  min-width: 400px;
 }
 
 .App {
@@ -115,16 +116,14 @@ body {
       height: 2rem;
       width: 100%;
     }
+    
   }
 
   .midiTable {
 
     .midiTableRows {
-
-
       display: grid;
-      grid-template-columns: 1fr 4fr 1fr;
-
+      grid-template-columns: 1fr 12fr 1fr;
 
       .midiTableRow {
         background-color: #2D2E37;
@@ -135,7 +134,8 @@ body {
         display: grid;
         grid-template-columns: 2fr 1fr 2fr;
 
-        width: 65%;
+        width: 85%;
+       /* max-width: 30rem ; */
         grid-column: 2 / 6;
 
         .midiTableCell {
@@ -439,4 +439,22 @@ body {
       }
     }
   }
+}
+
+.inputtag{
+  color:#79787D;
+  font-size: 1.2rem;
+  transform: rotate(270deg);
+  top:50%;
+  left:-0.5rem;
+  position:absolute;
+}
+
+.outtag{
+  color:#79787D;
+  font-size: 1.2rem;
+  transform: rotate(270deg);
+  top:48.5%;
+  right:0.5rem;
+  position:absolute;
 }
