@@ -132,7 +132,7 @@ body {
         min-height: 2.2rem;
 
         display: grid;
-        grid-template-columns: 2fr 1fr 2fr;
+        grid-template-columns: 5fr 2fr 1fr 2fr 5fr;
 
         width: 85%;
        /* max-width: 30rem ; */

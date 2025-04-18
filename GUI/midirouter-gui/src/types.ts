@@ -11,6 +11,8 @@ declare global {
     outputMIDI: string;
     outputMIDInumber: number;
     active:boolean;
+    inputFantasyName: string;
+    outputFantasyName: string;
   }
 }
 

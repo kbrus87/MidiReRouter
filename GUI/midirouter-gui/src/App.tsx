@@ -16,13 +16,17 @@ function App() {
     fetch(juce.getBackendResourceAddress("data.json")).then(res => res.text()).then(res => {
       setTranslationTable(JSON.parse(res).translationTable);
       setPresetName(JSON.parse(res).preset);
+      console.log(res)
     })
+
 
     const translationMidiTableEventToken = window.__JUCE__.backend.addEventListener("translationMidiTable", (res) => {
       setTranslationTable(res)
+      console.log("translationMidiTable", res)
     })
     const presetChangeToken = window.__JUCE__.backend.addEventListener("presetChange", (res) => {
       setPresetName(res)
+      console.log("presetChange",res)
     })
     return () => {
       window.__JUCE__.backend.removeEventListener(presetChangeToken)

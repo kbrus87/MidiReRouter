@@ -18,9 +18,9 @@ struct MidiTranslationRow
 	juce::String inputMIDI;
 	juce::String outputMIDI;
 	int outputMIDInumber;
+	bool active;
 	juce::String inputFantasyName = "";
 	juce::String outputFantasyName = "";
-	bool active;
 
 	MidiTranslationRow() = default;
 

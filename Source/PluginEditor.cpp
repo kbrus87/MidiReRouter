@@ -107,7 +107,9 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 					inputMidi,            // inputMIDI
 					outputMidi,           // outputMIDI
 					outputMidiNumber,     // outputMIDInumber
-					dynamicObject->getProperty("active")                // active
+					dynamicObject->getProperty("active"),                // active
+					dynamicObject->getProperty("inputFantasyName"),      // inputFantasyName
+					dynamicObject->getProperty("outputFantasyName")     // outputFantasyName
 			});
 
 			midiProcessor.modifyTranslationRow(translationRow);

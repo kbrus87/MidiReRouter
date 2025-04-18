@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, Fragment } from "react";
 import * as juce from "juce";
 
 const regexp = new RegExp("^(C|D|E|F|G|A|B)(#?)-?([0-9])$");
@@ -25,7 +25,7 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
                     const isInputValid = t.inputMIDI?.trim() === "" || !t.inputMIDI || !regexp.test(t.inputMIDI);
                     const isOutputValid = t.outputMIDI?.trim() === "" || !t.outputMIDI || !regexp.test(t.outputMIDI);
 
-                    return <>
+                    return <Fragment key={t.id}>
                         <div key={t.id} style={{ display: "flex", alignItems: "center", justifyContent: "end" }}>
                             <div onClick={() => {
                                 removeBlock(t.id)
@@ -34,11 +34,13 @@ function MidiTableComponent({ translationTable }: { translationTable: MidiTableE
                             </div>
                         </div>
                         <div key={t.inputMIDInumber + "_" + t.outputMIDInumber} className="midiTableRow">
+                            <MidiFantasyNameInput name="inputFantasyName" row={t} modifyBlock={modifyBlock} className={"InputFantasyName"} />
                             <MidiTextInput name="inputMIDI" row={t} modifyBlock={modifyBlock} isValid={isInputValid} className={"Input"} />
                             <MidiLink row={t} modifyBlock={modifyBlock} isInputValid={isInputValid} isOutputValid={isOutputValid} isActive={t.active} />
                             <MidiTextInput name="outputMIDI" row={t} modifyBlock={modifyBlock} isValid={isOutputValid} className={"Output"} />
+                            <MidiFantasyNameInput name="outputFantasyName" row={t} modifyBlock={modifyBlock} className={"OutputFantasyName"} />
                         </div>
-                    </>
+                    </Fragment>
                 })
             }
         </div>
@@ -66,7 +68,7 @@ function MidiLink({ row, isInputValid, isOutputValid, isActive, modifyBlock }: {
 }
 
 function MidiTextInput({ name, row, isValid, modifyBlock, className }: { name: string; row: MidiTableEventRow, isValid: boolean; modifyBlock: (row: MidiTableEventRow) => void, className: string }) {
-    
+
     const [value, setValue] = useState(row[name as keyof MidiTableEventRow] as string)
     const [validNote, setValidNote] = useState(regexp.test(value));
 
@@ -86,7 +88,7 @@ function MidiTextInput({ name, row, isValid, modifyBlock, className }: { name: s
         <input
             type="text"
             value={value}
-            onChange={(e) => handleMIDIInputChange(e.target.value)} 
+            onChange={(e) => handleMIDIInputChange(e.target.value)}
             onBlur={() => handleBlur()}
             style={{
                 position: "absolute",
@@ -94,12 +96,29 @@ function MidiTextInput({ name, row, isValid, modifyBlock, className }: { name: s
                 left: 0,
                 width: "100%",
                 height: "100%",
-                backgroundColor: "transparent", 
-                border: "none", 
-                color: validNote ? "inherit" : "red", 
-                textAlign: "inherit", 
+                backgroundColor: "transparent",
+                border: "none",
+                color: validNote ? "inherit" : "red",
+                textAlign: "inherit",
                 // pointerEvents: isInteractive ? "auto" : "none", // Permite alternar interacción según 'isInteractive'
             }} />
     </div>
+}
+
+function MidiFantasyNameInput({ name, row, modifyBlock, className }: { name: string; row: MidiTableEventRow, modifyBlock: (row: MidiTableEventRow) => void, className: string }) {
+    const [value, setValue] = useState(row[name as keyof MidiTableEventRow] as string)
+
+    const handleBlur = () => {
+        const nRow: MidiTableEventRow = { ...row };
+        const key = name as keyof MidiTableEventRow;
+        (nRow[key] as string) = value;
+        modifyBlock(nRow);
+    }
+
+    const handleChange = (newValue: string) => {
+        setValue(newValue)
+    }
+
+    return <div><input name={name} value={value} onChange={(e)=>handleChange(e.target.value)} onBlur={handleBlur} /></div>
 }
 export default MidiTableComponent
