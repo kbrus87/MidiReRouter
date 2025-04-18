@@ -18,17 +18,22 @@ struct MidiTranslationRow
 	juce::String inputMIDI;
 	juce::String outputMIDI;
 	int outputMIDInumber;
+	juce::String inputFantasyName = "";
+	juce::String outputFantasyName = "";
 	bool active;
 
 	MidiTranslationRow() = default;
 
 	MidiTranslationRow(int id, int inputMIDInumber, const juce::String& inputMIDI,
-		const juce::String& outputMIDI, int outputMIDInumber, bool active)
+		const juce::String& outputMIDI, int outputMIDInumber, bool active,
+		const juce::String& inputFantasyName = "", const juce::String& outputFantasyName = "")
 		: id(id),
 		inputMIDInumber(inputMIDInumber),
 		inputMIDI(inputMIDI),
 		outputMIDI(outputMIDI),
 		outputMIDInumber(outputMIDInumber),
+		inputFantasyName(inputFantasyName),
+		outputFantasyName(outputFantasyName),
 		active(active)
 	{
 	}
@@ -36,7 +41,7 @@ struct MidiTranslationRow
 	explicit MidiTranslationRow(const juce::Array<juce::var>& data) {
 		if (data.size() != 6) {
 			DBG(data.size());
-			throw std::invalid_argument("El array debe contener exactamente 6 elementos");
+			throw std::invalid_argument("El array debe contener al menos 6 elementos");
 		}
 
 		try {
@@ -46,6 +51,10 @@ struct MidiTranslationRow
 			outputMIDI = data[3];
 			outputMIDInumber = static_cast<int>(data[4]);
 			active = static_cast<bool>(data[5]);
+
+			// Opcionales si están
+			if (data.size() > 6) inputFantasyName = data[6].toString();
+			if (data.size() > 7) outputFantasyName = data[7].toString();
 		}
 		catch (...) {
 			throw std::invalid_argument("Error desconocido al convertir los elementos del array.");
@@ -101,6 +110,8 @@ public:
 						rowObject->setProperty("inputMIDI", row.inputMIDI);
 						rowObject->setProperty("outputMIDI", row.outputMIDI);
 						rowObject->setProperty("outputMIDInumber", row.outputMIDInumber);
+						rowObject->setProperty("inputFantasyName", row.inputFantasyName);
+						rowObject->setProperty("outputFantasyName", row.outputFantasyName);
 						rowObject->setProperty("active", row.active);
 						tableArray.add(juce::var(rowObject.get()));
 					}

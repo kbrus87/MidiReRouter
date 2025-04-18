@@ -39,6 +39,8 @@ public:
 	// Sets the output/input midi note for a block by text name
 	void setOutputMidi(int index, juce::String midiName);
 	void setInputMidi(int index, juce::String midiName);
+	void setInputFantasyName(int index, juce::String inputFantasyName);
+	void setOutputFantasyName(int index, juce::String outputFantasyName);
 
 
 	const TranslationMidiTable getTranslationTable() const; //;

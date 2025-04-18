@@ -109,7 +109,6 @@ void MidiTableComponent::onEvent(const std::string& identifier, const std::varia
 		static const juce::Identifier EVENT_ID("translationMidiTable");
 		VariantWrapper payloadWrapper{ payload };
 		webView.emitEventIfBrowserIsVisible(EVENT_ID, payloadWrapper.toVar());
-		
 	}
 }
 

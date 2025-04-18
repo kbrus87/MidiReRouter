@@ -101,6 +101,23 @@ void MidiProcessor::setInputMidi(int index, juce::String midiName)
 	updateTranslationMap();
 }
 
+void MidiProcessor::setInputFantasyName(int index, juce::String inputFantasyName)
+{
+	std::string note = inputFantasyName.toStdString();
+
+	translationTable[index].inputMIDI = inputFantasyName;
+
+	updateTranslationMap();
+}
+void MidiProcessor::setOutputFantasyName(int index, juce::String outputFantasyName)
+{
+	std::string note = outputFantasyName.toStdString();
+
+	translationTable[index].inputMIDI = outputFantasyName;
+
+	updateTranslationMap();
+}
+
 juce::ValueTree MidiProcessor::translationMapToValueTree() {
 	juce::ValueTree mapTree("TranslationMap");
 	for (const auto& item : translationMap) {
@@ -121,6 +138,8 @@ juce::ValueTree MidiProcessor::translationTableToValueTree() {
 		vectorEntry.setProperty("outputMIDI", item.outputMIDI, nullptr);
 		vectorEntry.setProperty("outputMIDInumber", item.outputMIDInumber, nullptr);
 		vectorEntry.setProperty("active", item.active, nullptr);
+		vectorEntry.setProperty("inputFantasyName", item.inputFantasyName, nullptr);
+		vectorEntry.setProperty("outputFantasyName", item.outputFantasyName, nullptr);
 
 		vectorTree.addChild(vectorEntry, -1, nullptr);
 	}
@@ -153,7 +172,7 @@ void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 	std::map<int, int> loadedTranslationMap;
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
 		auto vectorEntry = mapTree.getChild(i);
-		MidiTranslationRow value = { i + 1, vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber"), vectorEntry.getProperty("active") };
+		MidiTranslationRow value = { i + 1, vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber"), vectorEntry.getProperty("active"), vectorEntry.getProperty("inputFantasyName"), vectorEntry.getProperty("outputFantasyName") };
 		translationTableV.push_back(value);
 	}
 
