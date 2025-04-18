@@ -8,6 +8,7 @@
 
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+#include "MyBinaryData.h"
 namespace {
 
 	static const char* getMimeForExtension(const juce::String& extension)
@@ -136,7 +137,7 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 
 	// midiProcessor.addListener(&webView);
 	addAndMakeVisible(webView);
-	webView.goToURL(LOCAL_DEV);
+	webView.goToURL(LOCAL_DEV); // aca llamo a los binarios
 	//webView.goToURL(webView.getResourceProviderRoot());
 
 	setResizable(true, true);

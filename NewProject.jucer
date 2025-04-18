@@ -3,9 +3,13 @@
 <JUCERPROJECT id="gtTDPz" name="MidiRouter" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
               pluginName="MidiRouter" pluginManufacturer="BJR" pluginManufacturerCode="Bjrb"
-              companyName="garbageAudio">
+              companyName="garbageAudio" headerPath="D:/kbrus87/MidiReRouter/GUI/binary"
+              pluginVST3Category="Tools" pluginFormats="buildStandalone,buildVST3">
   <MAINGROUP id="Y6tfhD" name="MidiRouter">
     <GROUP id="{7D5EF30C-115A-66A3-F631-28A89AC41F0D}" name="Source">
+      <FILE id="xX7TgB" name="MyBinaryData.cpp" compile="1" resource="0"
+            file="GUI/binary/MyBinaryData.cpp"/>
+      <FILE id="y0Amqm" name="MyBinaryData.h" compile="0" resource="0" file="GUI/binary/MyBinaryData.h"/>
       <GROUP id="{E6EBCBF8-BFC2-D9CC-AA8A-811E18D70C4F}" name="WebView">
         <FILE id="gRfH0W" name="WebView.cpp" compile="1" resource="0" file="Source/WebView.cpp"/>
         <FILE id="INJtn0" name="WebView.h" compile="0" resource="0" file="Source/WebView.h"/>
