@@ -24,6 +24,7 @@ public:
 	void removeAllListener();
 
 	void notify(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& payload);
+	void notify(const std::string& identifier, const std::vector<MapElement>& map);
 
 private:
 	std::vector<Listener*> listeners;

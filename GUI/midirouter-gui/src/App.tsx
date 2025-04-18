@@ -11,6 +11,7 @@ import { ReactComponent as Add } from "assets/svg/add.svg";
 function App() {
   const [translationTable, setTranslationTable] = useState([])
   const [presetName, setPresetName] = useState<string>('No Preset');
+  const [outputMapList, setOutputMapList] = useState<Array<{ midiNumber: number, fantasyName: string }>>([]);
 
   const clickButton = juce.getNativeFunction("presetFunction");
 
@@ -20,18 +21,20 @@ function App() {
       setPresetName(JSON.parse(res).preset);
     })
 
-
     const translationMidiTableEventToken = window.__JUCE__.backend.addEventListener("translationMidiTable", (res) => {
       setTranslationTable(res)
-      console.log(res, "translationMidiTable")
     })
     const presetChangeToken = window.__JUCE__.backend.addEventListener("presetChange", (res) => {
       setPresetName(res)
-      console.log(res, "presetChange")
+    })
+
+    const outputListChangeToken = window.__JUCE__.backend.addEventListener("outputMapList", (res) => {
+      setOutputMapList(res)
     })
     return () => {
       window.__JUCE__.backend.removeEventListener(presetChangeToken)
       window.__JUCE__.backend.removeEventListener(translationMidiTableEventToken)
+      window.__JUCE__.backend.removeEventListener(outputListChangeToken)
     }
   }, [])
 
@@ -70,7 +73,7 @@ function App() {
           </div>
         </div>
         <div style={{ gridRow: "4/-1" }} >
-          <MidiTableComponent translationTable={translationTable} />
+          <MidiTableComponent translationTable={translationTable} outputMapList={outputMapList}/>
         </div>
         <div className="inputtag">Midi In</div>
         <div className="outtag">Midi Out</div>

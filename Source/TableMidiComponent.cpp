@@ -112,6 +112,10 @@ void MidiTableComponent::onEvent(const std::string& identifier, const std::varia
 	}
 }
 
+void MidiTableComponent::onEvent(const std::string& identifier, const std::vector<MapElement>& payload)
+{
+}
+
 juce::Component* MidiTableComponent::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component* existingComponentToUpdate)
 {
 	if (columnId == 2) // Solo procesamos la columna 2

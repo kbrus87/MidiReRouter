@@ -158,3 +158,19 @@ void PresetPanel::onEvent(const std::string& identifier, const std::variant<int,
 	}
 
 }
+
+void PresetPanel::onEvent(const std::string& identifier, const std::vector<MapElement>& payload)
+{
+	// Lo que quieras hacer con el vector
+	if (identifier == "outputMapList")
+	{
+		DBG("Recibido vector de MapElement con ID: " + juce::String(identifier));
+		// to comunicate to webView
+		static const juce::Identifier EVENT_ID("outputMapList");
+
+		
+		VariantArrayWrapper payloadWrapper{ payload };
+		webView.emitEventIfBrowserIsVisible(EVENT_ID, payloadWrapper.toVar());
+
+	}
+}

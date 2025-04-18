@@ -142,6 +142,50 @@ private:
 	VariantType value;
 };
 
+
+class VariantArrayWrapper
+{
+public:
+	using VariantType = std::variant < std::vector<MapElement>>;
+
+	explicit VariantArrayWrapper(VariantType v)
+		: value(std::move(v)) {
+	}
+
+	// constructor que acepta un vector<MapElement> y lo envuelve en la variante
+	explicit VariantArrayWrapper(const std::vector<MapElement>& vec)
+		: value(vec) {
+	}
+
+	const VariantType& getValue() const { return value; }
+
+	juce::var toVar() const
+	{
+		return std::visit(
+			[&](auto&& arg) -> juce::var {
+				using T = std::decay_t<decltype(arg)>;
+
+				if constexpr (std::is_same_v<T, std::vector<MapElement>>) {
+					juce::Array<juce::var> arr;
+					for (auto& e : arg) {
+						auto obj = new juce::DynamicObject();
+						obj->setProperty("midiNumber", e.midiNumber);
+						obj->setProperty("fantasyName", e.fantasyName);
+						// … pon aquí más campos de MapElement si los tienes …
+						arr.add(juce::var(obj));
+					}
+					return arr;
+				}
+			},
+			value
+		);
+	}
+
+private:
+	template<typename> struct always_false : std::false_type {};
+	VariantType value;
+};
+
 template <typename Container, typename Predicate>
 int findIndex(const Container& container, Predicate pred) {
 	auto it = std::find_if(container.begin(), container.end(), pred);

@@ -40,6 +40,7 @@ public:
 	// LISTENER
 	//void changeListenerCallback(juce::ChangeBroadcaster* source) override;
 	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& payload);
+	void onEvent(const std::string& identifier, const std::vector<MapElement>& payload) override;
 
 private:
 	juce::TableListBox midiTable;

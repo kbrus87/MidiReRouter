@@ -26,7 +26,8 @@ public:
 
 	juce::String presetFunction(juce::String);
 
-	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& preset);
+	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& preset) override;
+	void onEvent(const std::string& identifier, const std::vector<MapElement>& payload) override;
 
 private:
 	Service::PresetManager& presetManager;

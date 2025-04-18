@@ -39,3 +39,12 @@ void Broadcaster::notify(const std::string& identifier, const std::variant<int, 
             listener->onEvent(identifier, payload);
     }
 }
+
+void Broadcaster::notify(const std::string& identifier, const std::vector<MapElement>& payload)
+{
+    for (auto* listener : listeners)
+    {
+        if (listener)
+            listener->onEvent(identifier, payload);
+    }
+}
