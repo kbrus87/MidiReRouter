@@ -24,12 +24,20 @@ namespace Service
 		PresetManager(MidiProcessor& midiProcessor);
 
 		void savePreset(juce::String presetName);
-		void loadPreset(juce::String presetName);
+		void loadPreset(juce::File presetFile);
+		void loadInputMap(juce::File drummap);
+
+		void setOutputMapList(juce::File drummap);
+
 		juce::String getCurrentPreset();
 		void setCurrentPreset(juce::String preset);
+
+		std::vector<MapElement> parseDrumMap(const juce::File& file);
 
 	private:
 		MidiProcessor& midiProcessor;
 		juce::String currentPreset;
+		juce::String currentInputMap;
+		std::vector<MapElement> outputMapList;
 	};
 };

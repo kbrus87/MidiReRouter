@@ -109,6 +109,7 @@ void MidiProcessor::setInputFantasyName(int index, juce::String inputFantasyName
 
 	updateTranslationMap();
 }
+
 void MidiProcessor::setOutputFantasyName(int index, juce::String outputFantasyName)
 {
 	std::string note = outputFantasyName.toStdString();
@@ -172,7 +173,8 @@ void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 	std::map<int, int> loadedTranslationMap;
 	for (int i = 0; i < mapTree.getNumChildren(); ++i) {
 		auto vectorEntry = mapTree.getChild(i);
-		MidiTranslationRow value = { i + 1, vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , vectorEntry.getProperty("outputMIDInumber"), vectorEntry.getProperty("active"), vectorEntry.getProperty("inputFantasyName"), vectorEntry.getProperty("outputFantasyName") };
+		MidiTranslationRow value = { i + 1, vectorEntry.getProperty("inputMIDInumber"), vectorEntry.getProperty("inputMIDI"), vectorEntry.getProperty("outputMIDI") , 
+			vectorEntry.getProperty("outputMIDInumber"), vectorEntry.getProperty("active"), vectorEntry.getProperty("inputFantasyName"), vectorEntry.getProperty("outputFantasyName") };
 		translationTableV.push_back(value);
 	}
 
@@ -184,17 +186,8 @@ void MidiProcessor::loadTranslationTableFromValueTree(juce::ValueTree mapTree) {
 TranslationMidiTable MidiProcessor::addTranslationBlock(const MidiTranslationRow& descriptor) {
 	auto& table = translationTable;
 
-	// Encontrar el ID máximo actualmente en la tabla
-	int maxId = 0;
-	if (!table.empty()) {
-		maxId = std::max_element(table.begin(), table.end(), [](const auto& a, const auto& b) {
-			return a.id < b.id; // Comparar IDs
-			})->id;
-	}
-	// Crear un nuevo bloque con el ID incrementado
 	MidiTranslationRow row = descriptor;
-	row.id = maxId + 1; // Asignar un nuevo ID único
-	DBG(maxId);
+	row.id = this->nextTranslationMapIndex();
 
 	// Insertar el elemento en la tabla
 	table.push_back(row);
@@ -242,4 +235,42 @@ TranslationMidiTable MidiProcessor::removeTranslationBlock(int id) {
 
 void MidiProcessor::clearTranslationTable() {
 	setTranslationTable({});
+}
+
+void MidiProcessor::loadInputMap(std::vector<MapElement> inputMap) {
+	translationTable.clear();
+	int maxId = this->nextTranslationMapIndex();
+	try {
+		for (const auto& i : inputMap) {
+			translationTable.push_back({
+				maxId++,
+				i.midiNumber,
+				juce::MidiMessage::getMidiNoteName(i.midiNumber, true, true, 4),
+				"", 0, true, i.fantasyName, ""
+				});
+		}
+	}
+	catch (const std::exception& e) {
+		DBG("Error al cargar el input map: " + juce::String(e.what()));
+	}
+	catch (...) {
+		DBG("Error desconocido al cargar el input map.");
+	}
+	updateTranslationMap();
+	notify("translationMidiTable", translationTable);
+}
+
+int MidiProcessor::nextTranslationMapIndex() {
+	auto& table = translationTable;
+
+	// Encontrar el ID máximo actualmente en la tabla
+	int maxId = 0;
+	if (!table.empty()) {
+		maxId = std::max_element(table.begin(), table.end(), [](const auto& a, const auto& b) {
+			return a.id < b.id;
+			})->id;
+	};
+	int id = maxId + 1; 
+	DBG(id);
+	return id;
 }

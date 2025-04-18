@@ -55,6 +55,8 @@ public:
 	void loadTranslationMapFromValueTree(juce::ValueTree mapTree);
 	void loadTranslationTableFromValueTree(juce::ValueTree mapTree);
 
+	void loadInputMap(std::vector<MapElement> inputMap);
+
 	TranslationMidiTable translationTable = { {1, 48, "C2", "C1", 36, true} };
 
 
@@ -64,4 +66,5 @@ private:
 	juce::WebBrowserComponent webView;
 
 	void updateTranslationMap();
+	int nextTranslationMapIndex();
 };

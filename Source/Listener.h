@@ -19,4 +19,5 @@ public:
 
     // M	do virtual puro para manejar eventos con payload
     virtual void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& payload) = 0;
+    virtual void onEvent(const std::string& identifier, std::vector<MapElement>& payload) = 0;
 };

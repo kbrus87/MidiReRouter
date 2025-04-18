@@ -119,6 +119,6 @@ function MidiFantasyNameInput({ name, row, modifyBlock, className }: { name: str
         setValue(newValue)
     }
 
-    return <div><input name={name} value={value} onChange={(e)=>handleChange(e.target.value)} onBlur={handleBlur} /></div>
+    return <div className={className}><input name={name} value={value} onChange={(e)=>handleChange(e.target.value)} onBlur={handleBlur} /></div>
 }
 export default MidiTableComponent

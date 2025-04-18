@@ -14,6 +14,8 @@ PresetPanel::PresetPanel(Service::PresetManager& presetManager, juce::WebBrowser
 
 	configureButton(saveButton, "Save Preset", juce::Colour::fromRGB(23, 34, 125));
 	configureButton(loadButton, "Load Preset", juce::Colour::fromRGB(23, 34, 125));
+	configureButton(loadInputMap, "Load Input DrumMap", juce::Colour::fromRGB(23, 34, 125));
+	configureButton(setOutputMapList, "set OutputMap List", juce::Colour::fromRGB(23, 34, 125));
 
 	presetLabel.setText(presetManager.getCurrentPreset(), juce::NotificationType::dontSendNotification);
 
@@ -41,6 +43,7 @@ void PresetPanel::resized() {
 
 	saveButton.setBounds(bounds.removeFromLeft(container.proportionOfWidth(0.25f)).reduced(4));
 	loadButton.setBounds(bounds.removeFromLeft(container.proportionOfWidth(0.25f)).reduced(4));
+	loadInputMap.setBounds(bounds.removeFromLeft(container.proportionOfWidth(0.25f)).reduced(4));
 	presetLabel.setBounds(bounds.removeFromLeft(container.proportionOfWidth(0.4f)).reduced(4));
 	presetLabel.setFont(juce::Font(juce::jmin(bounds.getWidth(), bounds.getHeight()) * 0.5f));
 }
@@ -53,6 +56,16 @@ juce::String PresetPanel::presetFunction(juce::String button) {
 
 	if (button == "loadButton") {
 		loadButton.triggerClick();
+		return presetManager.getCurrentPreset();
+	}
+
+	if (button == "loadInputMap") {
+		loadInputMap.triggerClick();
+		return presetManager.getCurrentPreset();
+	}
+	
+	if (button == "setOutputMapList") {
+		setOutputMapList.triggerClick();
 		return presetManager.getCurrentPreset();
 	}
 }
@@ -83,7 +96,31 @@ void PresetPanel::buttonClicked(juce::Button* button) {
 		fileChooser->launchAsync(juce::FileBrowserComponent::openMode, [&](const juce::FileChooser& chooser) {
 			const auto result = chooser.getResult();
 
-			presetManager.loadPreset(result.getFileNameWithoutExtension());
+			presetManager.loadPreset(result);
+			}
+		);
+	}
+
+	if (button == &loadInputMap) {
+		fileChooser = std::make_unique<juce::FileChooser>(
+			"Drum Map", Service::PresetManager::defaultDirectory,
+			"*.txt"
+		);
+		fileChooser->launchAsync(juce::FileBrowserComponent::openMode, [&](const juce::FileChooser& chooser) {
+			const auto result = chooser.getResult();
+			presetManager.loadInputMap(result);
+			}
+		);
+	}
+	
+	if (button == &setOutputMapList) {
+		fileChooser = std::make_unique<juce::FileChooser>(
+			"Drum Map", Service::PresetManager::defaultDirectory,
+			"*.txt"
+		);
+		fileChooser->launchAsync(juce::FileBrowserComponent::openMode, [&](const juce::FileChooser& chooser) {
+			const auto result = chooser.getResult();
+			presetManager.setOutputMapList(result);
 			}
 		);
 	}
@@ -119,4 +156,5 @@ void PresetPanel::onEvent(const std::string& identifier, const std::variant<int,
 		VariantWrapper payloadWrapper{ preset };
 		webView.emitEventIfBrowserIsVisible(EVENT_ID, payloadWrapper.toVar());
 	}
+
 }

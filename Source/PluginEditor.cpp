@@ -226,6 +226,8 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 			entryObject->setProperty("outputMIDI", entry.outputMIDI); // juce::String
 			entryObject->setProperty("outputMIDInumber", entry.outputMIDInumber); // int
 			entryObject->setProperty("active", entry.active); // int
+			entryObject->setProperty("inputFantasyName", entry.inputFantasyName); // int
+			entryObject->setProperty("outputFantasyName", entry.outputFantasyName); // int
 
 			// Añadir el objeto al array
 			tableArray.add(juce::var(entryObject.get()));

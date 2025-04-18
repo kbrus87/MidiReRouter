@@ -12,6 +12,7 @@
 #include <JuceHeader.h>
 #include "PresetManager.h"
 #include "Listener.h"
+#include "types.h"
 
 class PresetPanel : public juce::Component, public juce::Button::Listener, public Listener
 {
@@ -26,11 +27,12 @@ public:
 	juce::String presetFunction(juce::String);
 
 	void onEvent(const std::string& identifier, const std::variant<int, std::string, TranslationMidiTable, juce::String, juce::var>& preset);
+
 private:
 	Service::PresetManager& presetManager;
 	juce::WebBrowserComponent& webView;
 	void buttonClicked(juce::Button*) override;
-	juce::TextButton saveButton, loadButton;
+	juce::TextButton saveButton, loadButton, loadInputMap, setOutputMapList;
 	std::unique_ptr<juce::FileChooser> fileChooser;
 	juce::Label presetLabel;
 };

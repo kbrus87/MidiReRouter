@@ -12,27 +12,46 @@ function App() {
   const [translationTable, setTranslationTable] = useState([])
   const [presetName, setPresetName] = useState<string>('No Preset');
 
+  const clickButton = juce.getNativeFunction("presetFunction");
+
   useEffect(() => {
     fetch(juce.getBackendResourceAddress("data.json")).then(res => res.text()).then(res => {
       setTranslationTable(JSON.parse(res).translationTable);
       setPresetName(JSON.parse(res).preset);
-      console.log(res)
     })
 
 
     const translationMidiTableEventToken = window.__JUCE__.backend.addEventListener("translationMidiTable", (res) => {
       setTranslationTable(res)
-      console.log("translationMidiTable", res)
+      console.log(res, "translationMidiTable")
     })
     const presetChangeToken = window.__JUCE__.backend.addEventListener("presetChange", (res) => {
       setPresetName(res)
-      console.log("presetChange",res)
+      console.log(res, "presetChange")
     })
     return () => {
       window.__JUCE__.backend.removeEventListener(presetChangeToken)
       window.__JUCE__.backend.removeEventListener(translationMidiTableEventToken)
     }
   }, [])
+
+  const handleLoadInputDrumMap = async () => {
+    try {
+      await clickButton("loadInputMap");
+
+    } catch (error) {
+      console.error("Error al input Drump Map:", error);
+    }
+  };
+
+  const handleSetOutputMapList = async () => {
+    try {
+      await clickButton("setOutputMapList");
+
+    } catch (error) {
+      console.error("Error al input Drump Map:", error);
+    }
+  };
 
   return (
     <div className="App">
@@ -42,11 +61,12 @@ function App() {
           <PresetPanel presetName={presetName} />
           <div className="buttons-actions">
             <div className="buttons-actions button clear" onClick={() => juce.getNativeFunction("clearTranslationTable")()}>Clear</div>
+            <div className="buttons-actions button clear" onClick={() => handleLoadInputDrumMap()}>Load Input DrumMap</div>
             <div className="buttons-actions button add" onClick={() => juce.getNativeFunction("addTranslationBlock")()}>
               <Add className="add-icon" />
               <span className="addhelp">Add a Midi Route</span>
             </div>
-
+            <div className="buttons-actions button clear" onClick={() => handleSetOutputMapList()}>Set output list</div>
           </div>
         </div>
         <div style={{ gridRow: "4/-1" }} >

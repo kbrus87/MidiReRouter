@@ -116,7 +116,7 @@ body {
       height: 2rem;
       width: 100%;
     }
-    
+
   }
 
   .midiTable {
@@ -135,7 +135,7 @@ body {
         grid-template-columns: 5fr 2fr 1fr 2fr 5fr;
 
         width: 85%;
-       /* max-width: 30rem ; */
+        /* max-width: 30rem ; */
         grid-column: 2 / 6;
 
         .midiTableCell {
@@ -204,10 +204,58 @@ body {
           &.Null {
             background: rgb(45, 46, 55);
           }
+
+
+        }
+
+        .InputFantasyName,
+        .OutputFantasyName {
+          display: flex;
+          align-items: center;
+          padding: 0 0.5rem;
+
+          input {
+            width: 100%;
+            font-family: Robo-flex;
+            font-weight: 600;
+            font-style: italic;
+            font-size: 0.95rem;
+            color: #A0A1A8;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0;
+            transition: all 0.2s ease;
+
+            &:focus {
+              background-color: rgba(255, 255, 255, 0.05);
+              border-radius: 6px;
+              padding: 0.1rem 0.4rem;
+              box-shadow: 0 0 0 1px rgba(150, 120, 200, 0.5);
+              color: #e1e1e1;
+            }
+          }
+        }
+
+        .InputFantasyName {
+          border-radius: 10px 0px 0px 10px;
+          background: linear-gradient(90deg, rgba(125, 58, 65, 1) 0%, rgba(45, 46, 55, 1) 90%);
+          text-align: right;
+        }
+
+        .OutputFantasyName {
+          border-radius: 0px 10px 10px 0px;
+          background: linear-gradient(90deg, rgba(45, 46, 55, 1) 00%,  rgba(53, 87, 117, 1) 100%);
+          text-align: right;
+
+          input {
+            text-align: right;
+          }
         }
       }
 
     }
+
   }
 }
 
@@ -366,7 +414,7 @@ body {
     font-size: 0.9rem;
     color: #e1e1e1;
 
-    &:hover{
+    &:hover {
       background-color: #555555;
     }
   }
@@ -441,20 +489,20 @@ body {
   }
 }
 
-.inputtag{
-  color:#79787D;
+.inputtag {
+  color: #79787D;
   font-size: 1.2rem;
   transform: rotate(270deg);
-  top:50%;
-  left:-0.5rem;
-  position:absolute;
+  top: 50%;
+  left: -0.5rem;
+  position: absolute;
 }
 
-.outtag{
-  color:#79787D;
+.outtag {
+  color: #79787D;
   font-size: 1.2rem;
   transform: rotate(270deg);
-  top:48.5%;
-  right:0.5rem;
-  position:absolute;
+  top: 48.5%;
+  right: 0.5rem;
+  position: absolute;
 }

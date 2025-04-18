@@ -39,7 +39,7 @@ struct MidiTranslationRow
 	}
 
 	explicit MidiTranslationRow(const juce::Array<juce::var>& data) {
-		if (data.size() != 6) {
+		if (data.size() < 6) {
 			DBG(data.size());
 			throw std::invalid_argument("El array debe contener al menos 6 elementos");
 		}
@@ -75,6 +75,12 @@ struct MidiEventElementR
 {
 	int midiNumber;
 	juce::String midiName;
+};
+
+struct MapElement
+{
+	int midiNumber;
+	juce::String fantasyName;
 };
 
 class VariantWrapper
