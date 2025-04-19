@@ -16,7 +16,7 @@
 #define JS
 #define MEDIA
 
-#include "MyBinaryData.h"
+#include <MyBinaryData.h>
 
 
 namespace {
@@ -62,38 +62,38 @@ namespace {
 		jassert(bytesRead == (juce::ssize_t)result.size());
 		return result;
 	}
-	const std::unordered_map<juce::String, std::pair<const char*, int>>& getBinaryDataMap()
-	{
-		static const std::unordered_map<juce::String, std::pair<const char*, int>> binaryDataMap =
-		{
-			// ¡¡IMPORTANTE!!: Debes añadir aquí una entrada por CADA recurso
-			// definido en MyBinaryData.h. La clave es el identificador (nombre sin namespace)
-			// y el valor es un par {puntero_datos, tamaño_datos}.
-			{ "assetmanifest_json", { MyBinaryData::assetmanifest_json, MyBinaryData::assetmanifest_jsonSize } },
-			{ "favicon_ico",        { MyBinaryData::favicon_ico, MyBinaryData::favicon_icoSize } },
-			{ "index_html",         { MyBinaryData::index_html, MyBinaryData::index_htmlSize } },
-			{ "logo192_png",        { MyBinaryData::logo192_png, MyBinaryData::logo192_pngSize } },
-			{ "logo512_png",        { MyBinaryData::logo512_png, MyBinaryData::logo512_pngSize } },
-			{ "manifest_json",      { MyBinaryData::manifest_json, MyBinaryData::manifest_jsonSize } },
-			{ "robots_txt",         { MyBinaryData::robots_txt, MyBinaryData::robots_txtSize } },
+	//const std::unordered_map<juce::String, std::pair<const char*, int>>& getBinaryDataMap()
+	//{
+	//	static const std::unordered_map<juce::String, std::pair<const char*, int>> binaryDataMap =
+	//	{
+	//		// ¡¡IMPORTANTE!!: Debes añadir aquí una entrada por CADA recurso
+	//		// definido en MyBinaryData.h. La clave es el identificador (nombre sin namespace)
+	//		// y el valor es un par {puntero_datos, tamaño_datos}.
+	//		{ "assetmanifest_json", { MyBinaryData::assetmanifest_json, MyBinaryData::assetmanifest_jsonSize } },
+	//		{ "favicon_ico",        { MyBinaryData::favicon_ico, MyBinaryData::favicon_icoSize } },
+	//		{ "index_html",         { MyBinaryData::index_html, MyBinaryData::index_htmlSize } },
+	//		{ "logo192_png",        { MyBinaryData::logo192_png, MyBinaryData::logo192_pngSize } },
+	//		{ "logo512_png",        { MyBinaryData::logo512_png, MyBinaryData::logo512_pngSize } },
+	//		{ "manifest_json",      { MyBinaryData::manifest_json, MyBinaryData::manifest_jsonSize } },
+	//		{ "robots_txt",         { MyBinaryData::robots_txt, MyBinaryData::robots_txtSize } },
 
-			{ "main_72a056c4_css",              { MyBinaryData::main_72a056c4_css, MyBinaryData::main_72a056c4_cssSize } },
-			{ "main_72a056c4_css_map",          { MyBinaryData::main_72a056c4_css_map, MyBinaryData::main_72a056c4_css_mapSize } },
-			{ "main_29959fd7_js",               { MyBinaryData::main_29959fd7_js, MyBinaryData::main_29959fd7_jsSize } },
-			{ "main_29959fd7_js_LICENSE_txt",   { MyBinaryData::main_29959fd7_js_LICENSE_txt, MyBinaryData::main_29959fd7_js_LICENSE_txtSize } },
-			{ "main_29959fd7_js_map",           { MyBinaryData::main_29959fd7_js_map, MyBinaryData::main_29959fd7_js_mapSize } },
-			{ "add_68e829718e2d9bcb7b750e80251ec33f_svg", { MyBinaryData::add_68e829718e2d9bcb7b750e80251ec33f_svg, MyBinaryData::add_68e829718e2d9bcb7b750e80251ec33f_svgSize } },
-			{ "load_9cde5005b4baee7dadea5456adaf49ce_svg", { MyBinaryData::load_9cde5005b4baee7dadea5456adaf49ce_svg, MyBinaryData::load_9cde5005b4baee7dadea5456adaf49ce_svgSize } },
-			{ "overpassextrabold_3b0b89804112a9ae91c9_otf", { MyBinaryData::overpassextrabold_3b0b89804112a9ae91c9_otf, MyBinaryData::overpassextrabold_3b0b89804112a9ae91c9_otfSize } },
-			{ "overpassheavy_de2a6b0b6ade2c8cbe17_otf", { MyBinaryData::overpassheavy_de2a6b0b6ade2c8cbe17_otf, MyBinaryData::overpassheavy_de2a6b0b6ade2c8cbe17_otfSize } },
-			{ "overpassregular_3f851cebdc18b56d2f14_otf", { MyBinaryData::overpassregular_3f851cebdc18b56d2f14_otf, MyBinaryData::overpassregular_3f851cebdc18b56d2f14_otfSize } },
-			{ "RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttf", { MyBinaryData::RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttf, MyBinaryData::RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttfSize } },
-			{ "save2_f6c7671a3716f53f38411508c67d3a4b_svg", { MyBinaryData::save2_f6c7671a3716f53f38411508c67d3a4b_svg, MyBinaryData::save2_f6c7671a3716f53f38411508c67d3a4b_svgSize } }
+	//		{ "main_72a056c4_css",              { MyBinaryData::main_72a056c4_css, MyBinaryData::main_72a056c4_cssSize } },
+	//		{ "main_72a056c4_css_map",          { MyBinaryData::main_72a056c4_css_map, MyBinaryData::main_72a056c4_css_mapSize } },
+	//		{ "main_29959fd7_js",               { MyBinaryData::main_29959fd7_js, MyBinaryData::main_29959fd7_jsSize } },
+	//		{ "main_29959fd7_js_LICENSE_txt",   { MyBinaryData::main_29959fd7_js_LICENSE_txt, MyBinaryData::main_29959fd7_js_LICENSE_txtSize } },
+	//		{ "main_29959fd7_js_map",           { MyBinaryData::main_29959fd7_js_map, MyBinaryData::main_29959fd7_js_mapSize } },
+	//		{ "add_68e829718e2d9bcb7b750e80251ec33f_svg", { MyBinaryData::add_68e829718e2d9bcb7b750e80251ec33f_svg, MyBinaryData::add_68e829718e2d9bcb7b750e80251ec33f_svgSize } },
+	//		{ "load_9cde5005b4baee7dadea5456adaf49ce_svg", { MyBinaryData::load_9cde5005b4baee7dadea5456adaf49ce_svg, MyBinaryData::load_9cde5005b4baee7dadea5456adaf49ce_svgSize } },
+	//		{ "overpassextrabold_3b0b89804112a9ae91c9_otf", { MyBinaryData::overpassextrabold_3b0b89804112a9ae91c9_otf, MyBinaryData::overpassextrabold_3b0b89804112a9ae91c9_otfSize } },
+	//		{ "overpassheavy_de2a6b0b6ade2c8cbe17_otf", { MyBinaryData::overpassheavy_de2a6b0b6ade2c8cbe17_otf, MyBinaryData::overpassheavy_de2a6b0b6ade2c8cbe17_otfSize } },
+	//		{ "overpassregular_3f851cebdc18b56d2f14_otf", { MyBinaryData::overpassregular_3f851cebdc18b56d2f14_otf, MyBinaryData::overpassregular_3f851cebdc18b56d2f14_otfSize } },
+	//		{ "RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttf", { MyBinaryData::RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttf, MyBinaryData::RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttfSize } },
+	//		{ "save2_f6c7671a3716f53f38411508c67d3a4b_svg", { MyBinaryData::save2_f6c7671a3716f53f38411508c67d3a4b_svg, MyBinaryData::save2_f6c7671a3716f53f38411508c67d3a4b_svgSize } }
 
-			// ... ¡¡Asegúrate de que estén todos!!
-		};
-		return binaryDataMap;
-	}
+	//		// ... ¡¡Asegúrate de que estén todos!!
+	//	};
+	//	return binaryDataMap;
+	//}
 }
 const juce::String LOCAL_DEV = "http://localhost:3000/";
 const juce::String LOCAL_PROD = "http://my-plugin-ui.internal/";
@@ -306,45 +306,28 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 
 	juce::String resourceIdentifier = filenameOnly;
 	resourceIdentifier = resourceIdentifier.replaceCharacter('.', '_');
-	resourceIdentifier = resourceIdentifier.replaceCharacter('-', '_');
+	resourceIdentifier = resourceIdentifier.removeCharacters("-");
 	resourceIdentifier = resourceIdentifier.substring(resourceIdentifier.lastIndexOf("/")+1).trim();
 
 	DBG("Attempting to find BinaryData identifier: " + resourceIdentifier);
+	int dataSize = 0;
 
-	const auto& dataMap = getBinaryDataMap(); // Obtiene la referencia al mapa
-	const auto it = dataMap.find(resourceIdentifier);
-
-	if (it != dataMap.end())
+	const char* resourceData = frontend::getNamedResource(resourceIdentifier.toRawUTF8(), dataSize);
+	if (resourceData != nullptr && dataSize > 0)
 	{
-		// ¡Encontrado! Obtener puntero y tamaño del mapa
-		const char* data = it->second.first;
-		int dataSize = it->second.second;
+		DBG("Found BinaryData resource: " + resourceIdentifier + ", Size: " + juce::String(dataSize));
 
-		if (data != nullptr && dataSize > 0)
-		{
-			DBG("Found resource via map: " + resourceIdentifier + " Size: " + juce::String(dataSize));
-			// 6. Crear el stream y el vector de bytes
-			juce::MemoryInputStream stream(data, (size_t)dataSize, false);
-			auto byteVector = streamToVector(stream);
+		std::vector<std::byte> dataVec((std::byte*)resourceData, (std::byte*)resourceData + dataSize);
 
-			// 7. Determinar el MIME type usando la extensión del nombre original
-			juce::String extension = getExtension(filenameOnly);
-			const char* mimeType = getMimeForExtension(extension);
-			DBG("Serving resource " + resourceIdentifier + " with MIME type: " + mimeType);
+		juce::String extension = getExtension(resourcePath);
+		const char* mimeType = getMimeForExtension(extension);
+		DBG("Serving resource " + resourcePath + " with MIME type: " + mimeType);
 
-			// 8. Devolver el recurso
-			return juce::WebBrowserComponent::Resource{ std::move(byteVector), juce::String(mimeType) };
-		}
-		else
-		{
-			DBG("Resource identifier found in map, but data pointer or size is invalid: " + resourceIdentifier);
-			return std::nullopt;
-		}
+		return juce::WebBrowserComponent::Resource{ std::move(dataVec), juce::String(mimeType) };
 	}
 	else
 	{
-		// 9. Recurso no encontrado en el mapa
-		DBG("Resource identifier not found in binaryDataMap: " + resourceIdentifier + " (Original path: " + url + ")");
+		DBG("BinaryData resource not found: " + resourceIdentifier + " (Original path: " + resourcePath + ")");
 		return std::nullopt;
 	}
 
