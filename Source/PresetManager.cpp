@@ -103,7 +103,7 @@ namespace Service {
 			auto nameStr = line.substring(splitIndex).trim();
 
 			int midiNumber = numberStr.getIntValue();
-			result.push_back({ midiNumber, nameStr });
+			result.push_back({ midiNumber, nameStr.trim() });
 		}
 
 		return result;
