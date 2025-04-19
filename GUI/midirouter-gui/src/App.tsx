@@ -26,6 +26,7 @@ function App() {
     })
     const presetChangeToken = window.__JUCE__.backend.addEventListener("presetChange", (res) => {
       setPresetName(res)
+      setOutputMapList([])
     })
 
     const outputListChangeToken = window.__JUCE__.backend.addEventListener("outputMapList", (res) => {
@@ -55,6 +56,15 @@ function App() {
       console.error("Error al input Drump Map:", error);
     }
   };
+  const handleClear= async () => {
+    try {
+      juce.getNativeFunction("clearTranslationTable")()
+      setOutputMapList([])
+
+    } catch (error) {
+      console.error("Error al input Drump Map:", error);
+    }
+  };
 
   return (
     <div className="App">
@@ -63,7 +73,7 @@ function App() {
           <Header />
           <PresetPanel presetName={presetName} />
           <div className="buttons-actions">
-            <div className="buttons-actions button clear" onClick={() => juce.getNativeFunction("clearTranslationTable")()}>Clear</div>
+            <div className="buttons-actions button clear" onClick={handleClear}>Clear</div>
             <div className="buttons-actions button clear" onClick={() => handleLoadInputDrumMap()}>Load Input DrumMap</div>
             <div className="buttons-actions button add" onClick={() => juce.getNativeFunction("addTranslationBlock")()}>
               <Add className="add-icon" />

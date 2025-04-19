@@ -96,7 +96,6 @@ namespace {
 	//}
 }
 const juce::String LOCAL_DEV = "http://localhost:3000/";
-const juce::String LOCAL_PROD = "http://my-plugin-ui.internal/";
 
 //==============================================================================
 MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
@@ -109,7 +108,7 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 		.withWinWebView2Options(juce::WebBrowserComponent::Options::WinWebView2{}.withUserDataFolder(juce::File::getSpecialLocation(juce::File::tempDirectory)))
 		.withResourceProvider([this](const auto& url) {
 			return getResource(url);
-			}, juce::URL{ LOCAL_PROD }.getOrigin())
+			}, juce::URL{ LOCAL_DEV }.getOrigin())
 		.withNativeIntegrationEnabled()
 		.withNativeFunction(juce::Identifier{ "addTranslationBlock" }, [this](const juce::Array<juce::var>&, juce::WebBrowserComponent::NativeFunctionCompletion)
 			{
@@ -184,13 +183,13 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 
 	addAndMakeVisible(webView);
 
-	DBG("LOCAL_PROD value: " + juce::String(LOCAL_PROD));
-	DBG("Registering ResourceProvider for origin: " + juce::URL{ LOCAL_PROD }.getOrigin());
+	DBG("LOCAL_PROD value: " + juce::String(LOCAL_DEV));
+	DBG("Registering ResourceProvider for origin: " + juce::URL{ LOCAL_DEV }.getOrigin());
 
-	juce::String initialUrl = LOCAL_PROD + juce::String("index.html"); // Construye la URL completa
+	juce::String initialUrl = LOCAL_DEV + juce::String("index.html"); // Construye la URL completa
 	DBG("Calling goToURL with: " + initialUrl);
-	// webView.goToURL(LOCAL_DEV); // only dev
-	webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());
+	 webView.goToURL(LOCAL_DEV); // only dev
+	// webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());
 
 	setResizable(true, true);
 	setSize(midiTableComponent.getWidth() * 2.2, 500);

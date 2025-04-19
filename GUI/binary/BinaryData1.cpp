@@ -12,7 +12,7 @@ namespace frontend
 //================== index.html ==================
 static const unsigned char temp_binary_data_0[] =
 "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"/><link rel=\"icon\" href=\"/favicon.ico\"/><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"/><meta name=\"theme-color\" content=\"#000000\"/><meta name=\"description"
-"\" content=\"Web site created using create-react-app\"/><link rel=\"apple-touch-icon\" href=\"/logo192.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><title>MidiRouter</title><script defer=\"defer\" src=\"/static/js/main.29959fd7.js\"></scrip"
+"\" content=\"Web site created using create-react-app\"/><link rel=\"apple-touch-icon\" href=\"/logo192.png\"/><link rel=\"manifest\" href=\"/manifest.json\"/><title>MidiRouter</title><script defer=\"defer\" src=\"/static/js/main.e77849de.js\"></scrip"
 "t><link href=\"/static/css/main.6bcbec0a.css\" rel=\"stylesheet\"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id=\"root\"></div></body></html>";
 
 const char* index_html = (const char*) temp_binary_data_0;
@@ -37,9 +37,11 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
     {
         case 0x2c834af8:  numBytes = 645; return index_html;
         case 0x1a905808:  numBytes = 1047; return assetmanifest_json;
-        case 0x8b3cd2ff:  numBytes = 204828; return main_29959fd7_js;
-        case 0xd633b412:  numBytes = 1210; return main_29959fd7_js_LICENSE_txt;
-        case 0x2aba101c:  numBytes = 941872; return main_29959fd7_js_map;
+        case 0x8b3cd2ff:  numBytes = 0; return main_29959fd7_js;
+        case 0xd633b412:  numBytes = 0; return main_29959fd7_js_LICENSE_txt;
+        case 0x061fe2a9:  numBytes = 204834; return main_e77849de_js;
+        case 0x24fa94bc:  numBytes = 1210; return main_e77849de_js_LICENSE_txt;
+        case 0x58d93ac6:  numBytes = 941915; return main_e77849de_js_map;
         case 0xdd6d9b24:  numBytes = 6842; return main_6bcbec0a_css;
         case 0xe9503dc1:  numBytes = 17399; return main_6bcbec0a_css_map;
         case 0x2af5ce26:  numBytes = 1684624; return RobotoFlexVariableFont_f700cdc3d6dd6bdaebd3_ttf;
@@ -62,7 +64,9 @@ const char* namedResourceList[] =
     "assetmanifest_json",
     "main_29959fd7_js",
     "main_29959fd7_js_LICENSE_txt",
-    "main_29959fd7_js_map",
+    "main_e77849de_js",
+    "main_e77849de_js_LICENSE_txt",
+    "main_e77849de_js_map",
     "main_6bcbec0a_css",
     "main_6bcbec0a_css_map",
     "RobotoFlexVariableFont_f700cdc3d6dd6bdaebd3_ttf",
@@ -80,7 +84,9 @@ const char* originalFilenames[] =
     "asset-manifest.json",
     "main.29959fd7.js",
     "main.29959fd7.js.LICENSE.txt",
-    "main.29959fd7.js.map",
+    "main.e77849de.js",
+    "main.e77849de.js.LICENSE.txt",
+    "main.e77849de.js.map",
     "main.6bcbec0a.css",
     "main.6bcbec0a.css.map",
     "RobotoFlex-VariableFont.f700cdc3d6dd6bdaebd3.ttf",

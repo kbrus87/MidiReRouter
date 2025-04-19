@@ -121,6 +121,28 @@ body {
 
   .midiTable {
 
+    input {
+      width: 100%;
+      font-family: Robo-flex;
+      font-weight: 600;
+      font-style: italic;
+      font-size: 0.95rem;
+      color: #e1e1e1;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 0;
+      transition: all 0.2s ease;
+
+      &:focus {
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 6px;
+        padding: 0.1rem 0.4rem;
+        box-shadow: 0 0 0 1px rgba(150, 120, 200, 0.5);
+        color: #ffffff;
+      }
+    }
+
     .midiTableRows {
       display: grid;
       grid-template-columns: 1fr 12fr 1fr;
@@ -147,6 +169,7 @@ body {
 
           &.Output {
             text-align: left;
+            padding-left:0.5rem;
             border-radius: 0px 10px 10px 0px;
             color: #56575F;
 
@@ -192,6 +215,7 @@ body {
             border-radius: 10px 0px 0px 10px;
             height: 100%;
             text-align: right;
+            padding-right:0.5rem;
             color: #56575F;
 
             &.MidiNote {

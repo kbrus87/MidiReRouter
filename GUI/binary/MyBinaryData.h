@@ -15,13 +15,19 @@ namespace frontend
     const int            assetmanifest_jsonSize = 1047;
 
     extern const char*   main_29959fd7_js;
-    const int            main_29959fd7_jsSize = 204828;
+    const int            main_29959fd7_jsSize = 0;
 
     extern const char*   main_29959fd7_js_LICENSE_txt;
-    const int            main_29959fd7_js_LICENSE_txtSize = 1210;
+    const int            main_29959fd7_js_LICENSE_txtSize = 0;
 
-    extern const char*   main_29959fd7_js_map;
-    const int            main_29959fd7_js_mapSize = 941872;
+    extern const char*   main_e77849de_js;
+    const int            main_e77849de_jsSize = 204834;
+
+    extern const char*   main_e77849de_js_LICENSE_txt;
+    const int            main_e77849de_js_LICENSE_txtSize = 1210;
+
+    extern const char*   main_e77849de_js_map;
+    const int            main_e77849de_js_mapSize = 941915;
 
     extern const char*   main_6bcbec0a_css;
     const int            main_6bcbec0a_cssSize = 6842;
@@ -51,7 +57,7 @@ namespace frontend
     const int            save2_f6c7671a3716f53f38411508c67d3a4b_svgSize = 674;
 
     // Number of elements in the namedResourceList and originalFileNames arrays.
-    const int namedResourceListSize = 14;
+    const int namedResourceListSize = 16;
 
     // Points to the start of a list of resource names.
     extern const char* namedResourceList[];

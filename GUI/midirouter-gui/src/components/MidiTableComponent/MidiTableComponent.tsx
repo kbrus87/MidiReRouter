@@ -98,15 +98,15 @@ function MidiTextInput({ name, row, isValid, modifyBlock, className }: { name: s
             onChange={(e) => handleMIDIInputChange(e.target.value)}
             onBlur={() => handleBlur()}
             style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                backgroundColor: "transparent",
-                border: "none",
-                color: validNote ? "inherit" : "red",
-                textAlign: "inherit",
+                // position: "absolute",
+                // top: 0,
+                // left: 0,
+                // width: "100%",
+                // height: "100%",
+                // backgroundColor: "transparent",
+                // border: "none",
+                   color: validNote ? "inherit" : "red",
+                   textAlign: "inherit",
                 // pointerEvents: isInteractive ? "auto" : "none", // Permite alternar interacción según 'isInteractive'
             }} />
     </div>
