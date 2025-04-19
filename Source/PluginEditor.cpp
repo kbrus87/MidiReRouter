@@ -188,8 +188,8 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 
 	juce::String initialUrl = LOCAL_DEV + juce::String("index.html"); // Construye la URL completa
 	DBG("Calling goToURL with: " + initialUrl);
-	 webView.goToURL(LOCAL_DEV); // only dev
-	// webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());
+	// webView.goToURL(LOCAL_DEV); // only dev
+	webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());
 
 	setResizable(true, true);
 	setSize(midiTableComponent.getWidth() * 2.2, 500);
