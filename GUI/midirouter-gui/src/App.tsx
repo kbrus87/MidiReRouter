@@ -74,12 +74,12 @@ function App() {
           <PresetPanel presetName={presetName} />
           <div className="buttons-actions">
             <div className="buttons-actions button clear" onClick={handleClear}>Clear</div>
-            <div className="buttons-actions button clear" onClick={() => handleLoadInputDrumMap()}>Input Drumkit</div>
+            <div className="buttons-actions button clear" onClick={() => handleLoadInputDrumMap()}>Load Input Drumkit</div>
             <div className="buttons-actions button add" onClick={() => juce.getNativeFunction("addTranslationBlock")()}>
               <Add className="add-icon" />
               <span className="addhelp">Add a Midi Route</span>
             </div>
-            <div className="buttons-actions button clear" onClick={() => handleSetOutputMapList()}>Output Drumkit</div>
+            <div className="buttons-actions button clear" onClick={() => handleSetOutputMapList()}>Load Output Drumkit</div>
           </div>
         </div>
         <div style={{ gridRow: "4/-1" }} >
