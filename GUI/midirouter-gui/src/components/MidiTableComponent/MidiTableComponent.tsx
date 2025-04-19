@@ -105,8 +105,8 @@ function MidiTextInput({ name, row, isValid, modifyBlock, className }: { name: s
                 // height: "100%",
                 // backgroundColor: "transparent",
                 // border: "none",
-                   color: validNote ? "inherit" : "red",
-                   textAlign: "inherit",
+                color: validNote ? "inherit" : "red",
+                textAlign: "inherit",
                 // pointerEvents: isInteractive ? "auto" : "none", // Permite alternar interacción según 'isInteractive'
             }} />
     </div>
@@ -148,7 +148,8 @@ function MidiFantasySelect({ row, modifyBlock, outputMapList }: { row: MidiTable
 
     return <select onChange={handleOutputDrumItemSelection} className="OutputFantasySelect" style={{ color: setValidOptionValue(row.outputMIDInumber) === 0 ? "#A0A1A8" : "#e1e1e1" }} value={setValidOptionValue(row.outputMIDInumber)}>
         {
-            outputMapList.map((outputMap) => {
+            outputMapList.sort((a: any, b: any) => a.fantasyName - b.fantasyName).filter(a=>a.fantasyName !== "").map((outputMap) => {
+                console.log("outputMap", outputMap)
                 return <option key={outputMap.midiNumber} value={outputMap.midiNumber}>{outputMap.fantasyName}</option>
             })
         }
