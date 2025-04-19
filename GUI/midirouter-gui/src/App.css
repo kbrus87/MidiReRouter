@@ -30,7 +30,7 @@
 
 @font-face {
   font-family: 'Roboto Flex';
-  src: url('./assets/fonts/roboto-flex/RobotoFlex-VariableFont_GRAD,XOPQ,XTRA,YOPQ,YTAS,YTDE,YTFI,YTLC,YTUC,opsz,slnt,wdth,wght.ttf') format('truetype');
+  src: url('./assets/fonts/roboto-flex/RobotoFlex-VariableFont.ttf') format('truetype');
   font-weight: 1 1000;
   /* Variable weight range */
   font-stretch: 25% 100%;

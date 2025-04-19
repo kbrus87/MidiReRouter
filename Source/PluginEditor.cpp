@@ -6,9 +6,19 @@
   ==============================================================================
 */
 
+#include <optional>
+#include <unordered_map> // Para el mapa
+#include <utility>
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
+
+#define CSS
+#define JS
+#define MEDIA
+
 #include "MyBinaryData.h"
+
+
 namespace {
 
 	static const char* getMimeForExtension(const juce::String& extension)
@@ -27,7 +37,9 @@ namespace {
 			{ { "css"   },  "text/css"                 },
 			{ { "map"   },  "application/json"         },
 			{ { "js"    },  "text/javascript"          },
-			{ { "woff2" },  "font/woff2"               }
+			{ { "woff2" },  "font/woff2"               },
+			{ { "otf"   },  "font/otf"                 },
+			{ { "ttf"   },  "font/ttf"                 }
 		};
 
 		if (const auto it = mimeMap.find(extension.toLowerCase()); it != mimeMap.end())
@@ -50,8 +62,42 @@ namespace {
 		jassert(bytesRead == (juce::ssize_t)result.size());
 		return result;
 	}
+	const std::unordered_map<juce::String, std::pair<const char*, int>>& getBinaryDataMap()
+	{
+		static const std::unordered_map<juce::String, std::pair<const char*, int>> binaryDataMap =
+		{
+			// ¡¡IMPORTANTE!!: Debes añadir aquí una entrada por CADA recurso
+			// definido en MyBinaryData.h. La clave es el identificador (nombre sin namespace)
+			// y el valor es un par {puntero_datos, tamaño_datos}.
+			{ "assetmanifest_json", { MyBinaryData::assetmanifest_json, MyBinaryData::assetmanifest_jsonSize } },
+			{ "favicon_ico",        { MyBinaryData::favicon_ico, MyBinaryData::favicon_icoSize } },
+			{ "index_html",         { MyBinaryData::index_html, MyBinaryData::index_htmlSize } },
+			{ "logo192_png",        { MyBinaryData::logo192_png, MyBinaryData::logo192_pngSize } },
+			{ "logo512_png",        { MyBinaryData::logo512_png, MyBinaryData::logo512_pngSize } },
+			{ "manifest_json",      { MyBinaryData::manifest_json, MyBinaryData::manifest_jsonSize } },
+			{ "robots_txt",         { MyBinaryData::robots_txt, MyBinaryData::robots_txtSize } },
+
+			{ "main_72a056c4_css",              { MyBinaryData::main_72a056c4_css, MyBinaryData::main_72a056c4_cssSize } },
+			{ "main_72a056c4_css_map",          { MyBinaryData::main_72a056c4_css_map, MyBinaryData::main_72a056c4_css_mapSize } },
+			{ "main_29959fd7_js",               { MyBinaryData::main_29959fd7_js, MyBinaryData::main_29959fd7_jsSize } },
+			{ "main_29959fd7_js_LICENSE_txt",   { MyBinaryData::main_29959fd7_js_LICENSE_txt, MyBinaryData::main_29959fd7_js_LICENSE_txtSize } },
+			{ "main_29959fd7_js_map",           { MyBinaryData::main_29959fd7_js_map, MyBinaryData::main_29959fd7_js_mapSize } },
+			{ "add_68e829718e2d9bcb7b750e80251ec33f_svg", { MyBinaryData::add_68e829718e2d9bcb7b750e80251ec33f_svg, MyBinaryData::add_68e829718e2d9bcb7b750e80251ec33f_svgSize } },
+			{ "load_9cde5005b4baee7dadea5456adaf49ce_svg", { MyBinaryData::load_9cde5005b4baee7dadea5456adaf49ce_svg, MyBinaryData::load_9cde5005b4baee7dadea5456adaf49ce_svgSize } },
+			{ "overpassextrabold_3b0b89804112a9ae91c9_otf", { MyBinaryData::overpassextrabold_3b0b89804112a9ae91c9_otf, MyBinaryData::overpassextrabold_3b0b89804112a9ae91c9_otfSize } },
+			{ "overpassheavy_de2a6b0b6ade2c8cbe17_otf", { MyBinaryData::overpassheavy_de2a6b0b6ade2c8cbe17_otf, MyBinaryData::overpassheavy_de2a6b0b6ade2c8cbe17_otfSize } },
+			{ "overpassregular_3f851cebdc18b56d2f14_otf", { MyBinaryData::overpassregular_3f851cebdc18b56d2f14_otf, MyBinaryData::overpassregular_3f851cebdc18b56d2f14_otfSize } },
+			{ "RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttf", { MyBinaryData::RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttf, MyBinaryData::RobotoFlexVariableFont_GRADXOPQXTRAYOPQYTASYTDEYTFIYTLCYTUCopszslntwdthwght_f700cdc3d6dd6bdaebd3_ttfSize } },
+			{ "save2_f6c7671a3716f53f38411508c67d3a4b_svg", { MyBinaryData::save2_f6c7671a3716f53f38411508c67d3a4b_svg, MyBinaryData::save2_f6c7671a3716f53f38411508c67d3a4b_svgSize } }
+
+			// ... ¡¡Asegúrate de que estén todos!!
+		};
+		return binaryDataMap;
+	}
 }
 const juce::String LOCAL_DEV = "http://localhost:3000/";
+const juce::String LOCAL_PROD = "http://my-plugin-ui.internal/";
+
 //==============================================================================
 MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	: AudioProcessorEditor(&p),
@@ -63,7 +109,7 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 		.withWinWebView2Options(juce::WebBrowserComponent::Options::WinWebView2{}.withUserDataFolder(juce::File::getSpecialLocation(juce::File::tempDirectory)))
 		.withResourceProvider([this](const auto& url) {
 			return getResource(url);
-			}, juce::URL{ LOCAL_DEV }.getOrigin())
+			}, juce::URL{ LOCAL_PROD }.getOrigin())
 		.withNativeIntegrationEnabled()
 		.withNativeFunction(juce::Identifier{ "addTranslationBlock" }, [this](const juce::Array<juce::var>&, juce::WebBrowserComponent::NativeFunctionCompletion)
 			{
@@ -135,10 +181,16 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	addAndMakeVisible(midiDropdownComponent);
 	addAndMakeVisible(presetPanel);
 
-	// midiProcessor.addListener(&webView);
+
 	addAndMakeVisible(webView);
-	webView.goToURL(LOCAL_DEV); // aca llamo a los binarios
-	//webView.goToURL(webView.getResourceProviderRoot());
+
+	DBG("LOCAL_PROD value: " + juce::String(LOCAL_PROD));
+	DBG("Registering ResourceProvider for origin: " + juce::URL{ LOCAL_PROD }.getOrigin());
+
+	juce::String initialUrl = LOCAL_PROD + juce::String("index.html"); // Construye la URL completa
+	DBG("Calling goToURL with: " + initialUrl);
+	// webView.goToURL(LOCAL_DEV); // only dev
+	webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());
 
 	setResizable(true, true);
 	setSize(midiTableComponent.getWidth() * 2.2, 500);
@@ -201,14 +253,12 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 	DBG("==============================================================");
 	DBG(url);
 	// return html i nbytes
-	// Obtener la ruta del directorio del ejecutable
-	static const auto executableDir = juce::File::getSpecialLocation(juce::File::currentExecutableFile)
-		.getParentDirectory();
-
+	
 	// Construir la ruta a la carpeta de recursos
-	static const auto resourceFileRoot = juce::File(R"(C:/Users/Bruno Ramari/Documents/JuceProjects/Midi effect/NewProject/GUI/midirouter-gui/build)");
-	DBG(resourceFileRoot.getFullPathName());
+	
 	const auto resourceToRetrieve = url == "/" ? "index.html" : url.fromFirstOccurrenceOf("/", false, false);
+
+	DBG("Resource to retrieve: " + resourceToRetrieve + ' ' + url);
 
 	if (resourceToRetrieve == "data.json") {
 		juce::DynamicObject::Ptr data{ new juce::DynamicObject{} };
@@ -243,11 +293,59 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 		return juce::WebBrowserComponent::Resource{ streamToVector(stream), juce::String("application/json") };
 	}
 
-	const auto resource = resourceFileRoot.getChildFile(resourceToRetrieve).createInputStream();
 
-	if (resource) {
-		const auto extension = resourceToRetrieve.fromLastOccurrenceOf(".", false, false);
-		return juce::WebBrowserComponent::Resource{ streamToVector(*resource), getMimeForExtension(extension) };
+	juce::String resourcePath = url.startsWith("/") ? url.substring(1) : url;
+	if (resourcePath.isEmpty() || resourcePath == "/")
+	{
+		resourcePath = "index.html"; // Asume index.html para la raíz
+	}
+	juce::String filenameOnly = juce::File::createFileWithoutCheckingPath(resourcePath).getFileName();
+	if (filenameOnly.isEmpty()) { // Podría pasar si urlPath era solo "/" o similar
+		filenameOnly = "index.html";
+	}
+
+	juce::String resourceIdentifier = filenameOnly;
+	resourceIdentifier = resourceIdentifier.replaceCharacter('.', '_');
+	resourceIdentifier = resourceIdentifier.replaceCharacter('-', '_');
+	resourceIdentifier = resourceIdentifier.substring(resourceIdentifier.lastIndexOf("/")+1).trim();
+
+	DBG("Attempting to find BinaryData identifier: " + resourceIdentifier);
+
+	const auto& dataMap = getBinaryDataMap(); // Obtiene la referencia al mapa
+	const auto it = dataMap.find(resourceIdentifier);
+
+	if (it != dataMap.end())
+	{
+		// ¡Encontrado! Obtener puntero y tamaño del mapa
+		const char* data = it->second.first;
+		int dataSize = it->second.second;
+
+		if (data != nullptr && dataSize > 0)
+		{
+			DBG("Found resource via map: " + resourceIdentifier + " Size: " + juce::String(dataSize));
+			// 6. Crear el stream y el vector de bytes
+			juce::MemoryInputStream stream(data, (size_t)dataSize, false);
+			auto byteVector = streamToVector(stream);
+
+			// 7. Determinar el MIME type usando la extensión del nombre original
+			juce::String extension = getExtension(filenameOnly);
+			const char* mimeType = getMimeForExtension(extension);
+			DBG("Serving resource " + resourceIdentifier + " with MIME type: " + mimeType);
+
+			// 8. Devolver el recurso
+			return juce::WebBrowserComponent::Resource{ std::move(byteVector), juce::String(mimeType) };
+		}
+		else
+		{
+			DBG("Resource identifier found in map, but data pointer or size is invalid: " + resourceIdentifier);
+			return std::nullopt;
+		}
+	}
+	else
+	{
+		// 9. Recurso no encontrado en el mapa
+		DBG("Resource identifier not found in binaryDataMap: " + resourceIdentifier + " (Original path: " + url + ")");
+		return std::nullopt;
 	}
 
 	return std::nullopt;
