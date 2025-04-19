@@ -16,7 +16,11 @@ MidiProcessor::MidiProcessor() {
 void MidiProcessor::updateTranslationMap() {
 	translationMap.clear();
 	for (const auto& i : translationTable) {
-		if (i.active) translationMap[i.inputMIDInumber] = numberToName.count(i.outputMIDInumber) > 0 ? i.outputMIDInumber : i.inputMIDInumber;
+		juce::String isActive = i.active ? "true" : "false";
+		DBG(isActive);
+		if (i.active) {
+			 translationMap[i.inputMIDInumber] = numberToName.count(i.outputMIDInumber) > 0 ? i.outputMIDInumber : i.inputMIDInumber;
+		}
 	}
 }
 
@@ -29,20 +33,27 @@ void MidiProcessor::process(juce::MidiBuffer& midiMessages)
 
 	while (it.getNextEvent(currentMessage, samplePos))
 	{
-		if (currentMessage.isController())
-		{
-
-		}
 
 		if (currentMessage.isNoteOnOrOff())
 		{
 
+				DBG("note in: " << currentMessage.getNoteNumber());
+				DBG("note name: " << currentMessage.getMidiNoteName(currentMessage.getNoteNumber(), true, true, 3));
 			if (translationMap.count(currentMessage.getNoteNumber()) > 0) {
+				DBG("Note exists in translationMap");
 				currentMessage.setNoteNumber(translationMap.at(currentMessage.getNoteNumber()));
+				processedBuffer.addEvent(currentMessage, samplePos);
+				DBG("note out: " << currentMessage.getNoteNumber());
+			}
+			else {
+
+				DBG("Note not found in translationMap");
 			}
 		}
+		else {
+				processedBuffer.addEvent(currentMessage, samplePos);
+		}
 
-		processedBuffer.addEvent(currentMessage, samplePos);
 
 	}
 	midiMessages.swapWith(processedBuffer);
@@ -245,7 +256,7 @@ void MidiProcessor::loadInputMap(std::vector<MapElement> inputMap) {
 			translationTable.push_back({
 				maxId++,
 				i.midiNumber,
-				juce::MidiMessage::getMidiNoteName(i.midiNumber, true, true, 4),
+				juce::MidiMessage::getMidiNoteName(i.midiNumber, true, true, 3),
 				"", 0, true, i.fantasyName, ""
 				});
 		}

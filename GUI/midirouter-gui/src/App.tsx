@@ -56,6 +56,7 @@ function App() {
       console.error("Error al input Drump Map:", error);
     }
   };
+  
   const handleClear= async () => {
     try {
       juce.getNativeFunction("clearTranslationTable")()
