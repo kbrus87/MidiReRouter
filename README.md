@@ -1,4 +1,4 @@
-## Welcome to MidiRouter
+# Welcome to MidiRouter
 
 The objective of this simple vst is to provide and easier way to reroute midi notes.
 Ever tried to use a drum midi pack made for a specific virtual drum but you'd prefer if you could use another but they dont translate? and rerouting is a pain?
@@ -15,11 +15,11 @@ Also you can activate or deactivate the routing disabling the midi note or if yo
 
 Hopefully this will be helpful to some of you.
 
-# Legal things
+### Legal things
 I have a license from Steinberg and VST3 technology is all their work. 
 I think somehow im supposed to say that somewhere.
 
-# BJRAudio
+#### BJRAudio
 Thanks!
 
-# VST by Bruno Ramari
+##### VST by Bruno Ramari
