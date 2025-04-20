@@ -10,12 +10,14 @@
 
 #include <JuceHeader.h>
 #include <juce_gui_extra/juce_gui_extra.h>
-#include "PluginProcessor.h"
+#include "constants.h"
 #include "types.h"
+
+#include "PluginProcessor.h"
 #include "TableMidiComponent.h"
 #include "MidiDropdownComponent.h"
-#include "constants.h"
 #include "PresetPanel.h"
+#include "FallBack.h"
 
 //==============================================================================
 /**
@@ -37,16 +39,14 @@ private:
 	MidiProcessor& midiProcessor;
 
 	juce::WebBrowserComponent webView;
-
 	std::optional<juce::WebBrowserComponent::Resource> getResource(const juce::String& url);
-			
-
 	juce::TableListBox midiTable;
 
 	MidiDropdownComponent midiDropdownComponent;
-
 	PresetPanel presetPanel;
 	MidiTableComponent midiTableComponent;
+
+	FallBack fallBack;
 
 
 	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(MidiRouterProcessorEditor)

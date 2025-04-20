@@ -30,15 +30,7 @@
               file="GUI/binary/BinaryData13.cpp"/>
         <FILE id="WKWxDs" name="BinaryData14.cpp" compile="1" resource="0"
               file="GUI/binary/BinaryData14.cpp"/>
-        <FILE id="IhGMwU" name="BinaryData15.cpp" compile="1" resource="0"
-              file="GUI/binary/BinaryData15.cpp"/>
-        <FILE id="eKQkfT" name="BinaryData16.cpp" compile="1" resource="0"
-              file="GUI/binary/BinaryData16.cpp"/>
         <FILE id="BbUKKJ" name="MyBinaryData.h" compile="0" resource="0" file="GUI/binary/MyBinaryData.h"/>
-      </GROUP>
-      <GROUP id="{E6EBCBF8-BFC2-D9CC-AA8A-811E18D70C4F}" name="WebView">
-        <FILE id="gRfH0W" name="WebView.cpp" compile="1" resource="0" file="Source/WebView.cpp"/>
-        <FILE id="INJtn0" name="WebView.h" compile="0" resource="0" file="Source/WebView.h"/>
       </GROUP>
       <GROUP id="{0431696C-5187-E20C-5387-57693E5245FE}" name="PresetPanel">
         <FILE id="kYcGka" name="PresetManager.cpp" compile="1" resource="0"
@@ -59,6 +51,8 @@
       <FILE id="uLYCwY" name="MidiProcessor.cpp" compile="1" resource="0"
             file="Source/MidiProcessor.cpp"/>
       <GROUP id="{E0627B67-0F48-4D5C-B8E4-103D89306B60}" name="components">
+        <FILE id="pDDJj2" name="FallBack.cpp" compile="1" resource="0" file="Source/FallBack.cpp"/>
+        <FILE id="d32h6y" name="FallBack.h" compile="0" resource="0" file="Source/FallBack.h"/>
         <GROUP id="{F4941D47-4DDF-49A5-EC43-50D89C053D78}" name="MidiTableComponent">
           <FILE id="hn32MM" name="TableMidiComponent.h" compile="0" resource="0"
                 file="Source/TableMidiComponent.h"/>

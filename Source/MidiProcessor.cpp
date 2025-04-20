@@ -17,7 +17,6 @@ void MidiProcessor::updateTranslationMap() {
 	translationMap.clear();
 	for (const auto& i : translationTable) {
 		juce::String isActive = i.active ? "true" : "false";
-		DBG(isActive);
 		if (i.active) {
 			 translationMap[i.inputMIDInumber] = numberToName.count(i.outputMIDInumber) > 0 ? i.outputMIDInumber : i.inputMIDInumber;
 		}

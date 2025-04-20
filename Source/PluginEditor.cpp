@@ -153,20 +153,27 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	midiDropdownComponent.setMidiEvents(constMidiEventList);
 	midiDropdownComponent.onChange(midiProcessor);
 
-	addAndMakeVisible(midiTableComponent);
-	addAndMakeVisible(midiDropdownComponent);
-	addAndMakeVisible(presetPanel);
+	//addAndMakeVisible(midiTableComponent);
+	//addAndMakeVisible(midiDropdownComponent);
+	//addAndMakeVisible(presetPanel);
 
+	auto options = juce::WebBrowserComponent::Options{}
+	.withBackend(juce::WebBrowserComponent::Options::Backend::webview2);
 
-	addAndMakeVisible(webView);
+	if (juce::WebBrowserComponent::areOptionsSupported(options)) {
+
+		addAndMakeVisible(webView);
+		webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());
+		// webView.goToURL(LOCAL_DEV); // only dev
+	}
+	else {
+		addAndMakeVisible(fallBack);
+	}
 
 	DBG("LOCAL_PROD value: " + juce::String(LOCAL_DEV));
 	DBG("Registering ResourceProvider for origin: " + juce::URL{ LOCAL_DEV }.getOrigin());
-
 	juce::String initialUrl = LOCAL_DEV + juce::String("index.html"); // Construye la URL completa
 	DBG("Calling goToURL with: " + initialUrl);
-	// webView.goToURL(LOCAL_DEV); // only dev
-	webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());
 
 	setResizable(true, true);
 	setSize(midiTableComponent.getWidth() * 2.2, 500);
@@ -220,7 +227,7 @@ void MidiRouterProcessorEditor::resized()
 
 	presetPanel.setBounds(getLocalBounds().removeFromTop(proportionOfHeight(0.07f)));
 
-
+	fallBack.setBounds(getLocalBounds());
 	webView.setBounds(getLocalBounds());//.removeFromRight(midiTableComponent.getWidth()));
 }
 
