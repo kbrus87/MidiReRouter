@@ -94,6 +94,9 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 		.withNativeFunction(juce::Identifier{ "presetFunction" }, [this](const juce::Array<juce::var>& buttonName, juce::WebBrowserComponent::NativeFunctionCompletion completion) {
 			presetPanel.presetFunction(buttonName[0]);
 			})
+		.withNativeFunction(juce::Identifier{ "openBrowser" }, [this](const juce::Array<juce::var>& url, juce::WebBrowserComponent::NativeFunctionCompletion) {
+			Utilities::openBrowser(url[0].toString().toStdString());
+			})
 		.withNativeFunction(juce::Identifier{ "modifyTranslationBlock" }, [this](const juce::Array<juce::var>& row, juce::WebBrowserComponent::NativeFunctionCompletion completion) {
 
 			auto parsed(juce::JSON::parse(row[0].toString()));
@@ -157,10 +160,14 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	//addAndMakeVisible(midiDropdownComponent);
 	//addAndMakeVisible(presetPanel);
 
-	auto options = juce::WebBrowserComponent::Options{}
+	auto opts = juce::WebBrowserComponent::Options{}
 	.withBackend(juce::WebBrowserComponent::Options::Backend::webview2);
 
+	bool webview2Disponible = juce::WebBrowserComponent::areOptionsSupported(opts);
+
 	//if (juce::WebBrowserComponent::areOptionsSupported(options)) {
+	    Utilities::consoleLog("WebView2 is supported", webView);
+	    Utilities::consoleLog(webview2Disponible ? "true" : "false", webView);
 
 		addAndMakeVisible(webView);
 		webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());

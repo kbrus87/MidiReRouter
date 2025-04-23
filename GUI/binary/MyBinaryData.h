@@ -14,14 +14,14 @@ namespace frontend
     extern const char*   assetmanifest_json;
     const int            assetmanifest_jsonSize = 1047;
 
-    extern const char*   main_597a995b_js;
-    const int            main_597a995b_jsSize = 205008;
+    extern const char*   main_bbcdb728_js;
+    const int            main_bbcdb728_jsSize = 205043;
 
-    extern const char*   main_597a995b_js_LICENSE_txt;
-    const int            main_597a995b_js_LICENSE_txtSize = 1210;
+    extern const char*   main_bbcdb728_js_LICENSE_txt;
+    const int            main_bbcdb728_js_LICENSE_txtSize = 1210;
 
-    extern const char*   main_597a995b_js_map;
-    const int            main_597a995b_js_mapSize = 942671;
+    extern const char*   main_bbcdb728_js_map;
+    const int            main_bbcdb728_js_mapSize = 942868;
 
     extern const char*   main_2c4a4183_css;
     const int            main_2c4a4183_cssSize = 7167;

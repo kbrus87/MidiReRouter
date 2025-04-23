@@ -1,9 +1,9 @@
 import React from "react";
 import Title from "./Title";
 
-function Header() {
+function Header({ openBrowser }: { openBrowser: (url: string) => {} }) {
     const handleOnClick = () => {
-        window.open("https://kbrus87.github.io/#/midiRouter/", "_blank")
+        openBrowser("https://kbrus87.github.io/#/midiRouter/")
     }
     return <div className="header">
         <div onClick={handleOnClick} className="name-block">

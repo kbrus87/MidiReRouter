@@ -19,6 +19,8 @@
 #include "PresetPanel.h"
 #include "FallBack.h"
 
+#include "Utilities.h"
+
 //==============================================================================
 /**
 */

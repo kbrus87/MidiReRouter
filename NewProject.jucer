@@ -10,6 +10,8 @@
               maxBinaryFileSize="20971520">
   <MAINGROUP id="Y6tfhD" name="MidiRouter">
     <GROUP id="{7D5EF30C-115A-66A3-F631-28A89AC41F0D}" name="Source">
+      <FILE id="bnEyAs" name="utilities.h" compile="0" resource="0" file="Source/utilities.h"/>
+      <FILE id="z9Miv6" name="utilities.cpp" compile="1" resource="0" file="Source/utilities.cpp"/>
       <GROUP id="{E548C690-AF1B-DE38-1DC0-57E92C3177E9}" name="BinaryData">
         <FILE id="Dd2V7m" name="BinaryData1.cpp" compile="1" resource="0" file="GUI/binary/BinaryData1.cpp"/>
         <FILE id="GaySCK" name="BinaryData2.cpp" compile="1" resource="0" file="GUI/binary/BinaryData2.cpp"/>

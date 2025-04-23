@@ -14,6 +14,7 @@ function App() {
   const [outputMapList, setOutputMapList] = useState<Array<{ midiNumber: number, fantasyName: string }>>([]);
 
   const clickButton = juce.getNativeFunction("presetFunction");
+  const openBrowser = juce.getNativeFunction("openBrowser");
 
   useEffect(() => {
     fetch(juce.getBackendResourceAddress("data.json")).then(res => res.text()).then(res => {
@@ -56,8 +57,8 @@ function App() {
       console.error("Error al input Drump Map:", error);
     }
   };
-  
-  const handleClear= async () => {
+
+  const handleClear = async () => {
     try {
       juce.getNativeFunction("clearTranslationTable")()
       setOutputMapList([])
@@ -71,7 +72,7 @@ function App() {
     <div className="App">
       <div className="main-container">
         <div style={{ zIndex: 10000, gridRow: "1/2", position: "sticky", background: "#1F1F23", top: 0, minHeight: "fit-content" }} >
-          <Header />
+          <Header openBrowser={openBrowser} />
           <PresetPanel presetName={presetName} />
           <div className="buttons-actions">
             <div className="buttons-actions button clear" onClick={handleClear}>Clear</div>
@@ -84,7 +85,7 @@ function App() {
           </div>
         </div>
         <div style={{ gridRow: "4/-1" }} >
-          <MidiTableComponent translationTable={translationTable} outputMapList={outputMapList}/>
+          <MidiTableComponent translationTable={translationTable} outputMapList={outputMapList} />
         </div>
         <div className="inputtag">Midi In</div>
         <div className="outtag">Midi Out</div>

@@ -9,3 +9,11 @@
 */
 
 #pragma once
+
+#include <JuceHeader.h>
+class Utilities
+{
+public:
+    void static consoleLog(const juce::String& message, juce::WebBrowserComponent& webView);
+    void static openBrowser(const std::string& url);
+};
