@@ -14,20 +14,20 @@ namespace frontend
     extern const char*   assetmanifest_json;
     const int            assetmanifest_jsonSize = 1047;
 
-    extern const char*   main_1e066584_js;
-    const int            main_1e066584_jsSize = 204910;
+    extern const char*   main_597a995b_js;
+    const int            main_597a995b_jsSize = 205008;
 
-    extern const char*   main_1e066584_js_LICENSE_txt;
-    const int            main_1e066584_js_LICENSE_txtSize = 1210;
+    extern const char*   main_597a995b_js_LICENSE_txt;
+    const int            main_597a995b_js_LICENSE_txtSize = 1210;
 
-    extern const char*   main_1e066584_js_map;
-    const int            main_1e066584_js_mapSize = 942387;
+    extern const char*   main_597a995b_js_map;
+    const int            main_597a995b_js_mapSize = 942671;
 
-    extern const char*   main_0f0fd5e6_css;
-    const int            main_0f0fd5e6_cssSize = 7177;
+    extern const char*   main_65f559e1_css;
+    const int            main_65f559e1_cssSize = 7207;
 
-    extern const char*   main_0f0fd5e6_css_map;
-    const int            main_0f0fd5e6_css_mapSize = 18273;
+    extern const char*   main_65f559e1_css_map;
+    const int            main_65f559e1_css_mapSize = 18336;
 
     extern const char*   RobotoFlexVariableFont_f700cdc3d6dd6bdaebd3_ttf;
     const int            RobotoFlexVariableFont_f700cdc3d6dd6bdaebd3_ttfSize = 1684624;

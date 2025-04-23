@@ -69,6 +69,7 @@ body {
       align-items: end;
 
       .name-block {
+        cursor: pointer;
         height: 100%;
         grid-column: 1/9;
         align-content: flex-end;
@@ -85,6 +86,7 @@ body {
         height: 100%;
         grid-column: 9/-1;
         align-content: flex-end;
+        cursor: pointer;
 
         .logo-upside {
           width: 100%;
@@ -169,7 +171,7 @@ body {
 
           &.Output {
             text-align: left;
-            padding-left:0.5rem;
+            padding-left: 0.5rem;
             border-radius: 0px 10px 10px 0px;
             color: #56575F;
 
@@ -215,7 +217,7 @@ body {
             border-radius: 10px 0px 0px 10px;
             height: 100%;
             text-align: right;
-            padding-right:0.5rem;
+            padding-right: 0.5rem;
             color: #56575F;
 
             &.MidiNote {
@@ -269,7 +271,7 @@ body {
 
         .OutputFantasyName {
           border-radius: 0px 10px 10px 0px;
-          background: linear-gradient(90deg, rgba(45, 46, 55, 1) 00%,  rgba(53, 87, 117, 1) 100%);
+          background: linear-gradient(90deg, rgba(45, 46, 55, 1) 00%, rgba(53, 87, 117, 1) 100%);
           text-align: right;
 
           input {
@@ -277,6 +279,7 @@ body {
           }
         }
       }
+
       .OutputFantasySelect {
         border-radius: 0px 10px 10px 0px;
         background: linear-gradient(90deg, rgba(45, 46, 55, 1) 0%, rgba(53, 87, 117, 1) 100%);
@@ -284,7 +287,7 @@ body {
         padding: 0 0.5rem;
         display: flex;
         align-items: center;
-      
+
         select {
           width: 100%;
           font-family: Robo-flex;
@@ -300,7 +303,7 @@ body {
           text-align-last: right;
           appearance: none;
           transition: all 0.2s ease;
-      
+
           &:focus {
             background-color: rgba(255, 255, 255, 0.05);
             border-radius: 6px;
@@ -309,7 +312,7 @@ body {
             color: #ffffff;
           }
         }
-      
+
         option {
           background: #2d2e37;
           color: #ffffff;
