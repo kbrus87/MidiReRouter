@@ -160,15 +160,15 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 	auto options = juce::WebBrowserComponent::Options{}
 	.withBackend(juce::WebBrowserComponent::Options::Backend::webview2);
 
-	if (juce::WebBrowserComponent::areOptionsSupported(options)) {
+	//if (juce::WebBrowserComponent::areOptionsSupported(options)) {
 
 		addAndMakeVisible(webView);
 		webView.goToURL(juce::WebBrowserComponent::getResourceProviderRoot());
 		// webView.goToURL(LOCAL_DEV); // only dev
-	}
+	/*}
 	else {
 		addAndMakeVisible(fallBack);
-	}
+	}*/
 
 	DBG("LOCAL_PROD value: " + juce::String(LOCAL_DEV));
 	DBG("Registering ResourceProvider for origin: " + juce::URL{ LOCAL_DEV }.getOrigin());

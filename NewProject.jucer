@@ -3,9 +3,9 @@
 <JUCERPROJECT id="gtTDPz" name="MidiRouter" projectType="audioplug" useAppConfig="0"
               addUsingNamespaceToJuceHeader="0" jucerFormatVersion="1" pluginCharacteristicsValue="pluginProducesMidiOut,pluginWantsMidiIn"
               pluginName="MidiRouter" pluginManufacturer="BJR" pluginManufacturerCode="Bjrb"
-              companyName="garbageAudio" headerPath="D:/kbrus87/MidiReRouter/GUI/binary"
+              companyName="garbageAudio" headerPath="D:/kbrus87/MidiReRouter/GUI/binary&#10;C:\Users\Bruno Ramari\Documents\JuceProjects\Midi effect\NewProject\GUI\binary"
               pluginVST3Category="Tools" pluginFormats="buildStandalone,buildVST3"
-              defines="CSS=1 JS=1 MEDIA=1&#10;&#10;JUCE_WEB_BROWSER=1&#10;        JUCE_USE_WIN_WEBVIEW2_WITH_STATIC_LINKING="
+              defines="CSS=1 JS=1 MEDIA=1&#10;&#10;JUCE_WEB_BROWSER=1&#10;JUCE_USE_WIN_WEBVIEW2_WITH_STATIC_LINKING=1"
               includeBinaryInJuceHeader="1" binaryDataNamespace="BinaryData"
               maxBinaryFileSize="20971520">
   <MAINGROUP id="Y6tfhD" name="MidiRouter">

@@ -23,11 +23,11 @@ namespace frontend
     extern const char*   main_597a995b_js_map;
     const int            main_597a995b_js_mapSize = 942671;
 
-    extern const char*   main_65f559e1_css;
-    const int            main_65f559e1_cssSize = 7207;
+    extern const char*   main_2c4a4183_css;
+    const int            main_2c4a4183_cssSize = 7167;
 
-    extern const char*   main_65f559e1_css_map;
-    const int            main_65f559e1_css_mapSize = 18336;
+    extern const char*   main_2c4a4183_css_map;
+    const int            main_2c4a4183_css_mapSize = 18383;
 
     extern const char*   RobotoFlexVariableFont_f700cdc3d6dd6bdaebd3_ttf;
     const int            RobotoFlexVariableFont_f700cdc3d6dd6bdaebd3_ttfSize = 1684624;

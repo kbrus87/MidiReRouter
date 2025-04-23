@@ -10,6 +10,6 @@ at \GUI\cmakebuild
     cmake --build .
 
 then manually move .cpp and .h from  
-    cmakebuild/juce_binarydata_MyBinaryData/JuceLibraryCode 
+    GUI/cmakebuild/juce_binarydata_MyBinaryData/JuceLibraryCode 
     to
     GUI/binary

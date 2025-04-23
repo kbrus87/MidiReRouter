@@ -13,7 +13,7 @@ namespace frontend
 static const unsigned char temp_binary_data_1[] =
 "{\n"
 "  \"files\": {\n"
-"    \"main.css\": \"/static/css/main.65f559e1.css\",\n"
+"    \"main.css\": \"/static/css/main.2c4a4183.css\",\n"
 "    \"main.js\": \"/static/js/main.597a995b.js\",\n"
 "    \"static/media/RobotoFlex-VariableFont.ttf\": \"/static/media/RobotoFlex-VariableFont.f700cdc3d6dd6bdaebd3.ttf\",\n"
 "    \"static/media/overpass-heavy.otf\": \"/static/media/overpass-heavy.de2a6b0b6ade2c8cbe17.otf\",\n"
@@ -23,11 +23,11 @@ static const unsigned char temp_binary_data_1[] =
 "    \"static/media/save2.svg\": \"/static/media/save2.f6c7671a3716f53f38411508c67d3a4b.svg\",\n"
 "    \"index.html\": \"/index.html\",\n"
 "    \"static/media/add.svg\": \"/static/media/add.68e829718e2d9bcb7b750e80251ec33f.svg\",\n"
-"    \"main.65f559e1.css.map\": \"/static/css/main.65f559e1.css.map\",\n"
+"    \"main.2c4a4183.css.map\": \"/static/css/main.2c4a4183.css.map\",\n"
 "    \"main.597a995b.js.map\": \"/static/js/main.597a995b.js.map\"\n"
 "  },\n"
 "  \"entrypoints\": [\n"
-"    \"static/css/main.65f559e1.css\",\n"
+"    \"static/css/main.2c4a4183.css\",\n"
 "    \"static/js/main.597a995b.js\"\n"
 "  ]\n"
 "}";
