@@ -40,6 +40,8 @@ const char* getNamedResource (const char* resourceNameUTF8, int& numBytes)
         case 0x3391daa9:  numBytes = 205429; return main_10d3e220_js;
         case 0x9f388cbc:  numBytes = 1210; return main_10d3e220_js_LICENSE_txt;
         case 0x0c8f32c6:  numBytes = 944437; return main_10d3e220_js_map;
+        case 0x8b3cd2ff:  numBytes = 0; return main_29959fd7_js;
+        case 0xd633b412:  numBytes = 0; return main_29959fd7_js_LICENSE_txt;
         case 0xb9d8e720:  numBytes = 7167; return main_2c4a4183_css;
         case 0xc6fd2bbd:  numBytes = 18383; return main_2c4a4183_css_map;
         case 0x2af5ce26:  numBytes = 1684624; return RobotoFlexVariableFont_f700cdc3d6dd6bdaebd3_ttf;
@@ -63,6 +65,8 @@ const char* namedResourceList[] =
     "main_10d3e220_js",
     "main_10d3e220_js_LICENSE_txt",
     "main_10d3e220_js_map",
+    "main_29959fd7_js",
+    "main_29959fd7_js_LICENSE_txt",
     "main_2c4a4183_css",
     "main_2c4a4183_css_map",
     "RobotoFlexVariableFont_f700cdc3d6dd6bdaebd3_ttf",
@@ -81,6 +85,8 @@ const char* originalFilenames[] =
     "main.10d3e220.js",
     "main.10d3e220.js.LICENSE.txt",
     "main.10d3e220.js.map",
+    "main.29959fd7.js",
+    "main.29959fd7.js.LICENSE.txt",
     "main.2c4a4183.css",
     "main.2c4a4183.css.map",
     "RobotoFlex-VariableFont.f700cdc3d6dd6bdaebd3.ttf",
