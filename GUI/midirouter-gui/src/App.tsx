@@ -101,7 +101,7 @@ function App() {
             </div>
             <div className="buttons-actions button clear" onClick={() => handleSetOutputMapList()}>Load Output Drumkit</div>
             <div style={{backgroundColor:isPassThroughEnabled ? 'rgb(39, 107, 33)' : 'rgba(112, 112, 112, 0.87)'}} className={`buttons-actions button clear`} onClick={() => togglePassThroughEnabled()}>Pass Through</div>
-            <div style={{backgroundColor:isTriggerMultiple ? 'rgb(39, 107, 33)' : 'rgba(112, 112, 112, 0.87)'}} className={`buttons-actions button clear`} onClick={() => toggleTriggerMultiple()}>Multi</div>
+            {/* <div style={{backgroundColor:isTriggerMultiple ? 'rgb(39, 107, 33)' : 'rgba(112, 112, 112, 0.87)'}} className={`buttons-actions button clear`} onClick={() => toggleTriggerMultiple()}>Multi</div>  NOT YET SUPPORTED */}
           </div>
         </div>
         <div style={{ gridRow: "4/-1" }} >

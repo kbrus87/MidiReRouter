@@ -114,10 +114,10 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 			bool isActive = dynamicObject->getProperty("active") ? true : false;
 
 			if (iteratorInputMidiNumber != nameToNumber.end()) {
-				inputMidiNumber = iteratorInputMidiNumber->second;  
+				inputMidiNumber = iteratorInputMidiNumber->second;
 			}
 			if (iteratorOutputMidiNumber != nameToNumber.end()) {
-				outputMidiNumber = iteratorOutputMidiNumber->second;  
+				outputMidiNumber = iteratorOutputMidiNumber->second;
 			}
 
 			if (iteratorOutputMidiNumber == nameToNumber.end()) {
@@ -136,18 +136,18 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 					isActive,                // active
 					dynamicObject->getProperty("inputFantasyName"),      // inputFantasyName
 					dynamicObject->getProperty("outputFantasyName")     // outputFantasyName
-			});
+				});
 
 			midiProcessor.modifyTranslationRow(translationRow);
 
 			})
 		.withNativeFunction(juce::Identifier{ "togglePassThroughEnabled" }, [this](const juce::Array<juce::var>& enabled, juce::WebBrowserComponent::NativeFunctionCompletion) {
 			midiProcessor.togglePassThroughEnabled();
-			DBG("togglePressed PassThrough")
+			DBG("togglePressed PassThrough");
 			})
 		.withNativeFunction(juce::Identifier{ "toggleTriggerMultiple" }, [this](const juce::Array<juce::var>& enabled, juce::WebBrowserComponent::NativeFunctionCompletion) {
 			midiProcessor.toggleTriggerMultiple();
-			DBG("togglePressed Trigger")
+			DBG("togglePressed Trigger");
 			})
 	), presetPanel(p.getPresetManager(), webView), midiTableComponent(
 		midiProcessor.translationTable,

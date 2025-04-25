@@ -14,7 +14,7 @@ static const unsigned char temp_binary_data_1[] =
 "{\n"
 "  \"files\": {\n"
 "    \"main.css\": \"/static/css/main.2c4a4183.css\",\n"
-"    \"main.js\": \"/static/js/main.10d3e220.js\",\n"
+"    \"main.js\": \"/static/js/main.c692cbf2.js\",\n"
 "    \"static/media/RobotoFlex-VariableFont.ttf\": \"/static/media/RobotoFlex-VariableFont.f700cdc3d6dd6bdaebd3.ttf\",\n"
 "    \"static/media/overpass-heavy.otf\": \"/static/media/overpass-heavy.de2a6b0b6ade2c8cbe17.otf\",\n"
 "    \"static/media/overpass-regular.otf\": \"/static/media/overpass-regular.3f851cebdc18b56d2f14.otf\",\n"
@@ -24,11 +24,11 @@ static const unsigned char temp_binary_data_1[] =
 "    \"index.html\": \"/index.html\",\n"
 "    \"static/media/add.svg\": \"/static/media/add.68e829718e2d9bcb7b750e80251ec33f.svg\",\n"
 "    \"main.2c4a4183.css.map\": \"/static/css/main.2c4a4183.css.map\",\n"
-"    \"main.10d3e220.js.map\": \"/static/js/main.10d3e220.js.map\"\n"
+"    \"main.c692cbf2.js.map\": \"/static/js/main.c692cbf2.js.map\"\n"
 "  },\n"
 "  \"entrypoints\": [\n"
 "    \"static/css/main.2c4a4183.css\",\n"
-"    \"static/js/main.10d3e220.js\"\n"
+"    \"static/js/main.c692cbf2.js\"\n"
 "  ]\n"
 "}";
 
