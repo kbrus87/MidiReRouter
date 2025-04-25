@@ -59,6 +59,15 @@ public:
 
 	TranslationMidiTable translationTable = { {1, 48, "C2", "C1", 36, true} };
 
+	void togglePassThroughEnabled();
+	void toggleTriggerMultiple();
+
+	bool isPassThroughEnabled();
+	bool isTriggerMultiple();
+
+	void setPassThroughEnabled(bool enabled);
+	void setTriggerMultiple(bool enabled);
+
 
 private:
 	std::map<int, int> translationMap;
@@ -67,4 +76,7 @@ private:
 
 	void updateTranslationMap();
 	int nextTranslationMapIndex();
+
+	bool passThroughEnabled = false;
+	bool triggerMultiple = false;
 };

@@ -141,6 +141,12 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 			midiProcessor.modifyTranslationRow(translationRow);
 
 			})
+		.withNativeFunction(juce::Identifier{ "togglePassThroughEnabled" }, [this](const juce::Array<juce::var>& enabled, juce::WebBrowserComponent::NativeFunctionCompletion) {
+			midiProcessor.togglePassThroughEnabled();
+			})
+		.withNativeFunction(juce::Identifier{ "toggleTriggerMultiple" }, [this](const juce::Array<juce::var>& enabled, juce::WebBrowserComponent::NativeFunctionCompletion) {
+			midiProcessor.toggleTriggerMultiple();
+			})
 	), presetPanel(p.getPresetManager(), webView), midiTableComponent(
 		midiProcessor.translationTable,
 		std::bind(&MidiProcessor::setOutputMidi, &midiProcessor, std::placeholders::_1, std::placeholders::_2),
@@ -277,6 +283,8 @@ auto MidiRouterProcessorEditor::getResource(const juce::String& url) -> std::opt
 		// Asignar el array al objeto data
 		data->setProperty("translationTable", tableArray);
 		data->setProperty("preset", presetPanel.getPresetManager().getCurrentPreset());
+		data->setProperty("passThroughEnabled", midiProcessor.isPassThroughEnabled());
+		data->setProperty("triggerMultiple", midiProcessor.isTriggerMultiple());
 
 		const auto string = juce::JSON::toString(data.get());
 		juce::MemoryInputStream stream{ string.getCharPointer(), string.getNumBytesAsUTF8(), false };

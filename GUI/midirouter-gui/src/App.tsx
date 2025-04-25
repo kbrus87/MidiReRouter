@@ -13,13 +13,31 @@ function App() {
   const [presetName, setPresetName] = useState<string>('No Preset');
   const [outputMapList, setOutputMapList] = useState<Array<{ midiNumber: number, fantasyName: string }>>([]);
 
+  const [isPassThroughEnabled, setPassThroughEnabled] = useState(false);
+  const [isTriggerMultiple, setTriggerMultiple] = useState(false);
+
   const clickButton = juce.getNativeFunction("presetFunction");
   const openBrowser = juce.getNativeFunction("openBrowser");
 
+  const togglePassThroughEnabled = () => {
+    const ctogglePassThrough = juce.getNativeFunction("togglePassThroughEnabled");
+    ctogglePassThrough();
+    setPassThroughEnabled(!isPassThroughEnabled)
+  };
+  
+  const toggleTriggerMultiple = () => {
+    const ctoggleTriggerMultiple = juce.getNativeFunction("toggleTriggerMultiple")
+    ctoggleTriggerMultiple();
+    setTriggerMultiple(!isTriggerMultiple)
+  };
+
   useEffect(() => {
     fetch(juce.getBackendResourceAddress("data.json")).then(res => res.text()).then(res => {
-      setTranslationTable(JSON.parse(res).translationTable);
-      setPresetName(JSON.parse(res).preset);
+      const parsedRes = JSON.parse(res);
+      setTranslationTable(parsedRes.translationTable);
+      setPresetName(parsedRes.preset);
+      setPassThroughEnabled(parsedRes.passThroughEnabled);
+      setTriggerMultiple(parsedRes.triggerMultiple);
     })
 
     const translationMidiTableEventToken = window.__JUCE__.backend.addEventListener("translationMidiTable", (res) => {
@@ -82,6 +100,8 @@ function App() {
               <span className="addhelp">Add a Midi Route</span>
             </div>
             <div className="buttons-actions button clear" onClick={() => handleSetOutputMapList()}>Load Output Drumkit</div>
+            <div className={`buttons-actions button clear ${isPassThroughEnabled ? 'bg-green' : ''}`} onClick={() => togglePassThroughEnabled()}>Pass Through</div>
+            <div className={`buttons-actions button clear ${isTriggerMultiple ? 'bg-green' : ''}`} onClick={() => toggleTriggerMultiple()}>Multi</div>
           </div>
         </div>
         <div style={{ gridRow: "4/-1" }} >

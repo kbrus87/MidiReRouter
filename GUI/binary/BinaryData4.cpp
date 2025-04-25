@@ -9,7 +9,7 @@
 namespace frontend
 {
 
-//================== main.bbcdb728.js.LICENSE.txt ==================
+//================== main.10d3e220.js.LICENSE.txt ==================
 static const unsigned char temp_binary_data_3[] =
 "/**\n"
 " * @license React\n"
@@ -61,5 +61,5 @@ static const unsigned char temp_binary_data_3[] =
 " * LICENSE file in the root directory of this source tree.\n"
 " */\n";
 
-const char* main_bbcdb728_js_LICENSE_txt = (const char*) temp_binary_data_3;
+const char* main_10d3e220_js_LICENSE_txt = (const char*) temp_binary_data_3;
 }

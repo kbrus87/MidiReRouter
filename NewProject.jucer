@@ -32,6 +32,10 @@
               file="GUI/binary/BinaryData13.cpp"/>
         <FILE id="WKWxDs" name="BinaryData14.cpp" compile="1" resource="0"
               file="GUI/binary/BinaryData14.cpp"/>
+        <FILE id="B7QqHc" name="BinaryData15.cpp" compile="1" resource="0"
+              file="GUI/binary/BinaryData15.cpp"/>
+        <FILE id="dGJ0SB" name="BinaryData16.cpp" compile="1" resource="0"
+              file="GUI/binary/BinaryData16.cpp"/>
         <FILE id="BbUKKJ" name="MyBinaryData.h" compile="0" resource="0" file="GUI/binary/MyBinaryData.h"/>
       </GROUP>
       <GROUP id="{0431696C-5187-E20C-5387-57693E5245FE}" name="PresetPanel">

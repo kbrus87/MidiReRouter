@@ -164,6 +164,12 @@ void MidiRouterProcessor::getStateInformation(juce::MemoryBlock& destData)
 	presetName.setProperty("presetName", presetManager.getCurrentPreset(), nullptr);
 
 	state.addChild(presetName, -1, nullptr);
+
+	juce::ValueTree settings("Settings");
+	settings.setProperty("passThroughEnabled", midiProcessor.isPassThroughEnabled(), nullptr);
+	settings.setProperty("triggerMultiple", midiProcessor.isTriggerMultiple(), nullptr);
+
+	state.addChild(settings, -1, nullptr);
 	// Convertir el ValueTree a XML y luego a un MemoryBlock
 	if (auto xmlState = state.createXml()) {
 		copyXmlToBinary(*xmlState, destData);
@@ -190,6 +196,16 @@ void MidiRouterProcessor::setStateInformation(const void* data, int sizeInBytes)
 
 		juce::ValueTree preset = state.getChildWithName("presetName");
 		presetManager.setCurrentPreset(preset.getProperty("presetName"));
+
+		juce::ValueTree settings = state.getChildWithName("Settings");
+		if (settings.isValid()) {
+			midiProcessor.setPassThroughEnabled(settings.getProperty("passThroughEnabled"));
+			midiProcessor.setTriggerMultiple(settings.getProperty("triggerMultiple"));
+		}
+		else {
+			midiProcessor.setPassThroughEnabled(false);
+			midiProcessor.setTriggerMultiple(false);
+		}
 	}
 }
 

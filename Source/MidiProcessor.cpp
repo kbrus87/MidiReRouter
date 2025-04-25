@@ -35,25 +35,39 @@ void MidiProcessor::process(juce::MidiBuffer& midiMessages)
 
 		if (currentMessage.isNoteOnOrOff())
 		{
+			const int inputNote = currentMessage.getNoteNumber();
 
-				DBG("note in: " << currentMessage.getNoteNumber());
-				DBG("note name: " << currentMessage.getMidiNoteName(currentMessage.getNoteNumber(), true, true, 3));
-			if (translationMap.count(currentMessage.getNoteNumber()) > 0) {
-				DBG("Note exists in translationMap");
-				currentMessage.setNoteNumber(translationMap.at(currentMessage.getNoteNumber()));
-				processedBuffer.addEvent(currentMessage, samplePos);
-				DBG("note out: " << currentMessage.getNoteNumber());
+			if (translationMap.count(inputNote) > 0)
+			{
+				if (triggerMultiple)
+				{
+					auto range = translationMap.equal_range(inputNote);
+					for (auto it = range.first; it != range.second; ++it)
+					{
+						juce::MidiMessage newMessage = currentMessage;
+						newMessage.setNoteNumber(it->second);
+						processedBuffer.addEvent(newMessage, samplePos);
+					}
+				}
+				else
+				{
+					juce::MidiMessage newMessage = currentMessage;
+					newMessage.setNoteNumber(translationMap.at(inputNote)); // toma el primero
+					processedBuffer.addEvent(newMessage, samplePos);
+				}
 			}
-			else {
-
-				DBG("Note not found in translationMap");
+			else
+			{
+				if (passThroughEnabled)
+				{
+					processedBuffer.addEvent(currentMessage, samplePos);
+				}
 			}
 		}
-		else {
-				processedBuffer.addEvent(currentMessage, samplePos);
+		else
+		{
+			processedBuffer.addEvent(currentMessage, samplePos);
 		}
-
-
 	}
 	midiMessages.swapWith(processedBuffer);
 }
@@ -284,3 +298,10 @@ int MidiProcessor::nextTranslationMapIndex() {
 	DBG(id);
 	return id;
 }
+
+void MidiProcessor::togglePassThroughEnabled() { passThroughEnabled = !passThroughEnabled; };
+void MidiProcessor::toggleTriggerMultiple() { triggerMultiple = !triggerMultiple; }
+bool MidiProcessor::isPassThroughEnabled() { return passThroughEnabled; }
+bool MidiProcessor::isTriggerMultiple() { return triggerMultiple; }
+void MidiProcessor::setPassThroughEnabled(bool enabled) { passThroughEnabled = enabled; }
+void MidiProcessor::setTriggerMultiple(bool enabled) { triggerMultiple = enabled; }
