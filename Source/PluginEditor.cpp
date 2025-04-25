@@ -143,9 +143,11 @@ MidiRouterProcessorEditor::MidiRouterProcessorEditor(MidiRouterProcessor& p)
 			})
 		.withNativeFunction(juce::Identifier{ "togglePassThroughEnabled" }, [this](const juce::Array<juce::var>& enabled, juce::WebBrowserComponent::NativeFunctionCompletion) {
 			midiProcessor.togglePassThroughEnabled();
+			DBG("togglePressed PassThrough")
 			})
 		.withNativeFunction(juce::Identifier{ "toggleTriggerMultiple" }, [this](const juce::Array<juce::var>& enabled, juce::WebBrowserComponent::NativeFunctionCompletion) {
 			midiProcessor.toggleTriggerMultiple();
+			DBG("togglePressed Trigger")
 			})
 	), presetPanel(p.getPresetManager(), webView), midiTableComponent(
 		midiProcessor.translationTable,
