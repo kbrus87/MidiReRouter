@@ -11,7 +11,7 @@ function Header({ openBrowser }: { openBrowser: (url: string) => {} }) {
         </div>
         <div onClick={handleOnClick} className="logo-block">
             <Title text="by" span="BJR" spanclassName="bjr" className="logo-upside align-right"></Title>
-            <Title text="garbageAudio.com" className="logo-downside align-right"></Title>
+            <Title text="kbrus87.github.io" className="logo-downside align-right"></Title>
         </div>
     </div>
 }
